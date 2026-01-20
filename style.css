@@ -1,8 +1,11 @@
 :root{
-    --bg-color: #b9c2cb;
+    --bg-color: #946A61FF;
+    --menu-color: #FBC288FF;
+    --button-color: #9E3F41FF;
+    --item-color: #6E5E4FFF;
 }
 
-#menu{
+body {
     background-color: var(--bg-color);
     gap: space-between;
 }
@@ -22,4 +25,9 @@
 
 .navbar form.form-control {
     border-radius: 80px;    
+}
+
+
+#menu{
+    background-color: var(--menu-color);
 }
