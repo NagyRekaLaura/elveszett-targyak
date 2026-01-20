@@ -1,7 +1,14 @@
 :root{
-    --bg-color: #b9c2cb;
+    --bg-color: #946A61FF;
+    --menu-color: #FBC288FF;
+    --button-color: #9E3F41FF;
+    --item-color: #6E5E4FFF;
+}
+
+body {
+    background-color: var(--bg-color);
 }
 
 #menu{
-    background-color: var(--bg-color);
+    background-color: var(--menu-color);
 }
