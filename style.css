@@ -1,3 +1,7 @@
+:root{
+    --bg-color: #b9c2cb;
+}
+
 #menu{
-    background-color: #a3bdd6 !important;
+    background-color: var(--bg-color);
 }
