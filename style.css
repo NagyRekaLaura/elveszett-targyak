@@ -7,7 +7,6 @@
 
 body {
     background-color: var(--bg-color);
-    gap: space-between;
 }
 
 .login {
@@ -30,4 +29,6 @@ body {
 
 #menu{
     background-color: var(--menu-color);
+    gap: space-between;
+
 }
