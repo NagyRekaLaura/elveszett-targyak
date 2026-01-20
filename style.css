@@ -4,4 +4,22 @@
 
 #menu{
     background-color: var(--bg-color);
+    gap: space-between;
+}
+
+.login {
+    margin-left: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: none;
+}
+.navbar form.d-flex {
+    width: 60%; 
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.navbar form.form-control {
+    border-radius: 80px;    
 }
