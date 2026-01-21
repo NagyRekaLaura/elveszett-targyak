@@ -3,12 +3,12 @@
     --menu-color: #FBC288FF;
     --button-color: #9E3F41FF;
     --item-color: #6E5E4FFF;
-    --item-text-color: ;
+    --item-text-color: #F3D4E5;
     --button-hover-color: #4D2126;
     --button-border-color: #945D3D;
-    --button-text-color: ;
+    --button-text-color: #D28D4F;
     --searchbar-color: #825A42;
-    --card-border-color: ;
+    --card-border-color: #25232D;
     
 
     /*ezek még kellenek*/
@@ -65,15 +65,15 @@ body {
 
 .btn{
     background-color: var(--button-color);
-    border: 1px solid black;
+    border: 1px solid var(--button-border-color);
     border-radius: 20px;
-    color: var(--item-text-color);
+    color: var(--button-text-color);
 }
 
 .btn:hover{
     background-color: var(--button-hover-color);
     border: 1px solid var(--button-border-color);
-    color: var(--item-text-color);
+    color: var(--button-text-color);
 }
 
 .card{
