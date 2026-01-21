@@ -3,10 +3,17 @@
     --menu-color: #FBC288FF;
     --button-color: #9E3F41FF;
     --item-color: #6E5E4FFF;
+    --item-text-color: ;
     --button-hover-color: ;
     --button-border-color: ;
+    --button-text-color: ;
     --searchbar-color: ;
+    --card-border-color: ;
+    
+
     /*ezek még kellenek*/
+
+
 }
 
 
@@ -60,12 +67,36 @@ body {
     background-color: var(--button-color);
     border: 1px solid black;
     border-radius: 20px;
-    color: white;
+    color: var(--item-text-color);
 }
 
 .btn:hover{
     background-color: var(--button-hover-color);
     border: 1px solid var(--button-border-color);
-    color: white;   
+    color: var(--item-text-color);
 }
 
+.card{
+    background-color: var(--item-color);
+    max-width: 400px;
+    margin: 20px;
+    margin-top: 100px;
+    color: var(--item-text-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card img{
+    max-height: 200px;
+    object-fit: cover;
+}
+.text-end{
+    color: var(--item-text-color);
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 5px;
+    margin: auto;
+
+}
