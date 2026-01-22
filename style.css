@@ -6,7 +6,7 @@
     --item-text-color: #F3D4E5;
     --button-hover-color: #4D2126;
     --button-border-color: #945D3D;
-    --button-text-color: #D28D4F;
+    --button-text-color: #BFC4DB;
     --searchbar-color: #825A42;
     --card-border-color: #25232D;
     
@@ -85,6 +85,15 @@ body {
     border-radius: 20px;
     overflow: hidden;
     display: inline-block;
+    transition: .35s ease-in-out;
+    transform: translateY(0px);
+    box-shadow: 2px 2px 3px #000000, 4px 4px 8px #111111;
+}
+
+.card:hover{
+    transition: .35s ease-in-out;
+    transform: translateY(-45px);
+    box-shadow: 8px 8px 18px #000000, 12px 12px 16px #111111;
 }
 
 .card img{
