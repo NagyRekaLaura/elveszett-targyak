@@ -79,12 +79,12 @@ body {
 .card{
     background-color: var(--item-color);
     max-width: 400px;
-    margin: 20px;
     margin-top: 100px;
     color: var(--item-text-color);
     border: 1px solid var(--card-border-color);
     border-radius: 20px;
     overflow: hidden;
+    display: inline-block;
 }
 
 .card img{
@@ -99,4 +99,10 @@ body {
     padding: 5px;
     margin: auto;
 
+}
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
