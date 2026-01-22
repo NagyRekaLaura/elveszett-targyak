@@ -9,7 +9,7 @@
     --button-text-color: #D28D4F;
     --searchbar-color: #825A42;
     --card-border-color: #25232D;
-    
+    --button-onclick-color: #3E1F22;
 
     /*ezek még kellenek*/
 
@@ -19,6 +19,7 @@
 
 body {
     background-color: var(--bg-color);
+
 }
 
 .login {
@@ -75,6 +76,11 @@ body {
     border: 1px solid var(--button-border-color);
     color: var(--button-text-color);
 }
+.btn:active{
+    background-color: var(--button-onclick-color) !important;
+    border: 1px solid var(--button-border-color) !important;
+    color: white !important;    
+}
 
 .card{
     background-color: var(--item-color);
@@ -105,4 +111,24 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
+}
+
+.category{
+    border-radius: 20px;
+    margin: 10px;
+    margin-top: 3vh;
+    padding: 5px 10px ;
+    text-align: center;
+    cursor: pointer;
+    height: 40px;
+    width: 200px;
+}
+
+
+
+@media screen 
+and (max-width: 700px) {
+    .category{
+        visibility: hidden;
+    }
 }
