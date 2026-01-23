@@ -54,21 +54,53 @@ body {
 }
 
 .profil {
-    margin-top: 20px;
     display: flex;
-    justify-content: center;
+    gap: 40px; 
+    align-items: flex-start;
+    padding: 20px;
+    border: #25232D 2px solid;
+    border-radius: 8px;
+    margin-top: 50px;
+    margin-left: 40px;
+    margin-right: 40px;
     align-items: center;
-    height: 80vh;
-    border: 10px solid var(--card-border-color);
-    margin-left: 10vw ; 
-    margin-right: 10vw ;   
-}   
+}
+
+.profile-pic-div {
+    text-align: center;
+    min-width: 600px; 
+    align-items: center;
+    justify-content: center;
+    border: #25232D 2px solid;
+    padding: 50px;
+}
+
 .profile-picture {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid var(--button-border-color);
-    float: left;
+    margin-bottom: 10px;
+}
+.adatok{
+    border: #25232D 2px solid;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 18px;
+
+}
+h3{
+    margin-bottom: 20px;
 }
 
+/* Responsive design for mobile */
+@media (max-width: 1000px   ) {
+    .profil {
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: 20px;
+    }
+    
+    .profile-pic-div {
+        min-width: auto;
+    }
+}
