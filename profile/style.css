@@ -1,0 +1,61 @@
+:root{
+    --bg-color: #946A61FF;
+    --menu-color: #FBC288FF;
+    --button-color: #9E3F41FF;
+    --item-color: #6E5E4FFF;
+    --item-text-color: #F3D4E5;
+    --button-hover-color: #4D2126;
+    --button-border-color: #945D3D;
+    --button-text-color: #BFC4DB;
+    --searchbar-color: #825A42;
+    --card-border-color: #25232D;
+    --button-onclick-color: #3E1F22;
+
+    /*ezek még kellenek*/
+
+
+}
+
+
+body {
+    background-color: var(--bg-color);
+
+}
+
+
+.navbar form.form-control {
+    border-radius: 80px;    
+}
+
+
+#menu{
+    background-color: var(--menu-color);
+    gap: space-between;
+    min-height: 10vh;
+    padding: 10px;
+
+}
+.container-fluid {
+    display: flex;
+    justify-content: center !important; 
+    align-items: center;
+}
+
+
+.btn{
+    background-color: var(--button-color);
+    border: 1px solid var(--button-border-color);
+    border-radius: 20px;
+    color: var(--button-text-color);
+}
+
+.btn:hover{
+    background-color: var(--button-hover-color);
+    border: 1px solid var(--button-border-color);
+    color: var(--button-text-color);
+}
+.btn:active{
+    background-color: var(--button-onclick-color) !important;
+    border: 1px solid var(--button-border-color) !important;
+    color: white !important;    
+}
