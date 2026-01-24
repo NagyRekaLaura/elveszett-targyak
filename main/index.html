@@ -33,7 +33,7 @@
         </div>
 
     </nav>
-
+    
     <!--Kategóriák, még változtatva lesznek -->
     <div class="category-container">
         <button type="button" class="btn category">Állat</button>
@@ -43,7 +43,29 @@
         <button type="button" class="btn category">Dokumentum</button>
         <button type="button" class="btn category">Egyéb</button>
     </div>
-    
+    <!-- poszt gomb -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Poszt létrehozása
+</button>
+
+<!-- posztolás -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Poszt létrehozása</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+        <button type="button" class="btn btn-primary">Közzététel</button>
+      </div>
+    </div>
+  </div>
+</div>
     <!--példa kártya-->
     <div class="card-container">
     <div class="card mb-3">
