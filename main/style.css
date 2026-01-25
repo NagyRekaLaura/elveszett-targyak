@@ -10,8 +10,11 @@
     --searchbar-color: #825A42;
     --card-border-color: #25232D;
     --button-onclick-color: #3E1F22;
-    --modal-content-bg-color: white;
-    --modal-text-color: white;
+    --modal-body-bg-color: #506589;
+    --modal-header-bg-color: #8F9BC1;
+    --modal-footer-bg-color: #232B37;
+    --modal-header-color: #111111;
+    --modal-text-color: #E6CF6B;
 
     /*ezek még kellenek*/
 
@@ -133,6 +136,46 @@ body {
     cursor: pointer;
     height: 40px;
     width: 200px;
+}
+
+.modal-dialog{
+    max-width: 800px;
+}
+
+.modal-content{
+    background-color: black;
+    border-radius: 25px;
+    color: var(--modal-text-color);
+}
+
+.modal-content textarea {
+    max-width: 766px;
+    max-height: 355px;
+    min-width: 100px;
+    min-height: 50px;
+    resize: both;
+    background-color: var(--modal-header-bg-color);
+    border: black solid 2px;
+    border-radius: 5px;
+}
+
+.modal-header{
+    background-color: var(--modal-header-bg-color);
+    color: var(--modal-header-color);
+    border-bottom: black solid;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.modal-footer{
+    background-color: var(--modal-footer-bg-color);
+    border-top: black solid;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.modal-body{
+    background-color: var(--modal-body-bg-color);
 }
 
 @media screen 
