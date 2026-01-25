@@ -11,15 +11,17 @@
     <title>Lost&Found</title>
 </head>
 
-<body><nav class="navbar navbar-expand-lg" id="menu">
+<body>
+    <nav class="navbar navbar-expand-lg" id="menu">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="/logo.svg" width="110px" alt=""></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <form class="d-flex" role="search">
-                <input class="form-control me-2 search" type="search" placeholder="&#x1F50D  Keresés" aria-label="Search" />
+                <input class="form-control me-2 search" type="search" placeholder="&#x1F50D  Keresés"
+                    aria-label="Search" />
             </form>
 
 
@@ -33,92 +35,106 @@
         </div>
 
     </nav>
-    
+
     <!--Kategóriák, még változtatva lesznek -->
     <div class="category-container">
         <button type="button" class="btn category">Állat</button>
-        <button type="button" class="btn category">Elektronika</button> 
+        <button type="button" class="btn category">Elektronika</button>
         <button type="button" class="btn category">Ruházat</button>
         <button type="button" class="btn category">Ékszer</button>
         <button type="button" class="btn category">Dokumentum</button>
         <button type="button" class="btn category">Egyéb</button>
     </div>
     <!-- poszt gomb -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Poszt létrehozása
-</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Poszt létrehozása
+    </button>
 
-<!-- posztolás -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Poszt létrehozása</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-        <button type="button" class="btn btn-primary">Közzététel</button>
-      </div>
+    <!-- posztolás -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Poszt létrehozása</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                    <button type="button" class="btn btn-primary">Közzététel</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
     <!--példa kártya-->
     <div class="card-container">
-    <div class="card mb-3">
-        <img src="cat.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.</p>
-                        <p class="text-end">Részletek...</p>
+        <a href="post1.html">
 
-            <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            <div class="card mb-3">
+                <img src="cat.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Eltünt tárgy neve</h5>
+                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                        commodi.</p>
+                    <p class="text-end">Részletek...</p>
+
+                    <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+                </div>
+            </div>
+        </a>
+        <div class="card mb-3">
+            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Eltünt tárgy neve</h5>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
+                </p>
+                <p class="text-end">Részletek...</p>
+
+                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Eltünt tárgy neve</h5>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
+                </p>
+                <p class="text-end">Részletek...</p>
+
+                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Eltünt tárgy neve</h5>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
+                </p>
+                <p class="text-end">Részletek...</p>
+
+                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Eltünt tárgy neve</h5>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
+                </p>
+                <p class="text-end">Részletek...</p>
+
+                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            </div>
         </div>
     </div>
-    <div class="card mb-3">
-        <img src="cat.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.</p>
-                        <p class="text-end">Részletek...</p>
-
-            <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-        </div>
-    </div>
-    <div class="card mb-3">
-        <img src="cat.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.</p>
-                        <p class="text-end">Részletek...</p>
-
-            <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-        </div>
-    </div>
-    <div class="card mb-3">
-        <img src="cat.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.</p>
-                        <p class="text-end">Részletek...</p>
-
-            <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-        </div>
-    </div>
-    <div class="card mb-3">
-        <img src="cat.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.</p>
-                        <p class="text-end">Részletek...</p>
-
-            <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>
