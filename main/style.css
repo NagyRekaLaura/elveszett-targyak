@@ -6,7 +6,7 @@
     --item-text-color: #F3D4E5;
     --button-hover-color: #4D2126;
     --button-border-color: #945D3D;
-    --button-text-color: #BFC4DB;
+    --button-text-color: #ffffff;
     --searchbar-color: #825A42;
     --card-border-color: #25232D;
     --button-onclick-color: #3E1F22;
@@ -67,6 +67,14 @@ body {
 .navbar input.form-control {
     border-radius: 25px;
     flex-grow: 1;
+}
+.category-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 .btn{
@@ -135,7 +143,12 @@ body {
     text-align: center;
     cursor: pointer;
     height: 40px;
-    width: 200px;
+    width: 160px;
+    color: white;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .modal-dialog{
@@ -183,4 +196,5 @@ and (max-width: 700px) {
     .category{
         visibility: hidden;
     }
+    
 }
