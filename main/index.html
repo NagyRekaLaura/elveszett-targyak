@@ -37,7 +37,7 @@
 
     </nav>
 
-    <!--változtatva, telefonos nézetbe még nem jó-->
+    <!--változtatva, telefonos nézetbe még nem jó, javítandó-->
     <div class="category-container">
         <button type="button" class="btn category"><i class="fas fa-paw me-2"></i>Állat</button>
         <button type="button" class="btn category"><i class="fas fa-laptop me-2"></i>Elektronika</button>
@@ -46,116 +46,158 @@
         <button type="button" class="btn category"><i class="fas fa-file-alt me-2"></i>Dokumentum</button>
         <button type="button" class="btn category"><i class="fas fa-gift me-2"></i>Egyéb</button>
     </div>
-    <!-- poszt gomb -->
+    <!-- poszt gomb, át kell helyezni -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Poszt létrehozása
     </button>
 
-<!-- posztolás -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Poszt létrehozása</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
-        Kép:
-        <input type="file">
-        <br>
-        Elveszett tárgy neve:
-        <input type="text">
-        <br>
-        Helyszín neve:
-        <input type="text">
-        <br>
-        Tárgy kategória:
-        <select name="kategoria" id="kategoria">
-            <option value="ekszer">ékszer</option>
-            <option value="allat">állat</option>
-            <option value="egyeb">egyéb</option>
-        </select>
-        <br>
-        Leírás:
-        <br>
-        <textarea name="" id=""></textarea>
-        <br>
-        Te találtad a tárgyat?
-        <input type="checkbox">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-        <button type="button" class="btn btn-primary">Közzététel</button>
-      </div>
-    </div>
-  </div>
-</div>
-    <!--példa kártya-->
-    <div class="card-container">
-        <a href="/poszt/post1.html">
-
-            <div class="card mb-3">
-                <img src="cat.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                        commodi.</p>
-                    <p class="text-end">Részletek...</p>
-
-                    <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+    <!-- posztolás -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Poszt létrehozása</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
+                    Kép:
+                    <input type="file">
+                    <br>
+                    Elveszett tárgy neve:
+                    <input type="text">
+                    <br>
+                    Helyszín neve:
+                    <input type="text">
+                    <br>
+                    Tárgy kategória:
+                    <select name="kategoria" id="kategoria">
+                        <option value="ekszer">ékszer</option>
+                        <option value="allat">állat</option>
+                        <option value="egyeb">egyéb</option>
+                    </select>
+                    <br>
+                    Leírás:
+                    <br>
+                    <textarea name="" id=""></textarea>
+                    <br>
+                    Te találtad a tárgyat?
+                    <input type="checkbox">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                    <button type="button" class="btn btn-primary">Közzététel</button>
                 </div>
             </div>
-        </a>
+        </div>
+    </div>
+    <!--példa kártya-->
+    <div class="card-container">
+
         <div class="card mb-3">
-            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-image">
+                <img src="cat.jpg" class="card-img-top" alt="...">
+                <span class="card-badge lost">Elveszett</span>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">Eltünt tárgy neve</h5>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
-                </p>
+                <div class="info">
+                    <h5 class="card-title">Eltünt tárgy neve</h5>
+                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+                </div>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                    commodi.</p>
+                <p class="text-end">Részletek...</p>
+
+                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-image">
+                <img src="cat.jpg" class="card-img-top" alt="...">
+                <span class="card-badge found">talált</span>
+            </div>
+            <div class="card-body">
+                <div class="info">
+                    <h5 class="card-title">Eltünt tárgy neve</h5>
+                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>asd, asd</p><br>
+                </div>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                    commodi.</p>
                 <p class="text-end">Részletek...</p>
 
                 <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
             </div>
         </div>
         <div class="card mb-3">
-            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-image">
+                <img src="cat.jpg" class="card-img-top" alt="...">
+                <span class="card-badge lost">Elveszett</span>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">Eltünt tárgy neve</h5>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
-                </p>
+                <div class="info">
+                    <h5 class="card-title">Eltünt tárgy neve</h5>
+                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+                </div>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                    commodi.</p>
                 <p class="text-end">Részletek...</p>
 
                 <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
             </div>
         </div>
         <div class="card mb-3">
-            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-image">
+                <img src="cat.jpg" class="card-img-top" alt="...">
+                <span class="card-badge lost">Elveszett</span>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">Eltünt tárgy neve</h5>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
-                </p>
+                <div class="info">
+                    <h5 class="card-title">Eltünt tárgy neve</h5>
+                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+                </div>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                    commodi.</p>
                 <p class="text-end">Részletek...</p>
 
                 <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
             </div>
         </div>
+
         <div class="card mb-3">
-            <img src="cat.jpg" class="card-img-top" alt="...">
+            <div class="card-image">
+                <img src="cat.jpg" class="card-img-top" alt="...">
+                <span class="card-badge lost">Elveszett</span>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">Eltünt tárgy neve</h5>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam commodi.
-                </p>
+                <div class="info">
+                    <h5 class="card-title">Eltünt tárgy neve</h5>
+                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+                </div>
+                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                    commodi.</p>
                 <p class="text-end">Részletek...</p>
 
                 <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
             </div>
         </div>
+    </div>
     </div>
 </body>
 
