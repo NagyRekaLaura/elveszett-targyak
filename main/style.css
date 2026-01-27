@@ -178,7 +178,6 @@ body {
 .category{
     border-radius: 20px;
     margin: 10px;
-    margin-top: 3vh;
     padding: 5px 10px ;
     text-align: center;
     cursor: pointer;
@@ -236,6 +235,44 @@ body {
     margin-right: 20px;
 }
 
+.info-section{
+    background: linear-gradient(to right, var(--button-color), var(--button-hover-color));
+    padding: 50px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-content h1 {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.info-text {
+    color: var(--button-text-color);
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+}
+
+.info-btn {
+    padding: 12px 35px;
+    font-size: 17px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.info-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
 @media screen 
 and (max-width: 700px) {
     .category{
