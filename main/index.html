@@ -62,28 +62,35 @@
                 </div>
                 <div class="modal-body">
                     <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
-                    Kép:
-                    <input type="file">
-                    <br>
-                    Elveszett tárgy neve:
-                    <input type="text">
-                    <br>
-                    Helyszín neve:
-                    <input type="text">
-                    <br>
-                    Tárgy kategória:
-                    <select name="kategoria" id="kategoria">
-                        <option value="ekszer">ékszer</option>
-                        <option value="allat">állat</option>
-                        <option value="egyeb">egyéb</option>
-                    </select>
-                    <br>
-                    Leírás:
-                    <br>
-                    <textarea name="" id=""></textarea>
-                    <br>
-                    Te találtad a tárgyat?
-                    <input type="checkbox">
+                    <div class="modal-sor">
+                        Kép:
+                        <input type="file" id="image-upload" hidden>
+                        <label for="image-upload" class="image-label">Kép feltötése</label>
+                    </div>
+                    <div class="modal-sor">
+                        Elveszett tárgy neve:
+                        <input type="text">
+                    </div>
+                    <div class="modal-sor">
+                        Helyszín neve:
+                        <input type="text">
+                    </div>
+                    <div class="modal-sor">
+                        Tárgy kategória:
+                        <select name="kategoria" id="kategoria">
+                            <option value="ekszer">ékszer</option>
+                            <option value="allat">állat</option>
+                            <option value="egyeb">egyéb</option>
+                        </select>
+                    </div>
+                    <div class="modal-sor">
+                        Leírás:
+                        <textarea name="" id="" rows="10"></textarea>
+                    </div>
+                    <div class="modal-sor">
+                        Te találtad a tárgyat?
+                        <input type="checkbox">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
