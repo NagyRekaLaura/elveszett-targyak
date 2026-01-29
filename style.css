@@ -302,6 +302,10 @@
     padding-bottom: 10px;
 }
 
+.modal-content a {
+    color: var(--modal-text-color);
+}
+
 /* ==================== */
 /* Infórmációs sáv/POSZT */
 /* ==================== */
