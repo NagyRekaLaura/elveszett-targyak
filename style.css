@@ -518,6 +518,22 @@ h3 {
     border: var(--line-color) 3px solid;
 }
 
+form{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    padding: 10px;
+}
+
+form input{
+    border: #000000 2px solid;
+    border-radius: 5px;
+}
+
+.forminputtext{
+    margin-bottom: 15px;
+}
+
 /* ============================= */
 /* telefonos nézet, minden egybe */
 /* ============================= */
