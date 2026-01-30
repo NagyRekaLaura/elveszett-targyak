@@ -6,10 +6,10 @@
     --menu-color: #FBC288FF;
     --button-color: #9E3F41FF;
     --item-color: #6E5E4FFF;
-    --item-text-color: #F3D4E5;
+    --item-text-color: #ffffff;
     --button-hover-color: #4D2126;
     --button-border-color: #945D3D;
-    --button-text-color: #BFC4DB;
+    --button-text-color: #ffffff;
     --searchbar-color: #825A42;
     --card-border-color: #25232D;
     --button-onclick-color: #3E1F22;
@@ -305,6 +305,84 @@
 .modal-content a {
     color: var(--modal-text-color);
 }
+/* ==================== */
+/* Footer/MINDEN */
+/* ==================== */
+.main-footer {
+    background-color: var(--post-bg-color);
+    padding: 20px;
+    margin-top: 50px;
+    border-top: 3px solid var(--card-border-color);
+    width: 100%;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-description {
+    color: var(--item-text-color);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.footer-contact li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--item-color);
+    border-radius: 50%;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--item-color);
+    text-align: center;
+    color: var(--item-text-color);
+}
+
+
+
 
 /* ==================== */
 /* Infórmációs sáv/POSZT */
