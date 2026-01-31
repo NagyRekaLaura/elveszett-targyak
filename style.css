@@ -13,9 +13,10 @@
     --searchbar-color: #825A42;
     --card-border-color: #25232D;
     --button-onclick-color: #3E1F22;
-    --modal-body-bg-color: #506589;
-    --modal-header-bg-color: #8F9BC1;
-    --modal-footer-bg-color: #232B37;
+    --modal-body-bg-color: #9B665C;
+    --modal-header-bg-color: #9A5A3B;
+    --modal-input-bg-color: #A7816E;
+    --modal-footer-bg-color: #2D1F1E;
     --modal-header-color: #111111;
     --modal-text-color: #E6CF6B;
     --found-color: #4CAF50;  
@@ -256,7 +257,7 @@
     min-width: 100px;
     min-height: 50px;
     resize: inherit;
-    background-color: var(--modal-header-bg-color);
+    background-color: var(--modal-input-bg-color);
     border: black solid 2px;
     border-radius: 5px;
 }
@@ -285,12 +286,12 @@
     border: black solid 2px;
     border-radius: 5px;
     color: black;
-    background-color: var(--modal-header-bg-color);
+    background-color: var(--modal-input-bg-color);
     align-items: center;
 }
 
 .image-label {
-    background-color: var(--modal-header-bg-color);
+    background-color: var(--modal-input-bg-color);
     padding: 5px;
     border: black solid 2px;
     color: black;
