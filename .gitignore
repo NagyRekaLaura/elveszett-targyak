@@ -1,3 +1,4 @@
 prototype/static/attachments/*
 prototype/instance/*
 prototype/lost-and-found
+prototype/__pycache__
