@@ -714,13 +714,117 @@ form input{
     display: block;
     border: none;
 }
+/* ==================== */
+/* login dizájn/LOGIN */
+/* ==================== */
 
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 20px;
+}
+
+.login-card {
+    background-color: var(--post-bg-color);
+    border-radius: 12px;
+    padding: 40px 35px;
+    width: 100%;
+    max-width: 350px;
+    border: 1px solid var(--card-border-color);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-logo {
+    font-size: 48px;
+    color: var(--menu-color);
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    color: var(--menu-color);
+    font-size: 24px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--menu-color);
+    font-size: 16px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 13px 15px 13px 45px;
+    background-color: var(--modal-input-bg-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 15px;
+}
+
+.form-input::placeholder {
+    color: rgb(255, 255, 255);
+}
+
+.login-button {
+    width: 90%;
+    background-color: var(--button-color);
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.register-section {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid var(--card-border-color);
+}
+
+.register-section a {
+    color: var(--button-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register-section a {
+    text-decoration: underline;
+}
+     
 /* ============================= */
 /* telefonos nézet, minden egybe */
 /* ============================= */
 @media screen and (max-width: 850px) {
     .category {
-        visibility: hidden;
+        display: none   ;
     }
     
     .card-container {
