@@ -9,5 +9,7 @@ Az oldal lényege, hogy az ilyen esetek ne forduljanak elő.
 Azoknak az embereknek, akik elvesztették tárgyaikat, vagy akik elhagyott tárgyakat találtak, akár utcán, hotelekben vagy más helyeken.
 # Készítette
 Nagy Réka Laura
+
 Bozsik Ádám Botond
+
 Tomor Noel
