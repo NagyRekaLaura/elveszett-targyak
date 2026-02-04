@@ -547,72 +547,103 @@
 /* Profil/PROFIL */
 /* ==================== */
 .profil {
-    display: flex;
-    gap: 40px;
-    padding: 20px;
-    border: var(--card-border-color) 3px solid;
-    border-radius: 10px;
-    margin-top: 50px;
-    margin-left: 40px;
-    margin-right: 40px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 70px;
+    background: linear-gradient(135deg, var(--post-bg-color) 0%, #2a2630 100%);
+    border-radius: 25px;
+    margin: 30px 40px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--card-border-color);
 }
 
-.profile-pic-div {
-    text-align: center;
-    min-width: 600px;
+.profile-header {
+    background: linear-gradient(135deg, var(--button-color) 0%, var(--button-hover-color) 100%);
+    padding: 40px;
+    position: relative;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 50px;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-banner {
+    position: relative;
+}
+
+.profile-pic {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    overflow: hidden;
 }
 
 .profile-picture {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    margin-bottom: 10px;
 }
 
-.adatok {
-    padding: 20px;
-    border-radius: 8px;
-    font-size: 18px;
+.profile-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.profile-name {
+    color: white;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 40px;
+}
+
+.details-section {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.details-section h3 {
+    color: var(--menu-color);
+    font-size: 30px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(158, 63, 65, 0.3);
+    display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 12px;
 }
 
-h3 {
-    margin-bottom: 20px;
-}
-
-.posts {
-    margin-left: 40px;
-    margin-right: 40px;
-}
-
-.posts hr {
-    color: var(--line-color);
-    border: var(--line-color) 3px solid;
-}
-
-form{
-    display: flex; 
-    flex-direction: column; 
+.detail-item {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 15px ;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-form input{
-    border: #000000 2px solid;
-    border-radius: 5px;
+.detail-label {
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.forminputtext{
-    margin-bottom: 15px;
+.detail-value {
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
 }
+
 /* ==================== */
 /* kapcsolat felvétel / POSZT*/
 /* ==================== */
@@ -845,5 +876,10 @@ form input{
     
     .profile-pic-div {
         min-width: auto;
+    }
+        .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
     }
 }
