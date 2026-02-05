@@ -644,6 +644,50 @@
     font-size: 20px;
 }
 
+.posts {
+    text-align: center;
+    margin: 30px;
+}
+
+.posts hr {
+    border: none;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, var(--menu-color), transparent);
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* ==================== */
+/* Törlés, szerkesztés */
+/* ==================== */
+.card-actions {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    gap: 10px;
+}
+.btn-edit, .btn-delete {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-edit {
+    background: var(--card-border-color);
+    color: white;
+}
+
+.btn-delete {
+    background: #ff0000;
+    color: white;
+}
 /* ==================== */
 /* kapcsolat felvétel / POSZT*/
 /* ==================== */
