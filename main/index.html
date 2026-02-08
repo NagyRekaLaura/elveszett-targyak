@@ -66,25 +66,34 @@
                 <div class="modal-body">
                     <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
                     <div class="modal-sor">
+                        <label class="form-label">
                         <i class="fas fa-image"></i>
                         Kép:
+                        </label>
                         <input type="file" id="image-upload" hidden multiple accept="image/*">
                         <label for="image-upload" class="image-label">Kép feltötése</label>
                     </div>
                     <div class="modal-sor">
-                        <i class="fas fa-tag"></i>
-                        Elveszett tárgy neve:
-                        <input type="text">
+                        <label class="form-label">
+                            <i class="fas fa-tag"></i>
+                            Neve:
+                        </label>
+                        <input type="text" class="form-control-modal" placeholder="Írd be a megnevezését...">
                     </div>
                     <div class="modal-sor">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Helyszín neve:
-                        <input type="text">
+                        <label class="form-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Helyszín:
+                        </label>
+                        <input type="text" class="form-control-modal" placeholder="Hol találtad/vesztetted el?">
                     </div>
+
                     <div class="modal-sor">
-                        <i class="fas fa-folder-open"></i>
-                        Tárgy kategória:
-                        <select name="kategoria" id="kategoria">
+                        <label class="form-label">
+                            <i class="fas fa-folder-open"></i>
+                            Kategória:
+                        </label>
+                        <select class="form-control-modal">
                             <option value="allat">Állat</option>
                             <option value="elektronika">Elektronika</option>
                             <option value="ruhazat">Ruházat</option>
@@ -94,14 +103,28 @@
                         </select>
                     </div>
                     <div class="modal-sor">
-                        <i class="fas fa-pencil-alt"></i>
-                        Leírás:
-                        <textarea name="" id="" rows="10"></textarea>
+                        <label class="form-label">
+                            <i class="fas fa-pencil-alt"></i>
+                            Leírás:
+                        </label>
+                        <textarea class="form-control-modal" placeholder="Írj leírást a tárgyról..."></textarea>
                     </div>
+
                     <div class="modal-sor">
-                        <i class="fas fa-box"></i>
-                        Te találtad a tárgyat?
-                        <input type="checkbox">
+                        <label class="form-label">
+                            <i class="fas fa-box"></i>
+                            Állapot:
+                        </label>
+                        <div class="status-toggle">
+                            <div class="toggle-switch">
+                                <button type="button" class="toggle-btn lost active" onclick="toggleStatus(this)">
+                                    <i class="fas fa-search me-1"></i>Elveszett
+                                </button>
+                                <button type="button" class="toggle-btn found" onclick="toggleStatus(this)">
+                                    <i class="fas fa-check me-1"></i>Talált
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -231,7 +254,8 @@
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Kezdőlap</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Posztolás</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Általános Szerződési Feltételek</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Általános Szerződési Feltételek</a>
+                        </li>
                         <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Adatvédelmi nyilatkozat</a></li>
                     </ul>
                 </div>
