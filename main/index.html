@@ -12,7 +12,7 @@
     <title>Lost&Found</title>
 </head>
 
-<body class="mainbody"> 
+<body class="mainbody">
     <nav class="navbar navbar-expand-lg" id="menu">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="/logo.svg" width="110px" alt=""></a>
@@ -36,16 +36,16 @@
         </div>
 
     </nav>
-<!-- Info az oldalról -->
-<div class="info-section">
-    <div class="info-content">
-        <h1><i class="fas fa-search me-3"></i>Lost&Found</h1>
-        <p class="info-text">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
+    <!-- Info az oldalról -->
+    <div class="info-section">
+        <div class="info-content">
+            <h1><i class="fas fa-search me-3"></i>Lost&Found</h1>
+            <p class="info-text">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
         <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <i class="fas fa-plus-circle me-2"></i>Poszt létrehozása
-        </button>
+                <i class="fas fa-plus-circle me-2"></i>Poszt létrehozása
+            </button>
+        </div>
     </div>
-</div>
     <!--változtatva, telefonos nézetbe még nem jó, javítandó-->
     <div class="category-container">
         <button type="button" class="btn category"><i class="fas fa-paw me-2"></i>Állat</button>
@@ -68,7 +68,7 @@
                     <div class="modal-sor">
                         <i class="fas fa-image"></i>
                         Kép:
-                        <input type="file" id="image-upload" hidden>
+                        <input type="file" id="image-upload" hidden multiple accept="image/*">
                         <label for="image-upload" class="image-label">Kép feltötése</label>
                     </div>
                     <div class="modal-sor">
@@ -218,41 +218,41 @@
         </div>
     </div>
     <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="footer-brand">
-                    <span>Lost&Found</span>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-brand">
+                        <span>Lost&Found</span>
+                    </div>
+                    <p class="footer-description">Segítünk megtalálni.</p>
                 </div>
-                <p class="footer-description">Segítünk megtalálni.</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Gyorslinkek</h5>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Kezdőlap</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Posztolás</a></li>
+                <div class="col-md-4">
+                    <h5>Gyorslinkek</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Kezdőlap</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Posztolás</a></li>
                     <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Általános Szerződési Feltételek</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Adatvédelmi nyilatkozat</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Kapcsolat</h5>
-                <ul class="footer-contact">
-                    <li><i class="fas fa-envelope me-2"></i>info@lostandfound.hu</li>
-                    <li><i class="fas fa-phone me-2"></i>+36 1 234 5678</li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Adatvédelmi nyilatkozat</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Kapcsolat</h5>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope me-2"></i>info@lostandfound.hu</li>
+                        <li><i class="fas fa-phone me-2"></i>+36 1 234 5678</li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Lost&Found. Minden jog fenntartva.</p>
+            </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Lost&Found. Minden jog fenntartva.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 </body>
 
 </html>
