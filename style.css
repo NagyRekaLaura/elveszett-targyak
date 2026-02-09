@@ -958,6 +958,14 @@ select.form-control-modal option {
     padding: 20px;
 }
 
+.login-card-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    min-height: 520px; 
+    perspective: 1200px;
+}
+
 .login-card {
     background-color: var(--post-bg-color);
     border-radius: 12px;
@@ -966,7 +974,30 @@ select.form-control-modal option {
     max-width: 350px;
     border: 1px solid var(--card-border-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    transition: transform 0.8s ease;
 }
+
+.login-front {
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+.login-back {
+    transform: rotateY(180deg);
+}
+
+.login-card-wrapper.flipped .login-front {
+    transform: rotateY(-180deg);
+}
+
+.login-card-wrapper.flipped .login-back {
+    transform: rotateY(0deg);
+}
+
 
 .login-header {
     text-align: center;
@@ -1020,11 +1051,11 @@ select.form-control-modal option {
 }
 
 .login-button {
-    width: 90%;
+    width: 60%;
     background-color: var(--button-color);
     color: white;
-    padding: 14px;
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 15px;
     font-size: 15px;
     font-weight: 600;
     display: flex;
@@ -1033,7 +1064,12 @@ select.form-control-modal option {
     gap: 10px;
     margin-top: 25px;
 }
-
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .register-section {
     text-align: center;
     margin-top: 25px;
@@ -1043,14 +1079,11 @@ select.form-control-modal option {
 
 .register-section a {
     color: var(--button-color);
-    text-decoration: none;
+    text-decoration: underline;
     font-weight: 500;
+    cursor: pointer;
 }
 
-.register-section a {
-    text-decoration: underline;
-}
-     
 /* ============================= */
 /* telefonos nézet, minden egybe */
 /* ============================= */
