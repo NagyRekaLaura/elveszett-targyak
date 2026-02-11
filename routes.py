@@ -20,3 +20,11 @@ def create_routes(app: Flask):
             else:
                 return render_template("login.html")
         return render_template("login.html")
+
+    @app.route('/poszt')
+    def post():
+        return render_template("post.html")
+    
+    @app.route('/profile')
+    def profile():
+        return render_template("profile.html")
