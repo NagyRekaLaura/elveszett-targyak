@@ -5,7 +5,7 @@
 <script src="{{ url_for('static', filename='js/flipcard.js') }}"></script>
 {% endblock %}
 {% block content %}
-    <div class="login-page">
+<div class="login-page">
     <div class="login-card-wrapper" id="loginFlip">
 
         <!-- Bejelentkezés -->
@@ -21,16 +21,17 @@
                 <div class="input-container">
                     <div class="input-with-icon">
                         <i class="fas fa-user input-icon"></i>
-                        <input type="text" class="form-input" placeholder="Felhasználónév" required>
+                        <input type="text" class="form-input" placeholder="Felhasználónév" name="username" required>
                     </div>
                 </div>
 
                 <div class="input-container">
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-input" placeholder="Jelszó" required>
+                        <input type="password" class="form-input" placeholder="Jelszó" name="passwd" required>
                     </div>
                 </div>
+                <input type="hidden" name="type" value="login">
 
                 <button type="submit" class="btn login-button">
                     <i class="fas fa-sign-in-alt"></i>
@@ -54,28 +55,28 @@
                 <h1>Regisztráció</h1>
             </div>
 
-            <form>
+            <form action="{{url_for('login')}}" method="post">
                 <div class="input-container">
                     <div class="input-with-icon">
                         <i class="fas fa-user input-icon"></i>
-                        <input type="text" class="form-input" placeholder="Felhasználónév" required>
+                        <input type="text" class="form-input" placeholder="Felhasználónév" name="username" required>
                     </div>
                 </div>
 
                 <div class="input-container">
                     <div class="input-with-icon">
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" class="form-input" placeholder="Email" required>
+                        <input type="email" class="form-input" placeholder="Email" name="email" required>
                     </div>
                 </div>
 
                 <div class="input-container">
                     <div class="input-with-icon">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-input" placeholder="Jelszó" required>
+                        <input type="password" class="form-input" placeholder="Jelszó" name="passwd" required>
                     </div>
                 </div>
-
+                <input type="hidden" name="type" value="register">
                 <button type="submit" class="btn login-button">
                     Regisztráció
                 </button>
@@ -92,4 +93,4 @@
 </div>
 
 
-    {% endblock %}
+{% endblock %}

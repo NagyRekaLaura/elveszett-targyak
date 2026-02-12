@@ -1,4 +1,5 @@
-static/attachments/*
-instance/*
+#static/attachments/*       fejlesztes idejere
+#instance/*                 fejlesztes idejere
 lost-and-found
 __pycache__
+ideas
