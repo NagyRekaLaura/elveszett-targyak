@@ -45,3 +45,8 @@ def create_routes(app: Flask):
     @app.route('/profile')
     def profile():
         return render_template("profile.html")
+    @app.route('/createprofile')
+    def createprofile():
+        return render_template("createprofile.html")
+
+        

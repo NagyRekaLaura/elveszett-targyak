@@ -25,13 +25,17 @@
     --text-color: #EEEFFD;
     --line-color: #BFC4DB;
 }
-
+::selection {
+    background: var(--button-hover-color);
+    color: white;
+}
 /* ==================== */
 /* body stylok */
 /* ==================== */
 .mainbody {
     background-color: var(--bg-color);
     color: var(--text-color);
+    user-select: var(--button-hover-color);
     
 }
 .postbody {
@@ -1082,6 +1086,231 @@ form{
     text-decoration: underline;
     font-weight: 500;
     cursor: pointer;
+}
+/* =============================== */
+/* Profil elkészítése */
+/* =============================== */
+
+.createprofile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: calc(100vh - 200px);
+}
+
+.createprofile-card {
+    background: var(--post-bg-color);
+    width: 100%;
+    max-width: 750px;
+    padding: 55px;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ================= HEADER ================= */
+
+.createprofile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header-icon {
+    font-size: 48px;
+    color: var(--menu-color);
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.createprofile-header h1 {
+    color: var(--menu-color);
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.createprofile-header p {
+    opacity: 0.85;
+    font-size: 15px;
+}
+
+/* ================= FORM LAYOUT ================= */
+
+.createprofile-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* Proper alignment */
+.createprofile-form .form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================= LABELS ================= */
+
+.createprofile-form .form-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--menu-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ================= INPUTS ================= */
+
+.form-control-modal {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    color: white;
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+.form-control-modal:focus {
+    outline: none;
+    border: 1px solid var(--menu-color);
+    box-shadow: 0 0 0 3px rgba(251,194,136,0.15);
+    background: rgba(255,255,255,0.09);
+}
+
+.form-control-modal::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+/* Readonly style */
+.form-control-modal[readonly] {
+    background: rgba(255, 255, 255, 0.393);
+    color: #000;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.form-text{
+    color: var(--modal-body-bg-color);
+}
+/* ================= LOGIN DATA SECTION ================= */
+
+.login-data-section {
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(251, 194, 136, 0.06);
+    border: 1px solid rgba(251, 194, 136, 0.2);
+}
+
+.login-data-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: var(--menu-color);
+}
+
+/* ================= PROFILE PICTURE ================= */
+
+.profile-pic-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 15px;
+}
+
+.profile-pic-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid var(--menu-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--menu-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.profile-pic-preview:hover {
+    transform: scale(1.05);
+}
+
+.profile-pic-preview i {
+    font-size: 40px;
+}
+
+/* ================= PRIVACY WRAPPER ALIGN FIX ================= */
+
+.privacy-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.privacy-wrapper .form-control-modal {
+    flex: 1;
+}
+
+.privacy-toggle {
+    height: 48px;
+    min-width: 100px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+}
+.privacy-checkbox {
+    display: none;
+}
+
+.privacy-checkbox:checked + i {
+    color: var(--menu-color);
+}
+
+/* ================= TERMS ================= */
+
+.terms-group {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.terms-group input {
+    margin-right: 8px;
+}
+
+
+/* ================= LOGIN REDIRECT ================= */
+
+.login-redirect {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.login-redirect a {
+    color: var(--menu-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-redirect a:hover {
+    text-decoration: underline;
 }
 
 /* ============================= */

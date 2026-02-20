@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Főoldal{% endblock %}
+{% block js %}
+<script src="{{ url_for('static', filename='js/createprofile.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
+{% endblock %}
+{% block content %}
+<body class="mainbody">
+
+    <div class="createprofile-container">
+        <div class="createprofile-card">
+            <div class="createprofile-header">
+                <div class="header-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1>Profil létrehozása</h1>
+            </div>
+
+            <form class="createprofile-form">
+                <!-- Profilkép feltöltés -->
+                <div class="profile-pic-upload">
+                    <div class="profile-pic-preview" id="profilePicPreview" onclick="document.getElementById('profilePic').click()">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="profilePic" accept="image/*" hidden>
+                    
+                </div>
+                <!-- Felhasználónév és email (readonly), meg ami még hamarabb lesz megadva --  DISABLED LEGYEN -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-at"></i>
+                            Felhasználónév <span class="required" >*</span>
+                        </label>
+                        <input type="text" class="form-control-modal" value="asd123" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            Email cím <span class="required">*</span>
+                        </label>
+                        <input type="email" class="form-control-modal" value="asd.example@email.com" readonly>
+                    </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i>
+                        Megjelenítendő név <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control-modal" placeholder="Pl. ASd asd" required>
+                </div>
+
+                <!-- Telefonszám -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i>
+                        Telefonszám
+                    </label>
+                    <div class="privacy-wrapper">
+                        <input type="tel" class="form-control-modal" placeholder="+36 20 123 4567">
+                        <label class="privacy-toggle">
+                            <input type="checkbox" class="privacy-checkbox" checked>
+                            <i class="fas fa-lock"></i> Privát
+                        </label>
+                    </div>
+                    <small class="form-text">Alapértelmezetten privát, mások nem látják</small>
+                </div>
+
+                <!-- Születési idő -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-birthday-cake"></i>
+                        Születési idő <span class="required">*</span>
+                    </label>
+                    <input type="date" class="form-control-modal" required>
+                </div>
+
+
+                <!-- Lakhely -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lakhely <span class="required">*</span>
+                    </label>
+                    <div class="privacy-wrapper">
+                        <input type="text" class="form-control-modal" placeholder="Budapest, XIII. kerület" required>
+                        <label class="privacy-toggle">
+                            <input type="checkbox" class="privacy-checkbox">
+                            <i class="fas fa-lock"></i> Privát
+                        </label>
+                    </div>
+                </div>
+                 
+                <!-- Adatvédelmi nyilatkozat -->
+                <div class="terms-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked required>
+                        <span>Elfogadom az <a href="#">adatvédelmi nyilatkozatot</a> és a <a href="#">felhasználási feltételeket</a> <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="terms-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked>
+                        <span>Hozzájárulok, hogy a megadott adataimat a rendszer a hirdetések megjelenítéséhez használja</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">
+                        <i class="fas fa-check-circle"></i> Profil létrehozása
+                    </button>
+                    <button type="button" class="btn">
+                        <i class="fas fa-times"></i> Mégse
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
