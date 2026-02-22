@@ -48,5 +48,9 @@ def create_routes(app: Flask):
     @app.route('/createprofile')
     def createprofile():
         return render_template("createprofile.html")
+    @app.route('/error404')
+    def error404():
+        return render_template("error404.html")
+
 
         

@@ -27,24 +27,34 @@
                     aria-label="Search" />
             </form>
 
-
+            <div class="collapse navbar-collapse" id="navbarNav">
+                {% if current_user.is_authenticated %}
+                <ul class="navbar-nav" id="login">
+                    <li class="nav-item-logged">
+                        <a class="btn-logged-nav" href="{{ url_for('profile') }}"><i class="fa-solid fa-circle-user fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn-logged-nav" href="{{ url_for('profile') }}"><i class="fa-solid fa-right-from-bracket fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn-logged-nav" href="{{ url_for('profile') }}"><i class="fa-solid fa-envelope fa-2x"></i></a>
+                    </li>
+                </ul>
+                {%else %}
+                <ul class="navbar-nav" id="login">
+                    <li class="nav-item">
+                        <a class="btn nav-btn" href="{{ url_for('login') }}">Bejelentkezés/Regisztráció</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav" id="login">
-                <li class="nav-item">
-                    {% if current_user.is_authenticated %} <a class="btn" href="{{ url_for('profile') }}">Profil</a> 
-                    {%else %}
-                    <a class="btn" href="{{ url_for('login') }}">Bejelentkezés/Regisztráció</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
-
     </nav>
 
     {% block content %}
     {% endblock %}
 
+    {% block footer %}
     <footer class="main-footer">
         <div class="container">
             <div class="row">
@@ -82,6 +92,7 @@
             </div>
         </div>
     </footer>
+    {% endblock %}
 </body>
 
 </html>

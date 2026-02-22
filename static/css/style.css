@@ -39,7 +39,7 @@
     
 }
 .postbody {
-       background-color: var(--bg-color);
+    background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,6 +62,21 @@
     justify-content: center;
 }
 
+.navbar .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.d-flex {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+#navbarNav {
+    flex-grow: 0;
+}
 /*kereső*/
 .navbar form.d-flex {
     width: 100%;
@@ -127,6 +142,37 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+/* ==================== */
+/* gogombok navbarban bejelentkezés után */
+/* ==================== */
+.btn-logged-nav {
+    background-color: var(--button-color);
+    border: 1px solid var(--button-border-color);
+    border-radius: 20px;
+    color: var(--button-text-color);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.btn-logged-nav:hover {
+        border: 1px solid var(--button-border-color);
+        color: var(--button-text-color);
+}
+
+.btn-logged-nav:active {
+    background-color: var(--button-onclick-color);
+    color: white !important;
+}
+.navbar-nav .btn-logged-nav {
+    background: transparent;
+    border: none;
+    color: inherit;
+    color: var(--modal-footer-bg-color);
+}
+
 /*================== */
 /* Kategoriak/FŐ/ */
 /*===================*/
@@ -177,6 +223,7 @@
     box-shadow: 2px 2px 3px #000000, 4px 4px 8px #111111;
     width: 100%;
     margin-top: 20px;
+    max-width: 600px;
 }
 
 .card:hover {
@@ -466,7 +513,7 @@ select.form-control-modal option {
 .remove-image-btn:hover {
     background-color: red;
 }
- 
+
 /* ==================== */
 /* Footer/MINDEN */
 /* ==================== */
@@ -1345,4 +1392,238 @@ form{
         text-align: center;
         padding: 30px;
     }
+}
+/* ==================== */
+/* 404 Errores oldal    */
+/* ==================== */
+
+.error-404-container {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+background-color: var(--bg-color);
+position: relative;
+overflow: hidden;
+}
+
+.error-404-content {
+max-width: 800px;
+width: 100%;
+text-align: center;
+position: relative;
+z-index: 2;
+}
+
+.error-404-title {
+margin-bottom: 40px;
+}
+
+.error-404-title .error-code {
+display: block;
+font-size: 120px;
+font-weight: 800;
+color: var(--menu-color);
+text-shadow: 8px 8px 0 var(--button-hover-color),
+            12px 12px 20px rgba(0,0,0,0.3);
+line-height: 1;
+letter-spacing: 5px;
+animation: errorPulse 2s infinite ease-in-out;
+}
+
+.error-404-title .error-message {
+display: block;
+font-size: 32px;
+color: var(--text-color);
+margin-top: 10px;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 2px;
+}
+
+/* mancsokkk*/
+.error-illustration {
+position: relative;
+height: 200px;
+margin: 40px auto;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.animal-silhouette {
+position: relative;
+font-size: 120px;
+color: var(--item-color);
+filter: drop-shadow(4px 8px 12px rgba(0,0,0,0.4));
+z-index: 3;
+}
+
+.animal-silhouette i {
+animation: animalFloat 3s infinite ease-in-out;
+}
+
+.thought-bubble {
+position: absolute;
+top: -40px;
+right: -40px;
+width: 60px;
+height: 60px;
+background-color: var(--menu-color);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 30px;
+color: var(--bg-color);
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+animation: bubblePop 2s infinite;
+}
+
+.thought-bubble i {
+font-size: 24px;
+animation: none;
+}
+
+/* mancsokkk*/
+.print-paw-1, .print-paw-2, .print-paw-3, .print-paw-4,
+.print-paw-5, .print-paw-6, .print-paw-7, .print-paw-8 {
+position: absolute;
+font-size: 30px;
+color: var(--menu-color);
+opacity: 0.6;
+filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.2));
+z-index: 1;
+}
+
+.print-paw-1 { top: 20px; left: 10%; transform: rotate(-15deg); animation: pawWalk 4s infinite; }
+.print-paw-2 { top: 60px; left: 20%; transform: rotate(10deg); animation: pawWalk 4.2s infinite 0.2s; }
+.print-paw-3 { top: 30px; left: 30%; transform: rotate(-5deg); animation: pawWalk 3.8s infinite 0.1s; }
+.print-paw-4 { top: 70px; left: 40%; transform: rotate(20deg); animation: pawWalk 4.5s infinite 0.3s; }
+.print-paw-5 { bottom: 40px; right: 15%; transform: rotate(25deg); animation: pawWalk 4.1s infinite 0.15s; }
+.print-paw-6 { bottom: 80px; right: 25%; transform: rotate(-10deg); animation: pawWalk 3.9s infinite 0.25s; }
+.print-paw-7 { bottom: 20px; right: 35%; transform: rotate(5deg); animation: pawWalk 4.3s infinite 0.05s; }
+.print-paw-8 { bottom: 60px; right: 45%; transform: rotate(-20deg); animation: pawWalk 4.4s infinite 0.35s; }
+
+/* szöveg */
+.error-description {
+font-size: 18px;
+color: var(--text-color);
+margin: 30px 0 40px;
+line-height: 1.6;
+opacity: 0.9;
+background-color: rgba(0,0,0,0.2);
+padding: 20px;
+border-radius: 50px;
+backdrop-filter: blur(5px);
+border: 1px solid var(--item-color);
+}
+
+/* Animációk */
+@keyframes errorPulse {
+0%, 100% {
+    transform: scale(1);
+    text-shadow: 8px 8px 0 var(--button-hover-color),
+                12px 12px 20px rgba(0,0,0,0.3);
+}
+50% {
+    transform: scale(1.05);
+    text-shadow: 12px 12px 0 var(--button-hover-color),
+                16px 16px 25px rgba(0,0,0,0.4);
+}
+}
+
+@keyframes animalFloat {
+0%, 100% {
+    transform: translateY(0);
+}
+50% {
+    transform: translateY(-10px);
+}
+}
+
+@keyframes pawWalk {
+0% {
+    opacity: 0.2;
+    transform: translateY(0) rotate(-15deg);
+}
+25% {
+    opacity: 0.6;
+    transform: translateY(-5px) rotate(-10deg);
+}
+50% {
+    opacity: 0.4;
+    transform: translateY(0) rotate(-5deg);
+}
+75% {
+    opacity: 0.7;
+    transform: translateY(3px) rotate(0deg);
+}
+100% {
+    opacity: 0.2;
+    transform: translateY(0) rotate(-15deg);
+}
+}
+
+@keyframes bubblePop {
+0%, 100% {
+    transform: scale(1);
+}
+50% {
+    transform: scale(1.2);
+}
+}
+
+/* Reszponzív nézet */
+@media screen and (max-width: 768px) {
+.error-404-title .error-code {
+    font-size: 90px;
+}
+
+.error-404-title .error-message {
+    font-size: 24px;
+}
+
+.animal-silhouette {
+    font-size: 90px;
+}
+
+.thought-bubble {
+    width: 50px;
+    height: 50px;
+    top: -30px;
+    right: -30px;
+}
+
+.thought-bubble i {
+    font-size: 20px;
+}
+
+.error-description {
+    font-size: 16px;
+    padding: 15px;
+}
+
+.print-paw-1, .print-paw-2, .print-paw-3, .print-paw-4,
+.print-paw-5, .print-paw-6, .print-paw-7, .print-paw-8 {
+    font-size: 24px;
+}
+}
+
+@media screen and (max-width: 480px) {
+.error-404-title .error-code {
+    font-size: 70px;
+}
+
+.error-404-title .error-message {
+    font-size: 20px;
+}
+.animal-silhouette {
+    font-size: 70px;
+}
+
+.error-illustration {
+    height: 150px;
+}
 }
