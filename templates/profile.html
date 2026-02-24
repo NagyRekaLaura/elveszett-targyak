@@ -1,138 +1,195 @@
 {% extends "base.html" %}
+{% block js %}
+<script src="{{ url_for('static', filename='js/profile-filter.js') }}" defer></script>
+{% endblock %}
 
 {% block content %}
-<div class="profil">
-        <div class="profile-header">
-            <div class="profile-banner">
+<div class="profilepart">
+    <!--   PROFIL -->
+    <div class="profile-left">
+        <div class="profil">
+            <div class="profile-banner"></div>
+
+            <div class="profil-pic-div">
                 <div class="profile-pic">
-                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="profilkep" class="profile-picture">
+                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="profilkep">
                 </div>
             </div>
             <div class="profile-info">
                 <h1 class="profile-name">{{current_user.username}}</h1>
-            </div>
-            <button class="btn"><i class="fas fa-edit"></i> PROFIL SZERKESZTÉSE</button>
-        </div>
+                <span class="profile-username">@{{ current_user.username.lower() }}</span>
 
-        <div class="profile-details">
-            <div class="details-section">
-                <h3><i class="fas fa-user-circle"></i> Személyes információk</h3>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-phone"></i> Telefonszám</span>
-                    <span class="detail-value">0123456789</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-map-marker-alt"></i> Lakhely</span>
-                    <span class="detail-value">Budapest</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-envelope"></i> E-mail cím</span>
-                    <span class="detail-value"></span>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Poszt</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Talált</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Eltűnt</span>
+                    </div>
                 </div>
 
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Telefonszám</span>
+                            <span class="value">+36 20 123 4567</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Lakhely</span>
+                            <span class="value">Budapest, Magyarország</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">E-mail cím</span>
+                            <span class="value">{{ current_user.email }}</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Tag since</span>
+                            <span class="value">2024. január</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Szerkesztés
+                    </button>
+                    <button class="btn">
+                        <i class="fas fa-share-alt"></i> Megosztás
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="posts">
-        <h1>POSZTOK</h1>
-        <hr>
-    </div>
 
-    <div class="card-container">
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge found">Talált</span>
-                <div class="card-actions">
-                    <button class="btn-edit"><i class="fas fa-edit"></i></button>
-                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge lost">Elveszett</span>
-                <div class="card-actions">
-                    <button class="btn-edit"><i class="fas fa-edit"></i></button>
-                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge lost">Elveszett</span>
-                <div class="card-actions">
-                    <button class="btn-edit"><i class="fas fa-edit"></i></button>
-                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge lost">Elveszett</span>
-                <div class="card-actions">
-                    <button class="btn-edit"><i class="fas fa-edit"></i></button>
-                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
+    <!-- JOBB OLDAL-->
+    <div class="posts-right">
+        <div class="posts-container">
+            <div class="posts-title-section">
+                <h1><i class="fas fa-paw"></i> Posztjaim</h1>
 
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+                <!-- SZŰRŐ GOMBOK - IDE KERÜLTEK A BADGE HELYÉRE -->
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list-ul"></i> Összes
+                    </button>
+                    <button class="filter-btn" data-filter="lost">
+                        <i class="fas fa-times-circle"></i> Eltűnt
+                    </button>
+                    <button class="filter-btn" data-filter="found">
+                        <i class="fas fa-check-circle"></i> Talált
+                    </button>
+                </div>
+            </div>
         </div>
+
+        <!-- KÁRTYÁK KONTÉNER -->
+        <div class="card-container" id="posts-container">
+            <!-- Eltűnt poszt (lost) -->
+            <div class="card mb-3" data-status="lost">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+                    <span class="card-badge lost">Elveszett</span>
+                    <div class="card-actions">
+                        <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="info">
+                        <h5 class="card-title">Eltünt tárgy neve</h5>
+                        <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                        <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                        <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+                    </div>
+                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                        commodi.</p>
+                    <p class="text-end">Részletek...</p>
+                    <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+                </div>
+            </div>
+
+            <!-- Talált poszt (found) -->
+            <div class="card mb-3" data-status="found">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+                    <span class="card-badge found">Talált</span>
+                    <div class="card-actions">
+                        <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="info">
+                        <h5 class="card-title">Eltünt tárgy neve</h5>
+                        <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
+                        <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+                        <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+                    </div>
+                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                        commodi.</p>
+                    <p class="text-end">Részletek...</p>
+
+                    <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+                </div>
+            </div>
+
+            <!-- Eltűnt poszt (lost) -->
+            <div class="card mb-3" data-status="lost">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="...">
+                    <span class="card-badge lost">Elveszett</span>
+                    <div class="card-actions">
+                        <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="info">
+                        <h5 class="card-title">Eltünt tárgy neve</h5>
+                        <span class="card-category"><i class="fas fa-paw me-1"></i> Állat</span>
+                        <span class="card-time"><i class="far fa-clock"></i> 2 órája</span>
+                        <p class="card-location"><i class="fas fa-map-marker-alt"></i> xyz, zyx</p>
+                    </div>
+                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+                        commodi.</p>
+                    <p class="text-end">Részletek...</p>
+
+                    <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+                </div>
             </div>
         </div>
     </div>
+</div>  
+
 
 {% endblock %}

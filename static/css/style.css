@@ -92,12 +92,6 @@
     flex-grow: 1;
 }
 
-.login {
-    margin-left: 20px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    border: none;
-}
 /* ==================== */
 /* Gombok/MINDEN */
 /* ==================== */
@@ -110,7 +104,6 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 .btn:hover {
@@ -130,7 +123,6 @@
     font-size: 17px;
     border-radius: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
 }
 
 .info-btn:hover {
@@ -154,7 +146,6 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 .btn-logged-nav:hover {
@@ -194,7 +185,6 @@
     height: 40px;
     width: 160px;
     color: white;
-    transition: all 0.3s ease;
     background-color: rgba(255, 255, 255, 0.15);
     border: 2px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
@@ -205,9 +195,10 @@
 /* ==================== */
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 30px;
     padding: 20px;
+    margin: 0 0 30px 0;
 }
 
 .card {
@@ -218,7 +209,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: .35s ease-in-out;
     transform: translateY(0px);
     box-shadow: 2px 2px 3px #000000, 4px 4px 8px #111111;
     width: 100%;
@@ -366,11 +356,6 @@
     border-top: black solid;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-}
-
-.modal-body {
-    background-color: rgba(110, 94, 79, 0.1);
-    padding: 25px;
 }
 
 .image-label {
@@ -619,7 +604,6 @@ select.form-control-modal option {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    opacity: 0.95;
 }
 
 /* ==================== */
@@ -754,127 +738,279 @@ select.form-control-modal option {
 /* ==================== */
 /* Profil/PROFIL */
 /* ==================== */
-.profil {
-    background: linear-gradient(135deg, var(--post-bg-color) 0%, #2a2630 100%);
-    border-radius: 25px;
-    margin: 30px 40px;
-    padding: 0;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 2px solid var(--card-border-color);
+
+.profilepart{
+    display: flex;
+    gap: 35px;
+    padding: 35px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
 }
 
-.profile-header {
-    background: linear-gradient(135deg, var(--button-color) 0%, var(--button-hover-color) 100%);
-    padding: 40px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
+.profile-left {
+    flex: 0 0 360px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.profil {
+    background: linear-gradient(145deg, #2a2630 0%, #1e1b23 100%);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
 }
 
 .profile-banner {
+    height: 100px;
+    background: linear-gradient(135deg, var(--button-color) 0%, var(--button-hover-color) 100%);
     position: relative;
+}
+
+.profil-pic-div{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: -60px;
+    margin-bottom: 15px;
 }
 
 .profile-pic {
-    position: relative;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 5px solid white;
+    border: 5px solid var(--menu-color);
     overflow: hidden;
 }
-
-.profile-picture {
+.profile-pic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 .profile-info {
-    flex: 1;
-    min-width: 200px;
+    padding: 0 25px 25px 25px;
+    text-align: center;
 }
 
 .profile-name {
     color: white;
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin: 0 0 15px 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 10px 0 5px 0;
+    letter-spacing: -0.5px;
+}
+
+.profile-username {
+    color: var(--menu-color);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(251, 194, 136, 0.15);
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .profile-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    padding: 40px;
-}
-
-.details-section {
-    background: rgba(255, 255, 255, 0.05);
+    text-align: left;
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 20px;
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.details-section h3 {
-    color: var(--menu-color);
-    font-size: 30px;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid rgba(158, 63, 65, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .detail-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px ;
+    gap: 15px;
+    padding: 12px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.detail-item:last-child {
+    border-bottom: none;
+}
+
 .detail-label {
-    color: rgb(255, 255, 255);
+    width: 40px;
+    height: 40px;
+    background: rgba(251, 194, 136, 0.1);
+    border-radius: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    color: var(--menu-color);
+    font-size: 1.2rem;
 }
 
-.detail-value {
+.detail-content {
+    flex: 1;
+}
+
+.detail-content .label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+}
+
+.detail-content .value {
+    font-size: 1rem;
     color: white;
-    font-weight: 600;
-    font-size: 20px;
+    font-weight: 500;
 }
 
-.posts {
-    text-align: center;
-    margin: 30px;
-}
-
-.posts hr {
-    border: none;
-    height: 10px;
-    background: linear-gradient(90deg, transparent, var(--menu-color), transparent);
-    width: 80%;
-    margin: 0 auto;
-}
-
-/* ==================== */
-/* Törlés, szerkesztés */
-/* ==================== */
-.card-actions {
-    position: absolute;
-    top: 15px;
-    left: 15px;
+.profile-actions {
     display: flex;
     gap: 10px;
+    margin-top: 25px;
 }
+
+.profile-actions .btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.profile-actions .btn:hover {
+    background: var(--button-color);
+    border-color: var(--button-color);
+    transform: translateY(-2px);
+}
+
+.profile-actions .btn-primary {
+    background: var(--button-color);
+    border: none;
+}
+
+.profile-actions .btn-primary:hover {
+    background: var(--button-hover-color);
+}
+
+/* ==================== */
+/* POSZTOK A PROFLON */
+/* ==================== */
+
+.posts-right {
+    flex: 1;
+    min-width: 0;
+}
+
+.posts-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--menu-color);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.posts-title-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+
+.posts-title-section h1 {
+    color: var(--menu-color);
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* SZŰRŐ GOMBOK*/
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+    background: var(--post-bg-color);
+    padding: 4px;
+    border-radius: 40px;
+    border: 2px solid var(--card-border-color);
+    margin-left: auto;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-btn i {
+    font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.filter-btn.active {
+    background: var(--button-color);
+    color: white;
+    box-shadow: 0 4px 10px rgba(158, 63, 65, 0.3);
+}
+
+.filter-btn.active[data-filter="lost"] {
+    background: var(--lost-color);
+}
+
+.filter-btn.active[data-filter="found"] {
+    background: var(--found-color);
+}
+
+
 .btn-edit, .btn-delete {
     width: 40px;
     height: 40px;
@@ -1015,6 +1151,7 @@ select.form-control-modal option {
     max-width: 350px;
     min-height: 520px; 
     perspective: 1200px;
+    margin-bottom: 100px;
 }
 
 .login-card {
@@ -1167,7 +1304,6 @@ form{
     font-size: 48px;
     color: var(--menu-color);
     margin-bottom: 15px;
-    opacity: 0.9;
 }
 
 .createprofile-header h1 {
@@ -1177,12 +1313,6 @@ form{
     margin-bottom: 10px;
 }
 
-.createprofile-header p {
-    opacity: 0.85;
-    font-size: 15px;
-}
-
-/* ================= FORM LAYOUT ================= */
 
 .createprofile-form {
     width: 100%;
@@ -1191,14 +1321,12 @@ form{
     gap: 22px;
 }
 
-/* Proper alignment */
 .createprofile-form .form-group {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* ================= LABELS ================= */
 
 .createprofile-form .form-label {
     font-size: 14px;
@@ -1209,7 +1337,17 @@ form{
     align-items: center;
     gap: 8px;
 }
-
+.qr-placeholder {
+    width: 180px;
+    height: 180px;
+    background: #4e73df; /* tetszőleges szín */
+    border-radius: 12px;
+}
+.qr-text {
+    margin: 0 auto;
+    font-size: 14px;
+    color: white;
+}
 /* ================= INPUTS ================= */
 
 .form-control-modal {
@@ -1221,7 +1359,6 @@ form{
     border-radius: 14px;
     color: white;
     font-size: 15px;
-    transition: all 0.25s ease;
 }
 
 .form-control-modal:focus {
@@ -1235,7 +1372,6 @@ form{
     color: rgba(255,255,255,0.5);
 }
 
-/* Readonly style */
 .form-control-modal[readonly] {
     background: rgba(255, 255, 255, 0.393);
     color: #000;
@@ -1245,23 +1381,7 @@ form{
 .form-text{
     color: var(--modal-body-bg-color);
 }
-/* ================= LOGIN DATA SECTION ================= */
 
-.login-data-section {
-    padding: 22px;
-    border-radius: 18px;
-    background: rgba(251, 194, 136, 0.06);
-    border: 1px solid rgba(251, 194, 136, 0.2);
-}
-
-.login-data-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 18px;
-    color: var(--menu-color);
-}
-
-/* ================= PROFILE PICTURE ================= */
 
 .profile-pic-upload {
     display: flex;
@@ -1282,7 +1402,6 @@ form{
     justify-content: center;
     color: var(--menu-color);
     cursor: pointer;
-    transition: all 0.3s ease;
     overflow: hidden;
 }
 
@@ -1293,8 +1412,6 @@ form{
 .profile-pic-preview i {
     font-size: 40px;
 }
-
-/* ================= PRIVACY WRAPPER ALIGN FIX ================= */
 
 .privacy-wrapper {
     display: flex;
@@ -1330,19 +1447,14 @@ form{
     color: var(--menu-color);
 }
 
-/* ================= TERMS ================= */
-
 .terms-group {
     font-size: 13px;
-    opacity: 0.9;
 }
 
 .terms-group input {
     margin-right: 8px;
 }
 
-
-/* ================= LOGIN REDIRECT ================= */
 
 .login-redirect {
     text-align: center;
@@ -1386,11 +1498,6 @@ form{
     
     .profile-pic-div {
         min-width: auto;
-    }
-        .profile-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 30px;
     }
 }
 /* ==================== */
@@ -1506,19 +1613,6 @@ z-index: 1;
 .print-paw-7 { bottom: 20px; right: 35%; transform: rotate(5deg); animation: pawWalk 4.3s infinite 0.05s; }
 .print-paw-8 { bottom: 60px; right: 45%; transform: rotate(-20deg); animation: pawWalk 4.4s infinite 0.35s; }
 
-/* szöveg */
-.error-description {
-font-size: 18px;
-color: var(--text-color);
-margin: 30px 0 40px;
-line-height: 1.6;
-opacity: 0.9;
-background-color: rgba(0,0,0,0.2);
-padding: 20px;
-border-radius: 50px;
-backdrop-filter: blur(5px);
-border: 1px solid var(--item-color);
-}
 
 /* Animációk */
 @keyframes errorPulse {
@@ -1600,11 +1694,6 @@ border: 1px solid var(--item-color);
     font-size: 20px;
 }
 
-.error-description {
-    font-size: 16px;
-    padding: 15px;
-}
-
 .print-paw-1, .print-paw-2, .print-paw-3, .print-paw-4,
 .print-paw-5, .print-paw-6, .print-paw-7, .print-paw-8 {
     font-size: 24px;
@@ -1626,4 +1715,60 @@ border: 1px solid var(--item-color);
 .error-illustration {
     height: 150px;
 }
+}
+
+@media screen and (max-width: 1200px) {
+    .profile-left {
+        flex: 0 0 320px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .profilepart {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .profile-left {
+        flex: none;
+        width: 100%;
+        position: static;
+        max-width: 500px;
+    }
+    
+    .posts-title-section {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .posts-title-section h1 {
+        white-space: normal;
+    }
+    
+    .filter-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .posts-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    
+    .filter-buttons {
+        flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .card-container {
+        grid-template-columns: 1fr;
+    }
 }

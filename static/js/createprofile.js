@@ -12,3 +12,13 @@ document.getElementById('profilePic').addEventListener('change', function (e) {
     document.getElementById('profilePicPreview').style.cursor = 'pointer';
 
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const checkbox = document.getElementById("enable2FA");
+    const modal = new bootstrap.Modal(document.getElementById("twoFAModal"));
+
+    checkbox.addEventListener("change", function () {
+        if (this.checked) {
+            modal.show();
+        }
+    });
+});

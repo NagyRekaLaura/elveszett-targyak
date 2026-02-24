@@ -23,24 +23,24 @@
                         <i class="fas fa-camera"></i>
                     </div>
                     <input type="file" id="profilePic" accept="image/*" hidden>
-                    
+
                 </div>
                 <!-- Felhasználónév és email (readonly), meg ami még hamarabb lesz megadva --  DISABLED LEGYEN -->
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fas fa-at"></i>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-at"></i>
                             Felhasználónév <span class="required" >*</span>
-                        </label>
-                        <input type="text" class="form-control-modal" value="asd123" readonly>
-                    </div>
+                    </label>
+                    <input type="text" class="form-control-modal" value="asd123" readonly>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">
-                            <i class="fas fa-envelope"></i>
-                            Email cím <span class="required">*</span>
-                        </label>
-                        <input type="email" class="form-control-modal" value="asd.example@email.com" readonly>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email cím <span class="required">*</span>
+                    </label>
+                    <input type="email" class="form-control-modal" value="asd.example@email.com" readonly>
+                </div>
 
                 <div class="form-group">
                     <label class="form-label">
@@ -90,7 +90,20 @@
                         </label>
                     </div>
                 </div>
-                 
+                <!-- 2FA -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Kétlépcsős azonosítás (2FA)
+                    </label>
+
+                    <div class="privacy-wrapper">
+                        <label class="privacy-toggle">
+                            <input type="checkbox" id="enable2FA" hidden>
+                            <i class="fas fa-lock"></i> Bekapcsolás
+                        </label>
+                    </div>
+                </div>
                 <!-- Adatvédelmi nyilatkozat -->
                 <div class="terms-group">
                     <label class="checkbox-label">
@@ -117,4 +130,32 @@
             </form>
         </div>
     </div>
-{% endblock %}
+    <!-- 2FA Modal -->
+    <div class="modal fade" id="twoFAModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-shield-alt"></i> Kétlépcsős azonosítás
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <!-- QR KÓD HELYE-->
+                    <div class="qr-placeholder mx-auto mb-3"></div>
+
+                    <!-- FELIRAT HELYE -->
+                    <div class="qr-text">
+                        <p class="mb-0">
+                            asdasd                        
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
