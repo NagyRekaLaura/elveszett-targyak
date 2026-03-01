@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="profile-info">
-                <h1 class="profile-name">{{current_user.username}}</h1>
+                <h1 class="profile-name">{{current_user.name}}</h1>
                 <span class="profile-username">@{{ current_user.username.lower() }}</span>
 
                 <div class="profile-stats">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">Telefonszám</span>
-                            <span class="value">+36 20 123 4567</span>
+                            <span class="value">{{ 'Privát' if current_user.phone_number_is_private else current_user.phone_number if current_user.phone_number else 'Nincs megadva' }}</span>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">Lakhely</span>
-                            <span class="value">Budapest, Magyarország</span>
+                            <span class="value">{{ 'Privát' if current_user.address_is_private else current_user.address if current_user.address else 'Nincs megadva' }}</span>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">Tag since</span>
-                            <span class="value">2024. január</span>
+                            <span class="value">{{ current_user.created_at.strftime('%Y. %m. %d') }}</span>
                         </div>
                     </div>
                 </div>
