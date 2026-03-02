@@ -210,14 +210,15 @@
     border: 1px solid #222222;                    
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 2px 2px 3px #000000, 4px 4px 8px #111111;
+    box-shadow: rgba(0, 0, 0, 0.467) 0px 10px 15px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
     margin-top: 20px;
     transition: all 0.35s ease-in-out;
+    border: 8px solid var(--card-border-color);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 4px 4px 9px #000000, 6px 6px 8px #111111;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 15px 25px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .card-image {
@@ -397,7 +398,30 @@
 .modal-sor {
     margin-bottom: 25px;
 }
+/* Helyszín választó sor */
+.location {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
 
+.megye-select,
+.telepules-select {
+    flex: 1;
+    min-width: 0; 
+}
+
+@media screen and (max-width: 576px) {
+    .location-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .megye-select,
+    .telepules-select {
+        width: 100%;
+    }
+}
 .form-label {
     display: block;
     margin-bottom: 8px;
@@ -1468,9 +1492,9 @@ form{
     color: rgba(255,255,255,0.5);
 }
 
-.form-control-modal[readonly] {
+.form-control-modal[disabled] {
     background: rgba(255, 255, 255, 0.393);
-    color: #000;
+    color: #ffffff;
     opacity: 0.7;
     cursor: not-allowed;
 }
@@ -1535,13 +1559,19 @@ form{
     transition: all 0.25s ease;
     user-select: none;
 }
-.privacy-checkbox {
+
+.privacy-toggle input[type="checkbox"] {
     display: none;
 }
 
-.privacy-checkbox:checked + i {
-    color: var(--menu-color);
+.privacy-toggle i {
+    color: #888;
+    transition: color 0.25s ease;
 }
+
+.privacy-toggle input[type="checkbox"]:checked + i {
+    color: var(--menu-color);
+}   
 
 .terms-group {
     font-size: 13px;

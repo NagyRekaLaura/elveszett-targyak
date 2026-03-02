@@ -53,15 +53,26 @@
                     </label>
                     <input type="text" class="form-control-modal" placeholder="Írd be a megnevezését...">
                 </div>
+                
+                <!-- heelyszín-->
                 <div class="modal-sor">
                     <label class="form-label">
                         <i class="fas fa-map-marker-alt"></i>
                         Helyszín:
                     </label>
-                    <input type="text" class="form-control-modal" placeholder="Hol találtad/vesztetted el?">
+                    <div class="location">
+                        <select class="form-control-modal megye-select" id="megye">
+                            <option value="" disabled selected>Válassz megyét</option>
+                            <!-- Ide jönnek majd a megyék -->
+                        </select>
+                        <select class="form-control-modal telepules-select" id="telepules">
+                            <option value="" disabled selected>Válassz települést</option>
+                            <!-- Ide jönnek majd a települések -->
+                        </select>
+                    </div>
                 </div>
 
-                <div class="modal-sor">
+                <div class="modal-sor"> 
                     <label class="form-label">
                         <i class="fas fa-folder-open"></i>
                         Kategória:

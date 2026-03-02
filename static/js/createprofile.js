@@ -63,3 +63,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.privacy-toggle input[type="checkbox"]').forEach(checkbox => {
+        updateLockIcon(checkbox);
+        
+        checkbox.addEventListener('change', function() {
+            updateLockIcon(this);
+        });
+    });
+    
+    function updateLockIcon(checkbox) {
+        const icon = checkbox.nextElementSibling;
+        if (checkbox.checked) {
+            icon.classList.remove('fa-lock-open');
+            icon.classList.add('fa-lock');
+        } else {
+            icon.classList.remove('fa-lock');
+            icon.classList.add('fa-lock-open');
+        }
+    }
+}); 
