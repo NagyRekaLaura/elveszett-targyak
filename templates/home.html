@@ -10,16 +10,16 @@
     <div class="info-content">
         <h1><i class="fas fa-search me-3"></i>Lost&Found</h1>
         {% if current_user.is_authenticated %}
-            <p class="info-text">Üdvözöllek, {{ current_user.username or 'Felhasználó' }}!</p>
+        <p class="info-text">Üdvözöllek, {{ current_user.username or 'Felhasználó' }}!</p>
         {% else %}
-            <p class="info-text">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
+        <p class="info-text">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
         {% endif %}
         <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <i class="fas fa-plus-circle me-2"></i>Poszt létrehozása
         </button>
     </div>
 </div>
-    <!--változtatva, telefonos nézetbe még nem jó, javítandó-->
+<!--változtatva, telefonos nézetbe még nem jó, javítandó-->
 <div class="category-container">
     <button type="button" class="btn category"><i class="fas fa-paw me-2"></i>Állat</button>
     <button type="button" class="btn category"><i class="fas fa-laptop me-2"></i>Elektronika</button>
@@ -28,7 +28,7 @@
     <button type="button" class="btn category"><i class="fas fa-file-alt me-2"></i>Dokumentum</button>
     <button type="button" class="btn category"><i class="fas fa-gift me-2"></i>Egyéb</button>
 </div>
-    <!-- posztolás -->
+<!-- posztolás -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -40,8 +40,8 @@
                 <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
                 <div class="modal-sor">
                     <label class="form-label">
-                    <i class="fas fa-image"></i>
-                    Kép:
+                        <i class="fas fa-image"></i>
+                        Kép:
                     </label>
                     <input type="file" id="image-upload" hidden multiple accept="image/*">
                     <label for="image-upload" class="image-label">Kép feltötése</label>
@@ -110,108 +110,148 @@
     <!--példa kártya-->
 <div class="card-container">
 
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge lost">Elveszett</span>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
+<div class="card mb-3">
+    <div class="card-image">
+        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+        <span class="card-badge lost">Elveszett</span>
+    </div>
+    <div class="card-body">
+        <div class="info">
+            <h5 class="card-title">Eltünt tárgy neve</h5>
+            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
+            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
+        </div>
+        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+            commodi.
+            <span class="text-end">Részletek...</span>
+        </p>
+
+        <hr class="divider">
+
+        <div class="card-footer">
+            <div class="user-info">
+                    <div class="post-profile-pic">
+                        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="Felhasználó profilképe">
+                    </div>
+                <span class="username">NÉV</span>
+                <div class="actions">
+                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
                 </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
+            </div>
 
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge found">talált</span>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>asd, asd</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
-
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge lost">Elveszett</span>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
-
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="card-image">
-                <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                <span class="card-badge lost">Elveszett</span>
-            </div>
-            <div class="card-body">
-                <div class="info">
-                    <h5 class="card-title">Eltünt tárgy neve</h5>
-                    <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                    <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                    <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-                </div>
-                <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                    commodi.</p>
-                <p class="text-end">Részletek...</p>
-
-                <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
-            </div>
-        </div>
-
-    <div class="card mb-3">
-        <div class="card-image">
-            <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-            <span class="card-badge lost">Elveszett</span>
-        </div>
-        <div class="card-body">
-            <div class="info">
-                <h5 class="card-title">Eltünt tárgy neve</h5>
-                <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span><br>
-                <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
-                <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p><br>
-            </div>
-            <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-                commodi.</p>
-            <p class="text-end">Részletek...</p>
-
-            <p class="card-text"><small class="text-body-secondary">TIMESTAMP</small></p>
+            <p class="card-text"><small class="date">TIMESTAMP</small></p>
         </div>
     </div>
 </div>
-    
+<div class="card mb-3">
+    <div class="card-image">
+        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+        <span class="card-badge found">Talált</span>
+    </div>
+    <div class="card-body">
+        <div class="info">
+            <h5 class="card-title">Eltünt tárgy neve</h5>
+            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
+            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
+        </div>
+        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+            commodi.
+            <span class="text-end">Részletek...</span>
+        </p>
+
+        <hr class="divider">
+
+        <div class="card-footer">
+            <div class="user-info">
+                    <div class="post-profile-pic">
+                        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="Felhasználó profilképe">
+                    </div>
+                <span class="username">NÉV</span>
+                <div class="actions">
+                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                </div>
+            </div>
+
+            <p class="card-text"><small class="date">TIMESTAMP</small></p>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-image">
+        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+        <span class="card-badge found">Talált</span>
+    </div>
+    <div class="card-body">
+        <div class="info">
+            <h5 class="card-title">Eltünt tárgy neve</h5>
+            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
+            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
+        </div>
+        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+            commodi.
+            <span class="text-end">Részletek...</span>
+        </p>
+
+        <hr class="divider">
+
+        <div class="card-footer">
+            <div class="user-info">
+                    <div class="post-profile-pic">
+                        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="Felhasználó profilképe">
+                    </div>
+                <span class="username">NÉV</span>
+                <div class="actions">
+                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                </div>
+            </div>
+
+            <p class="card-text"><small class="date">TIMESTAMP</small></p>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-image">
+        <img src="{{ url_for('static', filename='attachments/cat2.jpg') }}" class="card-img-top" alt="...">
+        <span class="card-badge lost">Eltünt</span>
+    </div>
+    <div class="card-body">
+        <div class="info">
+            <h5 class="card-title">Eltünt tárgy neve</h5>
+            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
+            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
+        </div>
+        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
+            commodi.
+            <span class="text-end">Részletek...</span>
+        </p>
+
+        <hr class="divider">
+
+        <div class="card-footer">
+            <div class="user-info">
+                    <div class="post-profile-pic">
+                        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="Felhasználó profilképe">
+                    </div>
+                <span class="username">NÉV</span>
+                <div class="actions">
+                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                </div>
+            </div>
+            <p class="card-text"><small class="date">TIMESTAMP</small></p>
+        </div>
+    </div>
+</div>
+</div>
 {% endblock %}
