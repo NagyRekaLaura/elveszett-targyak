@@ -1,9 +1,9 @@
-from flask import Flask
-from flask_login import LoginManager
+from flask import Flask, url_for, redirect, request
+from flask_login import LoginManager, current_user
 from database import init_db, db, User
-from routes import create_routes
 import os
 from datetime import datetime
+from routes import auth_routes, main_routes, post_routes, profile_routes
 
 
 #set cdw to file lokacio
@@ -12,7 +12,10 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
 
 app = Flask(__name__)
-
+app.register_blueprint(auth_routes)
+app.register_blueprint(main_routes)
+app.register_blueprint(post_routes)
+app.register_blueprint(profile_routes)
 app.config['SECRET_KEY'] = 'ldfivhksndvkjbnsdkjvb876jhv'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -23,23 +26,31 @@ init_db(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'auth.login'
 
-create_routes(app)
 
+
+@app.before_request
+def check_profile_completion():
+    if not current_user.is_authenticated:
+        return
+    if request.endpoint in ['profile.createprofile', 'static', 'auth.login', 'auth.logout']:
+        return
+    if not current_user.name or not current_user.address or not current_user.birthdate:
+        return redirect(url_for('profile.createprofile'))
 
 @login_manager.user_loader
 def load_user(user_id: str):
     return User.query.get(int(user_id))
 
 @app.template_filter('fullTime')
-def datetimeformat(value, format='%Y-%m-%d %H:%M'):
+def fullTime(value, format='%Y-%m-%d %H:%M'):
     if value is None:
         return ""
     return value.strftime(format)
 
 @app.template_filter('elapsedTime')
-def datetimeformat(value, format='%Y-%m-%d %H:%M'):
+def elapsedTime(value, format='%Y-%m-%d %H:%M'):
     if value is None:
         return ""
     perc = 60
