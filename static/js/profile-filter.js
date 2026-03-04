@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const status = post.dataset.status;
 
             if (filterValue === 'all' || filterValue === status) {
-                post.style.display = 'flex';
+                post.style.display = '';
             } else {
                 post.style.display = 'none';
             }

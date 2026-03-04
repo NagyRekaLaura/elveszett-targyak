@@ -1152,6 +1152,27 @@ select.form-control-modal option {
     background: #ff0000;
     color: white;
 }
+.profile-own-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 340px);
+    gap: 24px 30px;
+    justify-content: start;
+    padding: 20px 0 40px;
+    margin: 0;
+    max-width: 100%;
+    justify-content: start !important;
+}
+
+.profile-own-cards .card {
+    width: 340px;
+    max-width: 340px;
+    border-width: 6px;
+    margin-top: 0;
+}
+
+.profile-own-cards .card-image {
+    height: 190px;
+}
 /* ==================== */
 /* kapcsolat felvétel / POSZT*/
 /* ==================== */
