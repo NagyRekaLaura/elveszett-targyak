@@ -58,8 +58,8 @@
                     </label>
                     <div class="privacy-wrapper">
                         <input type="tel" class="form-control-modal" id="phoneNumber" name="phone_number" placeholder="+36 20 123 4567">
-                        <label class="privacy-toggle">
-                            <input type="checkbox" id="phoneNumberPrivate" name="phone_number_is_private" checked>
+                        <label class="privacy-toggle" for="phoneNumberPrivate">
+                            <input type="checkbox" id="phoneNumberPrivate" checked>
                             <i class="fas fa-lock"></i> Privát
                         </label>
                     </div>
@@ -83,10 +83,11 @@
                         Lakhely <span class="required">*</span>
                     </label>
                     <div class="privacy-wrapper">
-                        <input type="text" class="form-control-modal" id="address" name="address" placeholder="Budapest, XIII. kerület" required>
-                        <label class="privacy-toggle">
-                            <input type="checkbox" id="addressPrivate" name="address_is_private">
-                            <i class="fas fa-lock-open"></i> Privát
+                        <input type="text" class="form-control-modal" id="address" name="address"
+                            placeholder="Budapest, XIII. kerület" required>
+                        <label class="privacy-toggle" for="addressPrivate">
+                            <input type="checkbox" id="addressPrivate">
+                            <i class="fas fa-lock-open"></i> Nyilvános
                         </label>
                     </div>
                 </div>
@@ -131,31 +132,43 @@
         </div>
     </div>
     <!-- 2FA Modal -->
-    <div class="modal fade" id="twoFAModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+<div class="modal fade" id="twoFAModal" tabindex="-1" aria-labelledby="twoFAModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="twoFAModalLabel">Kétlépcsős azonosítás bekapcsolása</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="mb-4">
+                    vmi magyarázó szöveg
+                </p>
 
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-shield-alt"></i> Kétlépcsős azonosítás
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+                <div class="qr-placeholder mx-auto mb-3">
+                        <img src="{{ url_for('static', filename='attachments/qr_placeholder.png') }}" alt="QR kód">
 
-                <div class="modal-body text-center">
-
-                    <!-- QR KÓD HELYE-->
-                    <div class="qr-placeholder mx-auto mb-3"></div>
-
-                    <!-- FELIRAT HELYE -->
-                    <div class="qr-text">
-                        <p class="mb-0">
-                            asdasd                        
-                        </p>
                     </div>
+
+                <p class="mb-3">Írja be az alkalmazásban látható 6 számjegyű kódot:</p>
+
+                <div class="d-flex justify-content-center gap-3 mb-4" id="otpInputs">
+                    <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
+                    <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
                 </div>
 
+                <div id="otpError" class="text-danger mb-3" style="display:none;">
+                    Hibás kód, kérlek próbáld újra.
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" id="cancel2FA">Mégse</button>
+                <button type="button" class="btn btn-primary" id="verify2FA">Ellenőrzés és bekapcsolás</button>
             </div>
         </div>
     </div>
+</div>
     {% endblock %}
