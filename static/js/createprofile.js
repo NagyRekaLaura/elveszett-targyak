@@ -1,29 +1,6 @@
 const ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif'];
 const MAX_FILE_SIZE_MB = 5;
 
-function showToast(message, type = 'error') {
-    const existing = document.getElementById('toast-message');
-    if (existing) existing.remove();
-
-    const toast = document.createElement('div');
-    toast.id = 'toast-message';
-    toast.textContent = message;
-    toast.style.cssText = `
-        position: fixed; top: 20px; right: 20px; z-index: 9999;
-        padding: 14px 24px; border-radius: 8px; color: #fff;
-        font-size: 14px; font-weight: 500; max-width: 400px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        animation: slideIn 0.3s ease;
-        background: ${type === 'success' ? '#28a745' : '#dc3545'};
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 4000);
-}
-
 document.getElementById('profilePic').addEventListener('change', function (e) {
     const file = e.target.files[0];
     if (file) {

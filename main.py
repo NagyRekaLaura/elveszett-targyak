@@ -70,4 +70,4 @@ def elapsedTime(value, format='%Y-%m-%d %H:%M'):
         return f"{int(elasped_seconds // honap)} hónapja"
 
 if __name__ == '__main__':
-    app.run(debug=True)#debug=True fejlesztes idejere
+    app.run(debug=True, host='0.0.0.0', port=5000)#debug=True fejlesztes idejere
