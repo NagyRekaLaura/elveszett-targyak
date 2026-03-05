@@ -1,15 +1,41 @@
-# elveszett-targyak 
-Milyen problémát old meg
-Hogy az elveszett tárgyak vagy állatok gyorsabban megtalálják a gazdájukat.
-# Miért készítettük
-Több száz ember hagyja el értékeit hotelekben, utcán, buszon vagy vonaton.
-Emellett több ezer állat szökik el és tűnik el otthonról.
-Az oldal lényege, hogy az ilyen esetek ne forduljanak elő.
-# Kiknek készült
-Azoknak az embereknek, akik elvesztették tárgyaikat, vagy akik elhagyott tárgyakat találtak, akár utcán, hotelekben vagy más helyeken.
-# Készítette
-Nagy Réka Laura
+# Lost & Found
 
-Bozsik Ádám Botond
+## Projekt leírás
 
-Tomor Noel
+A **Lost & Found** egy webes alkalmazás, amely segít az elveszett és megtalált tárgyak bejelentésében és visszajuttatásában a tulajdonosukhoz.
+A felhasználók feltölthetik az elveszett vagy talált tárgyak adatait, böngészhetnek a bejegyzések között, valamint kapcsolatba léphetnek egymással.
+
+## Cél
+
+A projekt célja egy egyszerűen használható platform létrehozása, ahol:
+
+* Az emberek bejelenthetik az **elveszett tárgyaikat**
+* A megtalálók feltölthetik a **talált tárgyakat**
+* A tulajdonos és a megtaláló **könnyen kapcsolatba léphet egymással**
+
+## Fő funkciók
+
+* Elveszett tárgy bejelentése
+* Talált tárgy feltöltése
+* Keresés a bejegyzések között
+* Kategóriák szerinti szűrés
+* Kapcsolatfelvétel a feltöltővel
+* Képfeltöltés a tárgyhoz
+
+## Használt technológiák
+
+A projekt az alábbi technológiákat használhatja:
+
+majd felsoroljuk
+
+
+## Jövőbeli fejlesztések
+
+majd 
+
+## Készítette:
+
+* Nagy Réka Laura
+* Bozsik Ádám Botond
+* Tomor Noel
+
