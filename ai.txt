@@ -1,0 +1,313 @@
+# Lost & Found - Felhasználói Dokumentáció
+
+## Projekt Célja
+
+A Lost & Found egy internetes platform, amely segít az elveszett tárgyaknak és állatoknak visszajutni a gazdájukhoz. Az oldal célja, hogy csökkentse az utcán, hotelekben, buszokon és vonaton elhagyott vagy elveszett tárgyak és животok számát, valamint gyorsítsa meg azok megtalálásának folyamatát.
+
+---
+
+## Ki Használhatja az Oldalt?
+
+Az oldalt bárki használhatja, aki:
+- Elveszített valamit (tárgyat vagy állatot)
+- Talált egy elhagyott tárgyat vagy állatot
+- Segíteni szeretne másoknak visszajutni elveszett dolgaikhoz
+
+---
+
+## Főoldal (Home)
+
+### Általános Funkciók
+
+A főoldalon a felhasználó a következőket látja:
+- Üdvözlő szöveg: Bejelentkezés után személyes üdvözlés
+- Poszt Létrehozása gomb: Új poszt létrehozásához szükséges gomb
+- Kategória szűrők: Különböző típusú tárgyak kereséshez
+
+### Kategóriák
+
+Az oldal az alábbi kategóriák szerint szűrhető:
+- 🐾 Állat - Elveszett vagy talált háziállatok
+- 💻 Elektronika - Telefonok, laptopok, táskák
+- 👕 Ruházat - Ruhaneműk, cipők, kiegészítők
+- 💎 Ékszer - Fényűző tárgyak, ékszerek
+- 📄 Dokumentum - Személyes dokumentumok, iratok
+- 🎁 Egyéb - Egyéb kategóriákba nem sorolható tárgyak
+
+### Posztok Megtekintése
+
+A főoldalon megjelennek az aktív posztok kártyaformában, amelyeken láthatóak:
+- Képek: A tárgy vagy állat fotói
+- Név: Az eltűnt tárgy/állat neve
+- Kategória: Melyik kategóriába tartozik
+- Idő: Mennyi ideje jött létre a poszt
+- Helyszín: Az eltűnés helye
+- Leírás: Rövid szöveges leírás
+- Részletek gomb: Teljes információhoz való hozzáférés
+
+---
+
+## Bejelentkezés és Regisztráció
+
+### Bejelentkezés
+
+A Bejelentkezés lap megnyomásához:
+1. Kattintson a "Bejelentkezés/Regisztráció" gombra a felső navigációs sávban
+2. Adja meg a felhasználónevet és jelszót
+3. Kattintson a "Bejelentkezés" gombra
+
+### Regisztráció
+
+Ha még nincs fiókja:
+1. A bejelentkezés oldal alján kattintson a "Regisztrálj" linkre
+2. Adja meg a szükséges adatokat:
+   - Felhasználónév
+   - Email cím
+   - Jelszó (kétszer a megerősítéshez)
+3. Kattintson a "Regisztráció" gombra
+
+Fontos: Regisztráció után kötelezően ki kell töltenie a profilját (név, cím, születési dátum).
+
+---
+
+## Profil Kezelés
+
+### Profiloldal
+
+A bejelentkezés után a profiloldal a következő információkat tartalmazza:
+- Profilkép: Felhasználó avatárja
+- Felhasználónév: Az Ön felhasználónevét mutató név
+- Email cím: Bejelentkezéshez használt email
+- Tag seit (Csatlakozási dátum): Mikor regisztrált az oldalra
+
+### Profil Szerkesztése
+
+Az "Szerkesztés" gomb segítségével módosíthatók az alábbiak:
+- Profilkép
+- Teljes név
+- Cím/lakcím
+- Születési dátum
+- 2FA (Kétfaktoros azonosítás) engedélyezése
+
+### Felhasználó Posztjai
+
+A profil jobb oldalán megjelenik az összes, az adott felhasználó által létrehozott poszt.
+
+#### Szűrés
+
+A posztok szűrhetőek az alábbiak szerint:
+- Összes: Összes poszt megtekintése
+- Talált (Found): Csak azok a posztok, amelyekben a felhasználó valamit talált
+- Keresett (Lost): Csak azok a posztok, amelyekben a felhasználó valamit keres
+
+#### Poszt Kezelés
+
+Saját posztok mellett az alábbi műveletek végezhetőek:
+- Szerkesztés (ceruzaikon): A poszt szerkesztéséhez
+- Törlés (kuka ikon): A poszt eltávolítása
+
+---
+
+## Poszt Létrehozása
+
+### Poszt Létrehozás Lépések
+
+A "Poszt Létrehozása" gomb megnyomásával megnyílik egy modal ablak.
+
+Szükséges információk:
+
+1. Kép feltöltése
+   - Kattintson a "Kép feltöltése" gombra
+   - Válassza ki a tárgyról vagy állatról készült képeket
+   - Több kép is feltölthető
+   - A képeket egy képgyűjtemény (carousel) formájában lehet megjeleníteni
+
+2. Tárgy/Állat neve
+   - Adja meg az eltűnt vagy talált tárgy/állat nevét
+
+3. Helyszín
+   - Adja meg, hogy hol tűnt el vagy ahol megtalálta
+
+4. Kategória
+   - Válasszon ki egy kategóriát a fent felsorolt lehetőségekből
+
+5. Talált vagy Keresett?
+   - Válasszon a két gomb közül:
+     - "Talált" - ha talált valamit
+     - "Keresett" - ha keresett valamit
+
+6. Leírás (csak állatnál)
+   - Ha az állat kategóriát választotta, adjon meg extra információt:
+     - Породa: Melyik állat faja
+     - Szín/Jellemzők: Hogyan néz ki
+     - Viselkedés: Hogyan viselkedik az állat
+
+7. Elérhetőség
+   - Adjon meg egy telefonszámot vagy email címet, amelyen elérhetőek lehetnek
+
+### Poszt Mentése
+
+Az összes információ kitöltése után kattintson a "Közzététel" gombra.
+
+---
+
+## Poszt Megtekintése
+
+### Poszt Oldal
+
+Bármely poszt megnyitásakor az alábbi információk láthatóak:
+
+Bal oldal:
+- Képgaléria: Az összes feltöltött kép carousel formájában
+
+Jobb oldal:
+- Tárgy/Állat neve
+- Helyszín: Térképpel vagy szövegesen
+- Elérhetőség: Telefonszám vagy email
+- Kategória: Melyik típus
+- Talált/Keresett státusz: A poszt típusa
+- Leírás: Részletes információ
+- Feltöltés ideje: Mennyi ideje jött létre a poszt
+
+---
+
+## Navigáció és Keresés
+
+### Felső Navigációs Sáv
+
+A sáv a következő elemeket tartalmazza:
+- Logo: Az oldalra való visszatéréshez
+- Keresősáv: Szöveges kereséshez
+- Bejelentkezés/Profilgombok: 
+  - Ha nincs bejelentkezve: "Bejelentkezés/Regisztráció" gomb
+  - Ha bejelentkezve van:
+    - Profil ikon: Profiloldal megnyitásához
+    - Kijelentkezés ikon: Kijelentkezéshez
+    - Üzenetek ikon: Privát üzenetek megtekintéséhez
+
+### Keresés
+
+A keresősávban írjon be kulcsszavakat:
+- Tárgy/Állat neve
+- Helyszín
+- Egyéb releváns információk
+
+---
+
+## Üzenetek (Messaging)
+
+A Üzenetek (Envelope) ikon segítségével:
+- Olvashatók a más felhasználóktól kapott üzenetek
+- Küldhetőek saját üzenetek a poszt tulajdonosoknak
+- Nyomon követhető az oldallal kapcsolatos kommunikáció
+
+---
+
+## Lábléc (Footer)
+
+A oldal alján megtalálható:
+- Lost & Found - Az oldal neve
+- "Segítünk megtalálni" - A szlogenje
+- Gyorslinkek: Fontosabb oldalakra mutató linkek
+
+---
+
+## Gyakori Helyzetek
+
+### Valami Elveszett
+
+1. Kattintson a "Poszt Létrehozása" gombra
+2. Töltse fel a tárgy/állat képét
+3. Adjon meg minden szükséges adatot
+4. Válassza a "Keresett" opciót
+5. Adjon meg elérhetőséget
+6. Kattintson a "Közzététel" gombra
+
+### Valami Megtalálta
+
+1. Kattintson a "Poszt Létrehozása" gombra
+2. Töltse fel a talált tárgy/állat képét
+3. Adjon meg minden szükséges adatot
+4. Válassza a "Talált" opciót
+5. Adjon meg elérhetőséget
+6. Kattintson a "Közzététel" gombra
+
+### Jelenlegi Posztok Szűrése
+
+1. Nyissa meg a főoldalt
+2. Kattintson a kívánt kategóriagombra
+3. Az oldal automatikusan szűri az adott kategóriatárgyakat
+
+---
+
+## Technikai Információk a Support AI-nak
+
+### Platform Jellemzői
+
+- Oldal neve: Lost & Found
+- Fő funkciók: Elveszett tárgyak/állatok nyilvántartása
+- Felhasználó típusok: Regisztrált felhasználók
+- Felhasználói azonosítás: Felhasználónév és jelszó
+- Adattárolás: SQLite adatbázis
+- Frontend: HTML, CSS, JavaScript (Bootstrap 5.3.0)
+- Backend: Flask Python framework
+- Képfeltöltés: Helyi tárolás (static/attachments mappa)
+
+### Fő Oldalak
+
+- Főoldal (`/`): Összes poszt megtekintése
+- Bejelentkezés (`/login`): Felhasználó azonosítás
+- Profil (`/profile`): Felhasználói adatok és posztok
+- Poszt oldal (`/post/<id>`): Egyedi poszt megtekintése
+- Profilkészítés (`/createprofile`): Első bejelentkezés után kötelező
+
+### Poszt Státuszok
+
+Posztok lehetnek:
+- Aktív (active=True): Jelenleg megjelennek az oldalon
+- Inaktív (active=False): Nem jelennek meg az oldalon
+
+### Időformátumok
+
+Az oldal az alábbi időformátumokat használja:
+- Teljes idő: YYYY-MM-DD HH:MM
+- Eltelt idő: "X másodperce", "X perce", "X órája", "X napja", "X hónapja"
+
+---
+
+## Szín- és Dizájn Séma
+
+Az oldal egy meleg, barátságos dizájnt használ:
+- Fő szín: Barna (#946A61)
+- Menüsáv: Sárgás-barna (#FBC288)
+- Gombok: Vörös-barna (#9E3F41)
+- Háttér: Sötét szín (#322D31)
+- Szöveg: Világos szín (#EEEFFD)
+
+---
+
+## Hibakezelés és Support
+
+### Közös Problémák
+
+Problem: "A profilom nincs befejezve"
+- Megoldás: Nyissa meg a profilbeállításokat és töltse ki az összes szükséges mezőt
+
+Problem: "Nem tudom feltölteni a képeket"
+- Megoldás: Győződjön meg róla, hogy az feltölteni kívánt fájl képformátumú (PNG, JPG, JPEG, GIF)
+
+Problem: "Nem találom a posztom"
+- Megoldás: Ellenőrizze a profilján, hogy a poszt aktív-e
+
+---
+
+## Verzióinformáció
+
+- Projekt neve: elveszett-targyak
+- Típus: HTML alapú webalkalmazás
+- Készítette: Nagy Réka Laura, Bozsik Ádám Botond, Tomor Noel
+- Legutóbbi frissítés: 2026-03-01
+
+---
+
+Ezt a dokumentációt a support AI rendszer használja fel az ügyfélszolgáltatás nyújtásához.

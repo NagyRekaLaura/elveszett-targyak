@@ -1,10 +1,14 @@
 from flask import Flask, url_for, redirect, request
 from flask_login import LoginManager, current_user
+from flask_socketio import SocketIO, emit, disconnect
 from database import init_db, db, User
 import os
 from datetime import datetime
 from routes import auth_routes, main_routes, post_routes, profile_routes
+from support_chat import SupportAI, ensure_models
+import ollama
 
+AI_DISABLED = False
 
 #set cdw to file lokacio
 abspath = os.path.abspath(__file__)
@@ -12,6 +16,17 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
 
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+# Initialize Support AI
+try:
+    with open('ai.txt', 'r', encoding='utf-8') as f:
+        AI_DOCS = f.read()
+    support_ai = SupportAI(AI_DOCS)
+except FileNotFoundError:
+    support_ai = None
+    print("Warning: ai.txt not found, support AI disabled")
+
 app.register_blueprint(auth_routes)
 app.register_blueprint(main_routes)
 app.register_blueprint(post_routes)
@@ -69,5 +84,44 @@ def elapsedTime(value, format='%Y-%m-%d %H:%M'):
     else:
         return f"{int(elasped_seconds // honap)} hónapja"
 
+@socketio.on('connect')
+def handle_connect():
+    print(f'Client connected')
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print(f'Client disconnected')
+
+@socketio.on('support_message')
+def handle_support_message(data):
+    if AI_DISABLED:
+        
+        emit('support_token', {'token': 'AI is currently not available'})
+        emit('support_response_end', {'status': 'complete'})
+        return
+    if not support_ai:
+        emit('support_response', {'error': 'AI not available'})
+        return
+    
+    user_message = data.get('message', '').strip()
+    if not user_message:
+        return
+    
+    try:
+        for token in support_ai.ask(user_message):
+            emit('support_token', {'token': token})
+        
+        emit('support_response_end', {'status': 'complete'})
+    except Exception as e:
+        print(f"Error in support AI: {str(e)}")
+        emit('support_response', {'error': str(e)})
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)#debug=True fejlesztes idejere
+    try:
+        ollama.list()
+        ensure_models()
+    except:
+        print("Ollama is not running or not installed. Please start ollama and ensure it's properly set up.")
+        AI_DISABLED = True
+
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)

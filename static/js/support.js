@@ -18,6 +18,49 @@ document.addEventListener('DOMContentLoaded', function () {
     var mobileOpen = false;
     var fabVisible = false;
     var hideTimer = null;
+    var socket = null;
+    var currentResponseElement = null;
+    var isWaitingForResponse = false;
+
+    function initSocket() {
+        if (!socket) {
+            socket = io();
+            
+            socket.on('connect', function() {
+                console.log('Connected to support server');
+            });
+            
+            socket.on('support_token', function(data) {
+                if (currentResponseElement) {
+                    currentResponseElement.textContent += data.token;
+                    if (currentResponseElement.parentElement) {
+                        currentResponseElement.parentElement.scrollTop = 
+                            currentResponseElement.parentElement.scrollHeight;
+                    }
+                }
+            });
+            
+            socket.on('support_response_end', function(data) {
+                isWaitingForResponse = false;
+                currentResponseElement = null;
+            });
+            
+            socket.on('support_response', function(data) {
+                if (data.error) {
+                    appendMessage(
+                        document.body.contains(chatDesktop) && desktopOpen ? bodyDesktop : bodyMobile,
+                        'Hiba történt: ' + data.error,
+                        'bot'
+                    );
+                    isWaitingForResponse = false;
+                }
+            });
+            
+            socket.on('disconnect', function() {
+                console.log('Disconnected from support server');
+            });
+        }
+    }
 
     function isMobile() {
         return window.innerWidth <= MOBILE_BREAKPOINT;
@@ -78,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function openDesktopChat() {
+        initSocket();
         chatDesktop.classList.add('open');
         chatDesktop.setAttribute('aria-hidden', 'false');
         desktopOpen = true;
@@ -95,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function openMobileChat() {
+        initSocket();
         chatMobile.classList.add('open');
         chatMobile.setAttribute('aria-hidden', 'false');
         mobileOpen = true;
@@ -123,20 +168,27 @@ document.addEventListener('DOMContentLoaded', function () {
         msg.textContent = text;
         body.appendChild(msg);
         body.scrollTop = body.scrollHeight;
-    }
-
-    function autoReply(body) {
-        setTimeout(function () {
-            appendMessage(body, 'Köszönjük az üzenetet! Hamarosan válaszolunk.', 'bot');
-        }, 800);
+        
+        return msg;
     }
 
     function handleSend(input, body) {
         var text = input.value.trim();
-        if (!text) return;
+        if (!text || isWaitingForResponse) return;
+        
         appendMessage(body, text, 'user');
         input.value = '';
-        autoReply(body);
+        
+        isWaitingForResponse = true;
+        currentResponseElement = document.createElement('div');
+        currentResponseElement.className = 'support-msg bot';
+        currentResponseElement.textContent = '';
+        body.appendChild(currentResponseElement);
+        body.scrollTop = body.scrollHeight;
+        
+        if (socket && socket.connected) {
+            socket.emit('support_message', { message: text });
+        }
     }
 
     sendDesktop.addEventListener('click', function () {
@@ -148,14 +200,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     inputDesktop.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleSend(inputDesktop, bodyDesktop);
         }
     });
 
     inputMobile.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleSend(inputMobile, bodyMobile);
         }
