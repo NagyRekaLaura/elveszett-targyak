@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Üzenetek{% endblock %}
+{% block search %}style="visibility: hidden;"{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/messages.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="messages-page-wrapper">
+    <div class="messages-container">
+        <!-- Bal oldali sidebar-->
+        <aside class="messages-sidebar" id="conversations-sidebar">
+            <h2>Üzenetek</h2>
+            <div class="conversation-list" id="conversation-list">
+                <!-- JS tölti fel -->
+            </div>
+        </aside>
+
+        <!-- Jobb oldal-->
+        <main class="messages-chat" id="main-chat">
+            <!-- Üres állapot – ha nincs kiválasztott beszélgetés -->
+            <div class="no-chat-selected" id="no-chat-placeholder">
+                <i class="fas fa-comment-dots fa-3x"></i>
+                <h3>Válassz egy beszélgetést</h3>
+                <p>Kezdj el csevegni valakivel az elveszett vagy talált állatokkal kapcsolatban.</p>
+            </div>
+
+            <div class="chat-interface" id="chat-interface" style="display: none;">
+                <header class="chat-header">
+                    <div class="chat-header-profile">
+                        <div class="chat-header-pic">
+                            <img id="chat-partner-pic" src="" alt="Profilkép">
+                        </div>
+                        <div class="chat-header-text">
+                            <div class="chat-header-name" id="chat-partner-name"></div>
+                            <div class="chat-header-status" id="chat-partner-status"></div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="chat-body" id="chat-body">
+                    <!-- JS tölti fel az üzeneteket --> 
+                </div>
+
+                <footer class="chat-footer">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Írj üzenetet...">
+                    <button class="chat-send" id="send-message-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </footer>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

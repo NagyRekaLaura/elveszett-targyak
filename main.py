@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit, disconnect
 from database import init_db, db, User
 import os
 from datetime import datetime
-from routes import auth_routes, main_routes, post_routes, profile_routes
+from routes import auth_routes, main_routes, post_routes, profile_routes, messages_routes
 from support_chat import SupportAI, ensure_models
 import ollama
 
@@ -31,6 +31,7 @@ app.register_blueprint(auth_routes)
 app.register_blueprint(main_routes)
 app.register_blueprint(post_routes)
 app.register_blueprint(profile_routes)
+app.register_blueprint(messages_routes)
 app.config['SECRET_KEY'] = 'ldfivhksndvkjbnsdkjvb876jhv'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
