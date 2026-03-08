@@ -79,8 +79,7 @@ def createprofile():
                     file.save(filepath)
                     
                     attachment = Attachment(
-                        filename=filename,
-                        item_id=1
+                        filename=filename
                     )
                     db.session.add(attachment)
                     db.session.flush()

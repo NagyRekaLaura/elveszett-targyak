@@ -2136,6 +2136,7 @@ z-index: 1;
     font-size: 14px;
     line-height: 1.45;
     word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .support-msg.user {
@@ -2180,11 +2181,91 @@ z-index: 1;
         height: 54px;
         font-size: 22px;
     }
-
-    .support-fab.half-hidden {
+        .support-fab.half-hidden {
         right: -28px;
     }
 }
+
+
+/* ==================== */
+/* Messages Chat Styles */
+/* ==================== */
+
+/* Status indicator for online/offline */
+.status-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--post-bg-color);
+}
+
+.status-indicator.online {
+    background-color: #4CAF50;
+}
+
+.status-indicator.offline {
+    background-color: #999;
+}
+
+.conv-profile-pic {
+    position: relative;
+}
+
+/* System chat styling */
+.conversation-item.system-chat {
+    background: linear-gradient(135deg, rgba(158, 63, 65, 0.15), rgba(148, 106, 97, 0.1));
+    border: 1px solid rgba(251, 194, 136, 0.2);
+}
+
+.conversation-item.system-chat:hover {
+    background: linear-gradient(135deg, rgba(158, 63, 65, 0.25), rgba(148, 106, 97, 0.15));
+}
+
+/* Test user styling */
+.conversation-item.test-user {
+    opacity: 0.7;
+    background: rgba(158, 63, 65, 0.08);
+}
+
+.conversation-item.test-user .conv-name::before {
+    content: '';
+}
+
+/* Typing indicator */
+.typing-indicator {
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Chat footer disabled state */
+.chat-footer {
+    transition: opacity 0.3s ease;
+}
+
+.chat-input:disabled {
+    background-color: rgba(110, 94, 79, 0.3);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.chat-send:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
 
 @media screen and (min-width: 769px) {
     .support-chat-mobile {

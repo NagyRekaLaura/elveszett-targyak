@@ -52,13 +52,23 @@ class Item(db.Model):
 class Attachment(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     filename = db.Column(db.String(255), nullable=False)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False) 
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True) 
     created_at = db.Column(db.DateTime, default=datetime.now)
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     name = db.Column(db.String(50), unique=True, nullable=False)
     icon = db.Column(db.String(255), nullable=False)
+
+
+class Messages(db.Model):
+    id = db.Column(db.Integer, primary_key=True) 
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    seen = db.Column(db.Boolean, default=False)
+    attachment_id = db.Column(db.Integer, db.ForeignKey('attachment.id'), nullable=True)
 
 
 class TwoFactorAuth(db.Model):
