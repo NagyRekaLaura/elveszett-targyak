@@ -1,3 +1,5 @@
+socket = io();
+
 function showToast(message, type = 'error', customTitle = null) {
     // Toast container létrehozása, ha nem létezik
     let container = document.getElementById('toast-container');
@@ -40,3 +42,8 @@ function showToast(message, type = 'error', customTitle = null) {
         }, 300);
     }, 4000);
 }
+
+socket.on('notification', (data) => {
+    if (data.error) {
+        showToast(data.message, '', data.title);
+    }});

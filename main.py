@@ -78,13 +78,6 @@ def elapsedTime(value, format='%Y-%m-%d %H:%M'):
     else:
         return f"{int(elasped_seconds // honap)} hónapja"
 
-@socketio.on('connect')
-def handle_connect():
-    print(f'Client connected')
-
-@socketio.on('disconnect')
-def handle_disconnect():
-    print(f'Client disconnected')
 
 
 if __name__ == '__main__':

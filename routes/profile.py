@@ -16,6 +16,7 @@ def allowed_file(filename):
 @profile_routes.route('/profile', defaults={'user_id': None})
 @profile_routes.route('/profile/<int:user_id>')
 def profile(user_id):
+    print(user_id)
     if user_id is None:
         if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
@@ -24,6 +25,7 @@ def profile(user_id):
         user = User.query.get(user_id)
         if user is None:
             return redirect(url_for('main.home'))
+    print(user.id)
     return render_template("profile.html", user=user)
 
 

@@ -25,6 +25,27 @@ const sendBtn       = document.getElementById("send-message-btn");
 socket.on('conversations', (data) => {
     conversations = data;
     renderConversations();
+    
+    // ============== UPDATE ACTIVE CHAT HEADER ==============
+    // Ha egy chat van megnyitva, frissítsd az online/offline státuszát
+    if (currentActiveConversation !== null && currentActiveConversation !== undefined) {
+        const currentConv = conversations.find(c => c.id === currentActiveConversation);
+        if (currentConv) {
+            const statusEl = document.getElementById('chat-partner-status');
+            if (statusEl) {
+                statusEl.textContent = currentConv.status === "online" ? "Elérhető" : "Nem elérhető";
+                statusEl.className = "chat-header-status";
+                if (currentConv.status === "online") {
+                    statusEl.classList.add("online");
+                    statusEl.classList.remove("offline");
+                } else {
+                    statusEl.classList.add("offline");
+                    statusEl.classList.remove("online");
+                }
+            }
+        }
+    }
+    // ============== END UPDATE ACTIVE CHAT HEADER ==============
 });
 
 socket.on('messages', (data) => {
@@ -101,23 +122,7 @@ socket.on('message_seen', (data) => {
     }
 });
 
-socket.on('user_typing', (data) => {
-    const typingIndicator = document.getElementById('typing-indicator');
-    if (!typingIndicator) {
-        const indicator = document.createElement('div');
-        indicator.id = 'typing-indicator';
-        indicator.className = 'typing-indicator';
-        indicator.textContent = `${data.sender_name} gépel...`;
-        chatBody.appendChild(indicator);
-    }
-});
 
-socket.on('user_stop_typing', (data) => {
-    const typingIndicator = document.getElementById('typing-indicator');
-    if (typingIndicator) {
-        typingIndicator.remove();
-    }
-});
 
 socket.on('error', (data) => {
     showToast(data.message, 'error');
@@ -134,7 +139,6 @@ socket.on('connect', () => {
 
 
 // Load initial conversations
-// Load initial conversations
 function loadConversations() {
     socket.emit('get_conversations');
 }
@@ -146,15 +150,6 @@ function renderConversations() {
         item.className = "conversation-item";
         item.dataset.convId = conv.id;
         
-        // ============== VISUAL INDICATORS ==============
-        // Teszt felhasználók és system chat jelölése
-        if (conv.is_system) {
-            item.classList.add("system-chat");
-        }
-        if (conv.is_test) {
-            item.classList.add("test-user");
-        }
-        // ============== END VISUAL INDICATORS ==============
 
         let unreadHtml = conv.unread > 0
             ? `<span class="unread-badge">${conv.unread}</span>`
@@ -244,7 +239,7 @@ function renderMessages() {
         div.className = `chat-message ${msg.type}`;
 
         let seenHtml = "";
-        if (msg.type === "user") {
+        if (msg.type === "user" && msgs.indexOf(msg) === msgs.length - 1) {
             const seenClass = msg.seen ? "seen" : "";
             const seenText = msg.seen ? "Látta" : "Kézbesítve";
             seenHtml = `<span class="message-seen ${seenClass}">${seenText}</span>`;
@@ -274,20 +269,10 @@ function sendMessage() {
     });
 
     input.value = "";
-    socket.emit('stop_typing', { partner_id: currentActiveConversation });
+    
 }
 
-// Handle typing
-input.addEventListener('input', () => {
-    if (!currentActiveConversation) return;
-    
-    socket.emit('typing', { partner_id: currentActiveConversation });
-    
-    clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(() => {
-        socket.emit('stop_typing', { partner_id: currentActiveConversation });
-    }, 3000);
-});
+
 
 sendBtn.addEventListener("click", sendMessage);
 input.addEventListener("keypress", e => {
@@ -311,17 +296,11 @@ function escapeHtml(text) {
 document.addEventListener("DOMContentLoaded", () => {
     loadConversations();
     
-    // ============== AUTO-OPEN SYSTEM CHAT ==============
-    // Az oldal betöltésekor nyissa meg az alapértelmezett system chatot
-    setTimeout(() => {
-        console.log('Auto-open timeout, conversations:', conversations);
-        const systemChat = conversations.find(c => c.id === 0);
-        if (systemChat) {
-            console.log('System chat found, opening...');
-            openConversation(0);
-        } else {
-            console.warn('System chat not found in conversations');
-        }
-    }, 1000);  // Növelt timeout a biztos betöltéshez
-    // ============== END AUTO-OPEN SYSTEM CHAT ==============
+    // ============== STATUS REFRESH ==============
+    // Frissítsd az online státuszokat 5 másodpercenként
+    setInterval(() => {
+        console.log('Refreshing conversations status...');
+        socket.emit('get_conversations');
+    }, 5000);
+    // ============== END STATUS REFRESH ==============
 });

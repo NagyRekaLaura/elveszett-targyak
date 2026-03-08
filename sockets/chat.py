@@ -3,6 +3,7 @@ from database import db, User, Attachment, Messages
 from flask_login import current_user, login_required
 from flask_socketio import emit, join_room, leave_room, rooms
 from datetime import datetime
+from flask import request
 from functools import wraps
 import html
 from sqlalchemy import func, case, or_
@@ -21,12 +22,12 @@ def authenticated_only(f):
     return wrapped
 
 @socketio.on('connect')
-def handle_connect():
+def handle_connect(auth):
     """Handle user connection"""
     if current_user.is_authenticated:
         user_id = current_user.id
         online_users[user_id] = {
-            'sid': socketio.server.manager.sid,
+            'sid': request.sid,
             'username': current_user.username,
             'name': current_user.name
         }
@@ -60,14 +61,14 @@ def handle_get_conversations():
     
     conversation_list.append({
         'id': 0,  # Special ID for system chat
-        'name': '🤖 Rendszer',
-        'pic': '/static/default-avatar.png',
-        'lastMsg': system_welcome_message[:50] + '...',
-        'time': 'Mindig',
+        'name': 'Rendszer',
+        'pic': '/static/attachments/system.png',
+        'lastMsg': system_welcome_message[:30] + '...',
+        'time': current_user.created_at.strftime('%H:%M'),
         'status': 'online',
         'unread': 0,
         'is_system': True,
-        'last_msg_time': datetime.max  # Always first when sorting
+        'last_msg_time': current_user.created_at  # Always first when sorting
     })
     # ============== END SYSTEM CHAT ==============
     
@@ -102,7 +103,7 @@ def handle_get_conversations():
             'id': partner.id,
             'name': partner.name or partner.username,
             'pic': f'/static/attachments/{Attachment.query.get(partner.profile_picture).filename}' if partner.profile_picture else '/static/default-avatar.png',
-            'lastMsg': html.escape(last_msg.content[:50]) if last_msg else '',
+            'lastMsg': html.escape(last_msg.content[:30]) if last_msg else '',
             'time': last_msg.created_at.strftime('%H:%M') if last_msg else '',
             'status': 'online' if partner.id in online_users else 'offline',
             'unread': unread_count,
@@ -116,28 +117,7 @@ def handle_get_conversations():
     for conv in conversation_list:
         del conv['last_msg_time']
     
-    # ============== TEST MODE ==============
-    # Teszteléshez: mutasd az összes felhasználót, akivel még nem chateltél
-    # Kommenteld ki ezt a részt az éles verzióban!
-    all_users = User.query.filter(User.id != user_id).all()
-    existing_partner_ids = {conv['id'] for conv in conversation_list if conv['id'] != 0}
-    
-    test_section = []
-    for user in all_users:
-        if user.id not in existing_partner_ids:
-            test_section.append({
-                'id': user.id,
-                'name': f"[TEST] {user.name or user.username}",
-                'pic': f'/static/attachments/{user.profile_picture}' if user.profile_picture else '/static/default-avatar.png',
-                'lastMsg': 'Új felhasználó - még nincs üzenet',
-                'time': '~',
-                'status': 'online' if user.id in online_users else 'offline',
-                'unread': 0,
-                'is_test': True
-            })
-    
-    conversation_list.extend(test_section)
-    # ============== END TEST MODE ==============
+   
     
     emit('conversations', conversation_list)
 
@@ -229,7 +209,6 @@ def handle_send_message(data):
     if not partner:
         emit('error', {'message': 'Partner not found'})
         return
-        return
     
     # Save message to database
     message = Messages(
@@ -286,34 +265,5 @@ def handle_mark_message_seen(data):
     emit('message_seen', {
         'message_id': message.id
     }, room=f'user_{message.sender_id}')
-
-@socketio.on('typing')
-@authenticated_only
-def handle_typing(data):
-    """Notify partner that user is typing"""
-    user_id = current_user.id
-    partner_id = data.get('partner_id')
-    
-    if not partner_id:
-        return
-    
-    emit('user_typing', {
-        'sender_name': current_user.name or current_user.username,
-        'sender_id': user_id
-    }, room=f'user_{partner_id}')
-
-@socketio.on('stop_typing')
-@authenticated_only
-def handle_stop_typing(data):
-    """Notify partner that user stopped typing"""
-    user_id = current_user.id
-    partner_id = data.get('partner_id')
-    
-    if not partner_id:
-        return
-    
-    emit('user_stop_typing', {
-        'sender_id': user_id
-    }, room=f'user_{partner_id}')
 
 

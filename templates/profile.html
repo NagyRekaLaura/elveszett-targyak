@@ -16,8 +16,8 @@
                 </div>
             </div>
             <div class="profile-info">
-                <h1 class="profile-name">{{current_user.name}}</h1>
-                <span class="profile-username">@{{ current_user.username.lower() }}</span>
+                <h1 class="profile-name">{{user.name if user.name else 'Nincs megadva'}}</h1>
+                <span class="profile-username">@{{ user.username.lower() }}</span>
 
                 <div class="profile-stats">
                     <div class="stat-item">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">Telefonszám</span>
-                            <span class="value">{{ 'Privát' if current_user.phone_number_is_private else current_user.phone_number if current_user.phone_number else 'Nincs megadva' }}</span>
+                            <span class="value">{{ 'Privát' if user.phone_number_is_private else user.phone_number if user.phone_number else 'Nincs megadva' }}</span>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">Lakhely</span>
-                            <span class="value">{{ 'Privát' if current_user.address_is_private else current_user.address if current_user.address else 'Nincs megadva' }}</span>
+                            <span class="value">{{ 'Privát' if user.address_is_private else user.address if user.address else 'Nincs megadva' }}</span>
                         </div>
                     </div>
 
@@ -61,7 +61,7 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">E-mail cím</span>
-                            <span class="value">{{ current_user.email }}</span>
+                            <span class="value">{{ user.email }}</span>
                         </div>
                     </div>
 
@@ -71,14 +71,14 @@
                         </div>
                         <div class="detail-content">
                             <span class="label">Tag since</span>
-                            <span class="value">{{ current_user.created_at.strftime('%Y. %m. %d') }}</span>
+                            <span class="value">{{ user.created_at.strftime('%Y. %m. %d') }}</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="profile-actions">
                     <button class="btn btn-primary">
-                        <i class="fas fa-edit"></i> Szerkesztés
+                        <i class="fas fa-edit"></i>{{ 'Szerkesztés' if user.id == current_user.id else 'Üzenet' }}
                     </button>
                     <button class="btn">
                         <i class="fas fa-share-alt"></i> Megosztás
