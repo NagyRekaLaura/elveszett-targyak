@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "loginRegister": "Login/Register",
+    "search": "Search",
+    "profile": "Profile",
+    "logout": "Logout",
+    "messages": "Messages"
+  },
+  "footer": {
+    "brand": "Lost&Found",
+    "description": "Help us find.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "posting": "Posting",
+    "terms": "Terms and Conditions",
+    "privacy": "Privacy Policy",
+    "contact": "Contact",
+    "email": "info@lostandfound.hu",
+    "phone": "+36 1 234 5678",
+    "copyright": "© 2026 Lost&Found. All rights reserved."
+  },
+  "support": {
+    "help": "Help",
+    "welcome": "Welcome! How can we help you?",
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "close": "Close"
+  },
+  "home": {
+    "title": "Home",
+    "welcome": "Welcome, {username}!",
+    "defaultUser": "User",
+    "lostOrFound": "Did you find or lose something? We can help!",
+    "createPost": "Create Post",
+    "categories": {
+      "animal": "Animal",
+      "electronics": "Electronics",
+      "clothing": "Clothing",
+      "jewelry": "Jewelry",
+      "document": "Document",
+      "other": "Other"
+    },
+    "modal": {
+      "title": "Create Post",
+      "image": "Image",
+      "uploadImage": "Upload Image",
+      "name": "Name",
+      "namePlaceholder": "Enter the name...",
+      "location": "Location",
+      "selectCounty": "Select county",
+      "selectSettlement": "Select settlement",
+      "category": "Category",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the item...",
+      "status": "Status",
+      "lost": "Lost",
+      "found": "Found",
+      "close": "Close",
+      "publish": "Publish"
+    },
+    "card": {
+      "details": "Details...",
+      "hoursAgo": "{hours} hours ago",
+      "message": "Message",
+      "share": "Share",
+      "timestamp": "Timestamp"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Login",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "registerTitle": "Registration",
+    "email": "Email",
+    "confirmPassword": "Confirm Password",
+    "registerButton": "Register",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Login"
+  },
+  "profile": {
+    "title": "Profile",
+    "createProfile": "Create Profile",
+    "displayName": "Display Name",
+    "displayNamePlaceholder": "E.g. John Doe",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+36 20 123 4567",
+    "private": "Private",
+    "defaultPrivacy": "By default private, others cannot see",
+    "birthdate": "Birth Date",
+    "address": "Address",
+    "addressPlaceholder": "Budapest, XIII. district",
+    "public": "Public",
+    "twofa": "Two-Factor Authentication (2FA)",
+    "enable": "Enable",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms and Conditions",
+    "agreeTerms": "I agree to the {privacyPolicy} and {terms}",
+    "marketing": "I agree that my provided data will be used for advertising purposes",
+    "createButton": "Create Profile",
+    "cancel": "Cancel",
+    "twoFATitle": "Enable Two-Factor Authentication",
+    "twoFADescription": "Add extra security to your account",
+    "qrCode": "Scan this QR code with your authenticator app",
+    "enterCode": "Enter the 6-digit code shown in the app:",
+    "incorrectCode": "Incorrect code, please try again.",
+    "verify": "Verify and Enable"
+  },
+  "messages": {
+    "title": "Messages",
+    "selectConversation": "Select a conversation",
+    "startChat": "Start chatting with someone about lost or found items.",
+    "noMessages": "No messages",
+    "placeholder": "Type a message...",
+    "onlineStatus": "Online"
+  },
+  "post": {
+    "location": "Location",
+    "contact": "Contact",
+    "category": "Category",
+    "gender": "Gender",
+    "description": "Description",
+    "map": "Map",
+    "contactSection": "Contact",
+    "contactText": "If you think this is your item or know the owner, contact:",
+    "call": "Call: {phone}",
+    "sendMessage": "Send Message",
+    "sendEmail": "Send Email",
+    "sender": "Sender",
+    "previousAds": "Previous postings"
+  },
+  "error404": {
+    "title": "404 - Page Not Found",
+    "lost": "The page has gone missing!",
+    "backHome": "Back to Home"
+  }
+}

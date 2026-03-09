@@ -10,110 +10,110 @@
     <div class="info-content">
         <h1><i class="fas fa-search me-3"></i>Lost&Found</h1>
         {% if current_user.is_authenticated %}
-        <p class="info-text">Üdvözöllek, {{ current_user.username or 'Felhasználó' }}!</p>
+        <p class="info-text" data-i18n="home.welcome" data-i18n-username="{{ current_user.username or 'Felhasználó' }}">Üdvözöllek, {{ current_user.username or 'Felhasználó' }}!</p>
         {% else %}
-        <p class="info-text">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
+        <p class="info-text" data-i18n="home.lostOrFound">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
         {% endif %}
-        <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-i18n="home.createPost">
             <i class="fas fa-plus-circle me-2"></i>Poszt létrehozása
         </button>
     </div>
 </div>
 <!--változtatva, telefonos nézetbe még nem jó, javítandó-->
 <div class="category-container">
-    <button type="button" class="btn category"><i class="fas fa-paw me-2"></i>Állat</button>
-    <button type="button" class="btn category"><i class="fas fa-laptop me-2"></i>Elektronika</button>
-    <button type="button" class="btn category"><i class="fas fa-tshirt me-2"></i>Ruházat</button>
-    <button type="button" class="btn category"><i class="fas fa-gem me-2"></i>Ékszer</button>
-    <button type="button" class="btn category"><i class="fas fa-file-alt me-2"></i>Dokumentum</button>
-    <button type="button" class="btn category"><i class="fas fa-gift me-2"></i>Egyéb</button>
+    <button type="button" class="btn category"><i class="fas fa-paw me-2"></i><span data-i18n="home.categories.animal">Állat</span></button>
+    <button type="button" class="btn category"><i class="fas fa-laptop me-2"></i><span data-i18n="home.categories.electronics">Elektronika</span></button>
+    <button type="button" class="btn category"><i class="fas fa-tshirt me-2"></i><span data-i18n="home.categories.clothing">Ruházat</span></button>
+    <button type="button" class="btn category"><i class="fas fa-gem me-2"></i><span data-i18n="home.categories.jewelry">Ékszer</span></button>
+    <button type="button" class="btn category"><i class="fas fa-file-alt me-2"></i><span data-i18n="home.categories.document">Dokumentum</span></button>
+    <button type="button" class="btn category"><i class="fas fa-gift me-2"></i><span data-i18n="home.categories.other">Egyéb</span></button>
 </div>
 <!-- posztolás -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Poszt létrehozása</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" data-i18n="home.modal.title">Poszt létrehozása</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
                 <div class="modal-sor">
-                    <label class="form-label">
+                    <label class="form-label" data-i18n="home.modal.image">
                         <i class="fas fa-image"></i>
                         Kép:
                     </label>
                     <input type="file" id="image-upload" hidden multiple accept="image/*">
-                    <label for="image-upload" class="image-label">Kép feltötése</label>
+                    <label for="image-upload" class="image-label" data-i18n="home.modal.uploadImage">Kép feltötése</label>
                 </div>
                 <div class="modal-sor">
-                    <label class="form-label">
+                    <label class="form-label" data-i18n="home.modal.name">
                         <i class="fas fa-tag"></i>
                         Neve:
                     </label>
-                    <input type="text" class="form-control-modal" placeholder="Írd be a megnevezését...">
+                    <input type="text" class="form-control-modal" placeholder="Írd be a megnevezését..." data-i18n-attr="placeholder:home.modal.namePlaceholder">
                 </div>
                 
                 <!-- heelyszín-->
                 <div class="modal-sor">
-                    <label class="form-label">
+                    <label class="form-label" data-i18n="home.modal.location">
                         <i class="fas fa-map-marker-alt"></i>
                         Helyszín:
                     </label>
                     <div class="location">
-                        <select class="form-control-modal megye-select" id="megye">
-                            <option value="" disabled selected>Válassz megyét</option>
+                        <select class="form-control-modal megye-select" id="megye" data-i18n-attr="placeholder:home.modal.selectCounty">
+                            <option value="" disabled selected data-i18n="home.modal.selectCounty">Válassz megyét</option>
                             <!-- Ide jönnek majd a megyék -->
                         </select>
-                        <select class="form-control-modal telepules-select" id="telepules">
-                            <option value="" disabled selected>Válassz települést</option>
+                        <select class="form-control-modal telepules-select" id="telepules" data-i18n-attr="placeholder:home.modal.selectSettlement">
+                            <option value="" disabled selected data-i18n="home.modal.selectSettlement">Válassz települést</option>
                             <!-- Ide jönnek majd a települések -->
                         </select>
                     </div>
                 </div>
 
                 <div class="modal-sor"> 
-                    <label class="form-label">
+                    <label class="form-label" data-i18n="home.modal.category">
                         <i class="fas fa-folder-open"></i>
                         Kategória:
                     </label>
                     <select class="form-control-modal">
-                        <option value="allat">Állat</option>
-                        <option value="elektronika">Elektronika</option>
-                        <option value="ruhazat">Ruházat</option>
-                        <option value="ekszer">Ékszer</option>
-                        <option value="dokumentum">Dokumentum</option>
-                        <option value="egyeb">Egyéb</option>
+                        <option value="allat" data-i18n="home.categories.animal">Állat</option>
+                        <option value="elektronika" data-i18n="home.categories.electronics">Elektronika</option>
+                        <option value="ruhazat" data-i18n="home.categories.clothing">Ruházat</option>
+                        <option value="ekszer" data-i18n="home.categories.jewelry">Ékszer</option>
+                        <option value="dokumentum" data-i18n="home.categories.document">Dokumentum</option>
+                        <option value="egyeb" data-i18n="home.categories.other">Egyéb</option>
                     </select>
                 </div>
                 <div class="modal-sor">
-                    <label class="form-label">
+                    <label class="form-label" data-i18n="home.modal.description">
                         <i class="fas fa-pencil-alt"></i>
                         Leírás:
                     </label>
-                    <textarea class="form-control-modal" placeholder="Írj leírást a tárgyról..."></textarea>
+                    <textarea class="form-control-modal" placeholder="Írj leírást a tárgyról..." data-i18n-attr="placeholder:home.modal.descriptionPlaceholder"></textarea>
                 </div>
 
                 <div class="modal-sor">
-                    <label class="form-label">
+                    <label class="form-label" data-i18n="home.modal.status">
                         <i class="fas fa-box"></i>
                         Állapot:
                     </label>
                     <div class="status-toggle">
                         <div class="toggle-switch">
                             <button type="button" class="toggle-btn lost active" onclick="toggleStatus(this)">
-                                <i class="fas fa-search me-1"></i>Elveszett
+                                <i class="fas fa-search me-1"></i><span data-i18n="home.modal.lost">Elveszett</span>
                             </button>
                             <button type="button" class="toggle-btn found" onclick="toggleStatus(this)">
-                                <i class="fas fa-check me-1"></i>Talált
+                                <i class="fas fa-check me-1"></i><span data-i18n="home.modal.found">Talált</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                <button type="button" class="btn btn-primary">Közzététel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="home.modal.close">Bezárás</button>
+                <button type="button" class="btn btn-primary" data-i18n="home.modal.publish">Közzététel</button>
             </div>
         </div>
     </div>
@@ -124,19 +124,19 @@
 <div class="card mb-3">
     <div class="card-image">
         <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-        <span class="card-badge lost">Elveszett</span>
+        <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>
     </div>
     <div class="card-body">
         <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
         <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
 
         <hr class="divider">
@@ -148,8 +148,8 @@
                     </div>
                 <span class="username">NÉV</span>
                 <div class="actions">
-                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
-                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-action" aria-label="Üzenet" data-i18n-attr="aria-label:home.card.message"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás" data-i18n-attr="aria-label:home.card.share"><i class="fa-solid fa-share-nodes"></i></button>
                 </div>
             </div>
 
@@ -160,19 +160,19 @@
 <div class="card mb-3">
     <div class="card-image">
         <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-        <span class="card-badge found">Talált</span>
+        <span class="card-badge found" data-i18n="home.modal.found">Talált</span>
     </div>
     <div class="card-body">
         <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
         <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
 
         <hr class="divider">
@@ -184,8 +184,8 @@
                     </div>
                 <span class="username">NÉV</span>
                 <div class="actions">
-                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
-                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-action" aria-label="Üzenet" data-i18n-attr="aria-label:home.card.message"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás" data-i18n-attr="aria-label:home.card.share"><i class="fa-solid fa-share-nodes"></i></button>
                 </div>
             </div>
 
@@ -196,19 +196,19 @@
 <div class="card mb-3">
     <div class="card-image">
         <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-        <span class="card-badge found">Talált</span>
+        <span class="card-badge found" data-i18n="home.modal.found">Talált</span>
     </div>
     <div class="card-body">
         <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
         <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
 
         <hr class="divider">
@@ -220,8 +220,8 @@
                     </div>
                 <span class="username">NÉV</span>
                 <div class="actions">
-                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
-                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-action" aria-label="Üzenet" data-i18n-attr="aria-label:home.card.message"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás" data-i18n-attr="aria-label:home.card.share"><i class="fa-solid fa-share-nodes"></i></button>
                 </div>
             </div>
 
@@ -232,19 +232,19 @@
 <div class="card mb-3">
     <div class="card-image">
         <img src="{{ url_for('static', filename='attachments/cat2.jpg') }}" class="card-img-top" alt="...">
-        <span class="card-badge lost">Eltünt</span>
+        <span class="card-badge lost" data-i18n="home.modal.lost">Eltünt</span>
     </div>
     <div class="card-body">
         <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
         <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
 
         <hr class="divider">
@@ -256,8 +256,8 @@
                     </div>
                 <span class="username">NÉV</span>
                 <div class="actions">
-                    <button class="btn-action" aria-label="Üzenet"><i class="fa-regular fa-envelope"></i></i></button>
-                    <button class="btn-action" aria-label="Megosztás"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-action" aria-label="Üzenet" data-i18n-attr="aria-label:home.card.message"><i class="fa-regular fa-envelope"></i></i></button>
+                    <button class="btn-action" aria-label="Megosztás" data-i18n-attr="aria-label:home.card.share"><i class="fa-solid fa-share-nodes"></i></button>
                 </div>
             </div>
             <p class="card-text"><small class="date">TIMESTAMP</small></p>

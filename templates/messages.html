@@ -11,7 +11,7 @@
     <div class="messages-container">
         <!-- Bal oldali sidebar-->
         <aside class="messages-sidebar" id="conversations-sidebar">
-            <h2>Üzenetek</h2>
+            <h2 data-i18n="messages.title">Üzenetek</h2>
             <div class="conversation-list" id="conversation-list">
                 <!-- JS tölti fel -->
             </div>
@@ -22,8 +22,8 @@
             <!-- Üres állapot – ha nincs kiválasztott beszélgetés -->
             <div class="no-chat-selected" id="no-chat-placeholder">
                 <i class="fas fa-comment-dots fa-3x"></i>
-                <h3>Válassz egy beszélgetést</h3>
-                <p>Kezdj el csevegni valakivel az elveszett vagy talált állatokkal kapcsolatban.</p>
+                <h3 data-i18n="messages.selectConversation">Válassz egy beszélgetést</h3>
+                <p data-i18n="messages.startChat">Kezdj el csevegni valakivel az elveszett vagy talált állatokkal kapcsolatban.</p>
             </div>
 
             <div class="chat-interface" id="chat-interface" style="display: none;">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="chat-header-text">
                             <div class="chat-header-name" id="chat-partner-name"></div>
-                            <div class="chat-header-status" id="chat-partner-status"></div>
+                            <div class="chat-header-status" id="chat-partner-status" data-i18n="messages.onlineStatus">Online</div>
                         </div>
                     </div>
                 </header>
@@ -44,7 +44,7 @@
                 </div>
 
                 <footer class="chat-footer">
-                    <input type="text" class="chat-input" id="chat-input" placeholder="Írj üzenetet...">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Írj üzenetet..." data-i18n-attr="placeholder:messages.placeholder">
                     <button class="chat-send" id="send-message-btn">
                         <i class="fas fa-paper-plane"></i>
                     </button>

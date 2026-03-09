@@ -8,7 +8,7 @@
         <div class="error-404-content">
             <h1 class="error-404-title">
                 <span class="error-code">404</span>
-                <span class="error-message">Az oldal elkóborolt!</span>
+                <span class="error-message" data-i18n="error404.lost">Az oldal elkóborolt!</span>
             </h1>
             <!---mancsok-->            
             <div class="error-illustration">
@@ -31,7 +31,7 @@
             </div>
             
 
-            <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-4">Vissza a főoldalra</a>
+            <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-4" data-i18n="error404.backHome">Vissza a főoldalra</a>
         </div>
     </div>
 {% endblock %}

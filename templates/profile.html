@@ -22,15 +22,15 @@
                 <div class="profile-stats">
                     <div class="stat-item">
                         <span class="stat-number">4</span>
-                        <span class="stat-label">Poszt</span>
+                        <span class="stat-label" data-i18n="post.description">Poszt</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">2</span>
-                        <span class="stat-label">Talált</span>
+                        <span class="stat-label" data-i18n="home.modal.found">Talált</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">2</span>
-                        <span class="stat-label">Eltűnt</span>
+                        <span class="stat-label" data-i18n="home.modal.lost">Eltűnt</span>
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="detail-content">
-                            <span class="label">Telefonszám</span>
+                            <span class="label" data-i18n="profile.phone">Telefonszám</span>
                             <span class="value">{{ 'Privát' if user.phone_number_is_private else user.phone_number if user.phone_number else 'Nincs megadva' }}</span>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="detail-content">
-                            <span class="label">Lakhely</span>
+                            <span class="label" data-i18n="post.location">Lakhely</span>
                             <span class="value">{{ 'Privát' if user.address_is_private else user.address if user.address else 'Nincs megadva' }}</span>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="detail-content">
-                            <span class="label">E-mail cím</span>
+                            <span class="label" data-i18n="login.email">E-mail cím</span>
                             <span class="value">{{ user.email }}</span>
                         </div>
                     </div>
@@ -78,10 +78,10 @@
 
                 <div class="profile-actions">
                     <button class="btn btn-primary">
-                        <i class="fas fa-edit"></i>{{ 'Szerkesztés' if user.id == current_user.id else 'Üzenet' }}
+                        <i class="fas fa-edit"></i><span data-i18n="profile.createButton">{{ 'Szerkesztés' if user.id == current_user.id else 'Üzenet' }}</span>
                     </button>
                     <button class="btn">
-                        <i class="fas fa-share-alt"></i> Megosztás
+                        <i class="fas fa-share-alt"></i><span data-i18n="home.card.share"> Megosztás</span>
                     </button>
                 </div>
             </div>
@@ -92,18 +92,18 @@
     <div class="posts-right">
         <div class="posts-container">
             <div class="posts-title-section">
-                <h1><i class="fas fa-paw"></i> Posztjaim</h1>
+                <h1><i class="fas fa-paw"></i> <span data-i18n="post.description">Posztjaim</span></h1>
 
                 <!-- SZŰRŐ GOMBOK - IDE KERÜLTEK A BADGE HELYÉRE -->
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-list-ul"></i> Összes
+                        <i class="fas fa-list-ul"></i><span data-i18n="home.modal.publish"> Összes</span>
                     </button>
                     <button class="filter-btn" data-filter="lost">
-                        <i class="fas fa-times-circle"></i> Eltűnt
+                        <i class="fas fa-times-circle"></i><span data-i18n="home.modal.lost"> Eltűnt</span>
                     </button>
                     <button class="filter-btn" data-filter="found">
-                        <i class="fas fa-check-circle"></i> Talált
+                        <i class="fas fa-check-circle"></i><span data-i18n="home.modal.found"> Talált</span>
                     </button>
                 </div>
             </div>
@@ -115,54 +115,54 @@
             <div class="card" data-status="lost">
                 <div class="card-image">
                     <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                    <span class="card-badge lost">Elveszett</span>
+                    <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>
 
                 </div>
                 <div class="card-body">
                     <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
                     <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
                 </div>
                 <div class="card-footer">
                     <div class="actions">
-                        <button class="btn-action btn-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share"><i class="fas fa-share-alt"></i></button>
+                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
                     </div>
                 </div>
             </div>
             <div class="card" data-status="found">
                 <div class="card-image">
                     <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                    <span class="card-badge found">Talált</span>
+                    <span class="card-badge found" data-i18n="home.modal.found">Talált</span>
 
                 </div>
                 <div class="card-body">
                     <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
                     <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
                 </div>
                 <div class="card-footer">
                     <div class="actions">
-                        <button class="btn-action btn-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share"><i class="fas fa-share-alt"></i></button>
+                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
                     </div>
                 </div>
             </div>
@@ -170,54 +170,54 @@
             <div class="card" data-status="lost">
                 <div class="card-image">
                     <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                    <span class="card-badge lost">Elveszett</span>
+                    <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>
 
                 </div>
                 <div class="card-body">
                     <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
                     <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
                 </div>
                 <div class="card-footer">
                     <div class="actions">
-                        <button class="btn-action btn-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share"><i class="fas fa-share-alt"></i></button>
+                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
                     </div>
                 </div>
             </div>
             <div class="card" data-status="found">
                 <div class="card-image">
                     <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                    <span class="card-badge found">Talált</span>
+                    <span class="card-badge found" data-i18n="home.modal.found">Talált</span>
 
                 </div>
                 <div class="card-body">
                     <div class="info">
             <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i>Állat</span>
-            <span class="card-time"><i class="far fa-clock me-1"></i>2 órája</span>
+            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
+            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
                     <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
-            <span class="text-end">Részletek...</span>
+            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
         </p>
                 </div>
                 <div class="card-footer">
                     <div class="actions">
-                        <button class="btn-action btn-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share"><i class="fas fa-share-alt"></i></button>
+                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "loginRegister": "Bejelentkezés/Regisztráció",
+    "search": "Keresés",
+    "profile": "Profil",
+    "logout": "Kijelentkezés",
+    "messages": "Üzenetek"
+  },
+  "footer": {
+    "brand": "Lost&Found",
+    "description": "Segítünk megtalálni.",
+    "quickLinks": "Gyorslinkek",
+    "home": "Kezdőlap",
+    "posting": "Posztolás",
+    "terms": "Általános Szerződési Feltételek",
+    "privacy": "Adatvédelmi nyilatkozat",
+    "contact": "Kapcsolat",
+    "email": "info@lostandfound.hu",
+    "phone": "+36 1 234 5678",
+    "copyright": "© 2026 Lost&Found. Minden jog fenntartva."
+  },
+  "support": {
+    "help": "Segítség",
+    "welcome": "Üdvözöljük! Miben segíthetünk?",
+    "placeholder": "Írjon üzenetet...",
+    "send": "Küldés",
+    "close": "Bezárás"
+  },
+  "home": {
+    "title": "Főoldal",
+    "welcome": "Üdvözöllek, {username}!",
+    "defaultUser": "Felhasználó",
+    "lostOrFound": "Találtál vagy elvesztettél valamit? Itt segítünk!",
+    "createPost": "Poszt létrehozása",
+    "categories": {
+      "animal": "Állat",
+      "electronics": "Elektronika",
+      "clothing": "Ruházat",
+      "jewelry": "Ékszer",
+      "document": "Dokumentum",
+      "other": "Egyéb"
+    },
+    "modal": {
+      "title": "Poszt létrehozása",
+      "image": "Kép",
+      "uploadImage": "Kép feltötése",
+      "name": "Neve",
+      "namePlaceholder": "Írd be a megnevezését...",
+      "location": "Helyszín",
+      "selectCounty": "Válassz megyét",
+      "selectSettlement": "Válassz települést",
+      "category": "Kategória",
+      "description": "Leírás",
+      "descriptionPlaceholder": "Írj leírást a tárgyról...",
+      "status": "Állapot",
+      "lost": "Elveszett",
+      "found": "Talált",
+      "close": "Bezárás",
+      "publish": "Közzététel"
+    },
+    "card": {
+      "details": "Részletek...",
+      "hoursAgo": "{hours} órája",
+      "message": "Üzenet",
+      "share": "Megosztás",
+      "timestamp": "Időpont"
+    }
+  },
+  "login": {
+    "title": "Bejelentkezés",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "loginButton": "Bejelentkezés",
+    "noAccount": "Nincs fiókod?",
+    "register": "Regisztrálj",
+    "registerTitle": "Regisztráció",
+    "email": "Email",
+    "confirmPassword": "Jelszó megerősítése",
+    "registerButton": "Regisztráció",
+    "haveAccount": "Már van fiókod?",
+    "loginLink": "Bejelentkezés"
+  },
+  "profile": {
+    "title": "Profil",
+    "createProfile": "Profil létrehozása",
+    "displayName": "Megjelenítendő név",
+    "displayNamePlaceholder": "Pl. ASd asd",
+    "phone": "Telefonszám",
+    "phonePlaceholder": "+36 20 123 4567",
+    "private": "Privát",
+    "defaultPrivacy": "Alapértelmezetten privát, mások nem látják",
+    "birthdate": "Születési idő",
+    "address": "Lakhely",
+    "addressPlaceholder": "Budapest, XIII. kerület",
+    "public": "Nyilvános",
+    "twofa": "Kétlépcsős azonosítás (2FA)",
+    "enable": "Bekapcsolás",
+    "privacyPolicy": "adatvédelmi nyilatkozatot",
+    "terms": "felhasználási feltételeket",
+    "agreeTerms": "Elfogadom az {privacyPolicy} és a {terms}",
+    "marketing": "Hozzájárulok, hogy a megadott adataimat a rendszer a hirdetések megjelenítéséhez használja",
+    "createButton": "Profil létrehozása",
+    "cancel": "Mégse",
+    "twoFATitle": "Kétlépcsős azonosítás bekapcsolása",
+    "twoFADescription": "Vmi magyarázó szöveg",
+    "qrCode": "Olvassa be ezt a QR-kódot az auth alkalmazásban",
+    "enterCode": "Írja be az alkalmazásban látható 6 számjegyű kódot:",
+    "incorrectCode": "Hibás kód, kérlek próbáld újra.",
+    "verify": "Ellenőrzés és bekapcsolás"
+  },
+  "messages": {
+    "title": "Üzenetek",
+    "selectConversation": "Válassz egy beszélgetést",
+    "startChat": "Kezdj el csevegni valakivel az elveszett vagy talált állatokkal kapcsolatban.",
+    "noMessages": "Nincs üzenet",
+    "placeholder": "Írj üzenetet...",
+    "onlineStatus": "Online"
+  },
+  "post": {
+    "location": "Helyszín",
+    "contact": "Elérhetőség",
+    "category": "Kategória",
+    "gender": "Nem",
+    "description": "Leírás",
+    "map": "Térkép",
+    "contactSection": "Kapcsolatfelvétel",
+    "contactText": "Ha úgy gondolod, hogy ez az állat a tiéd vagy ismered a gazdáját, vedd fel a kapcsolatot:",
+    "call": "Hívás: {phone}",
+    "sendMessage": "Üzenet küldése",
+    "sendEmail": "Email küldése",
+    "sender": "Feladó",
+    "previousAds": "Korábbi hirdetések"
+  },
+  "error404": {
+    "title": "404 - Oldal nem található",
+    "lost": "Az oldal elkóborolt!",
+    "backHome": "Vissza a főoldalra"
+  }
+}
