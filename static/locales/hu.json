@@ -95,6 +95,8 @@
     "public": "Nyilvános",
     "twofa": "Kétlépcsős azonosítás (2FA)",
     "enable": "Bekapcsolás",
+    "enabledStatus": "Bekapcsolva",
+    "disabledStatus": "Kikapcsolva",
     "privacyPolicy": "adatvédelmi nyilatkozatot",
     "terms": "felhasználási feltételeket",
     "agreeTerms": "Elfogadom az {privacyPolicy} és a {terms}",

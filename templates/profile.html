@@ -41,7 +41,15 @@
                         </div>
                         <div class="detail-content">
                             <span class="label" data-i18n="profile.phone">Telefonszám</span>
-                            <span class="value">{{ 'Privát' if user.phone_number_is_private else user.phone_number if user.phone_number else 'Nincs megadva' }}</span>
+                            {% if user.phone_number_is_private %}
+                                <span class="value" data-i18n="profile.private">Privát</span>
+                            {% else %}
+                                {% if user.phone_number %}
+                                    <span class="value" data-i18n="">{{ user.phone_number}}</span>
+                                {% else %}
+                                    <span class="value" data-i18n="profile.notProvided">Nincs megadva</span>
+                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
 

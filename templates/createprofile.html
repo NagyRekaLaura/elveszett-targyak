@@ -58,9 +58,9 @@
                     </label>
                     <div class="privacy-wrapper">
                         <input type="tel" class="form-control-modal" id="phoneNumber" name="phone_number" placeholder="+36 20 123 4567" data-i18n-attr="placeholder:profile.phonePlaceholder">
-                        <label class="privacy-toggle" for="phoneNumberPrivate" data-i18n="profile.private">
+                        <label class="privacy-toggle" for="phoneNumberPrivate">
                             <input type="checkbox" id="phoneNumberPrivate" checked>
-                            <i class="fas fa-lock"></i> Privát
+                            <i class="fas fa-lock"></i> <span data-i18n="profile.private">Privát</span>
                         </label>
                     </div>
                     <small class="form-text" data-i18n="profile.defaultPrivacy">Alapértelmezetten privát, mások nem látják</small>
@@ -85,9 +85,9 @@
                     <div class="privacy-wrapper">
                         <input type="text" class="form-control-modal" id="address" name="address"
                             placeholder="Budapest, XIII. kerület" data-i18n-attr="placeholder:profile.addressPlaceholder" required>
-                        <label class="privacy-toggle" for="addressPrivate" data-i18n="profile.public">
+                        <label class="privacy-toggle" for="addressPrivate">
                             <input type="checkbox" id="addressPrivate">
-                            <i class="fas fa-lock-open"></i> Nyilvános
+                            <i class="fas fa-lock-open"></i> <span data-i18n="profile.public">Nyilvános</span>
                         </label>
                     </div>
                 </div>
@@ -99,9 +99,9 @@
                     </label>
 
                     <div class="privacy-wrapper">
-                        <label class="privacy-toggle" data-i18n="profile.enable">
+                        <label class="privacy-toggle">
                             <input type="checkbox" id="enable2FA" hidden>
-                            <i class="fas fa-lock"></i> Bekapcsolás
+                            <i class="fas fa-lock"></i> <span data-i18n="profile.enable">Bekapcsolás</span>
                         </label>
                     </div>
                 </div>

@@ -95,6 +95,8 @@
     "public": "Public",
     "twofa": "Two-Factor Authentication (2FA)",
     "enable": "Enable",
+    "enabledStatus": "Enabled",
+    "disabledStatus": "Disabled",
     "privacyPolicy": "Privacy Policy",
     "terms": "Terms and Conditions",
     "agreeTerms": "I agree to the {privacyPolicy} and {terms}",

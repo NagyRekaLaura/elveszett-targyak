@@ -66,9 +66,15 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.classList.add('fa-lock-open');
         }
 
-        const textNode = label.lastChild;
-        if (textNode && textNode.nodeType === Node.TEXT_NODE) {
-            textNode.textContent = isEnabled ? ' Bekapcsolva' : ' Kikapcsolva';
+        const textSpan = label.querySelector('[data-i18n]');
+        if (textSpan) {
+            if (isEnabled) {
+                textSpan.setAttribute('data-i18n', 'profile.enabledStatus');
+                textSpan.textContent = 'Bekapcsolva';
+            } else {
+                textSpan.setAttribute('data-i18n', 'profile.disabledStatus');
+                textSpan.textContent = 'Kikapcsolva';
+            }
         }
     }
 
@@ -276,9 +282,15 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.classList.remove('fa-lock');
             icon.classList.add('fa-lock-open');
         }
-        const textNode = label.lastChild;
-        if (textNode && textNode.nodeType === Node.TEXT_NODE) {
-            textNode.textContent = isPrivate ? ' Privát' : ' Nyilvános';
+        const textSpan = label.querySelector('[data-i18n]');
+        if (textSpan) {
+            if (isPrivate) {
+                textSpan.setAttribute('data-i18n', 'profile.private');
+                textSpan.textContent = 'Privát';
+            } else {
+                textSpan.setAttribute('data-i18n', 'profile.public');
+                textSpan.textContent = 'Nyilvános';
+            }
         }
     }
 }); 
