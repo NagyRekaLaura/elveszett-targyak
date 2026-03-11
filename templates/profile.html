@@ -21,15 +21,15 @@
 
                 <div class="profile-stats">
                     <div class="stat-item">
-                        <span class="stat-number">4</span>
+                        <span class="stat-number">{{ total }}</span>
                         <span class="stat-label" data-i18n="post.description">Poszt</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">2</span>
+                        <span class="stat-number">{{ found_count }}</span>
                         <span class="stat-label" data-i18n="home.modal.found">Talált</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">2</span>
+                        <span class="stat-number">{{ lost_count }}</span>
                         <span class="stat-label" data-i18n="home.modal.lost">Eltűnt</span>
                     </div>
                 </div>
@@ -85,9 +85,15 @@
                 </div>
 
                 <div class="profile-actions">
+                    {% if current_user.is_authenticated and user.id == current_user.id %}
                     <button class="btn btn-primary">
-                        <i class="fas fa-edit"></i><span data-i18n="profile.createButton">{{ 'Szerkesztés' if user.id == current_user.id else 'Üzenet' }}</span>
+                        <i class="fas fa-edit"></i><span data-i18n="profile.createButton">Szerkesztés</span>
                     </button>
+                    {% else %}
+                    <a href="{{ url_for('messages.messages', partner=user.id) }}" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i><span data-i18n="profile.createButton">Üzenet</span>
+                    </a>
+                    {% endif %}
                     <button class="btn">
                         <i class="fas fa-share-alt"></i><span data-i18n="home.card.share"> Megosztás</span>
                     </button>
@@ -120,115 +126,57 @@
         <!-- KÁRTYÁK KONTÉNER -->
         <div class="card-container profile-own-cards">
 
-            <div class="card" data-status="lost">
+            {% for item in items %}
+            {% set cat_icons = {'allat': 'fa-paw', 'elektronika': 'fa-laptop', 'ruhazat': 'fa-tshirt', 'ekszer': 'fa-gem', 'dokumentum': 'fa-file-alt', 'egyeb': 'fa-gift'} %}
+            {% set cat_i18n = {'allat': 'home.categories.animal', 'elektronika': 'home.categories.electronics', 'ruhazat': 'home.categories.clothing', 'ekszer': 'home.categories.jewelry', 'dokumentum': 'home.categories.document', 'egyeb': 'home.categories.other'} %}
+            {% set cat_names = {'allat': 'Állat', 'elektronika': 'Elektronika', 'ruhazat': 'Ruházat', 'ekszer': 'Ékszer', 'dokumentum': 'Dokumentum', 'egyeb': 'Egyéb'} %}
+            <div class="card mb-3" data-status="{{ item.type }}">
                 <div class="card-image">
-                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+                    {% if item.attachments %}
+                    <img src="{{ url_for('static', filename='attachments/' + item.attachments[0].filename) }}" class="card-img-top" alt="{{ item.name }}">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='attachments/placeholder.png') }}" class="card-img-top" alt="{{ item.name }}">
+                    {% endif %}
+                    {% if item.type == 'lost' %}
                     <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>
-
-                </div>
-                <div class="card-body">
-                    <div class="info">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
-            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
-            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
-        </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-            commodi.
-            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
-        </p>
-                </div>
-                <div class="card-footer">
-                    <div class="actions">
-                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="card" data-status="found">
-                <div class="card-image">
-                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
+                    {% else %}
                     <span class="card-badge found" data-i18n="home.modal.found">Talált</span>
-
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     <div class="info">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
-            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
-            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
-        </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-            commodi.
-            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
-        </p>
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        {% if item.category %}
+                        <span class="card-category"><i class="fas {{ cat_icons.get(item.category.name, 'fa-tag') }} me-1"></i><span data-i18n="{{ cat_i18n.get(item.category.name, '') }}">{{ cat_names.get(item.category.name, item.category.name) }}</span></span>
+                        {% endif %}
+                        <span class="card-time"><i class="far fa-clock me-1"></i><span>{{ item.created_at | elapsedTime }}</span></span>
+                        {% if item.location %}
+                        <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>{{ item.location }}</p>
+                        {% endif %}
+                    </div>
+                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>{{ item.description[:150] }}{% if item.description|length > 150 %}...
+                        <a href="{{ url_for('post.post', item_id=item.id) }}" class="text-end" data-i18n="home.card.details">Részletek...</a>
+                    {% endif %}
+                    </p>
                 </div>
                 <div class="card-footer">
                     <div class="actions">
+                        {% if current_user.is_authenticated and current_user.id == user.id %}
                         <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
                         <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
+                        {% endif %}
                         <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
-            <div class="card" data-status="lost">
-                <div class="card-image">
-                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                    <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>
-
-                </div>
-                <div class="card-body">
-                    <div class="info">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
-            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
-            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
-        </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-            commodi.
-            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
-        </p>
-                </div>
-                <div class="card-footer">
-                    <div class="actions">
-                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
-                    </div>
-                </div>
+            {% if not items %}
+            <div class="text-center py-5 w-100">
+                <i class="fas fa-inbox fa-3x mb-3" style="color: #888;"></i>
+                <p style="color: #888;" data-i18n="home.noPosts">Még nincsenek posztok.</p>
             </div>
-            <div class="card" data-status="found">
-                <div class="card-image">
-                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" class="card-img-top" alt="...">
-                    <span class="card-badge found" data-i18n="home.modal.found">Talált</span>
-
-                </div>
-                <div class="card-body">
-                    <div class="info">
-            <h5 class="card-title">Eltünt tárgy neve</h5>
-            <span class="card-category"><i class="fas fa-paw me-1"></i><span data-i18n="home.categories.animal">Állat</span></span>
-            <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
-            <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
-        </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
-            commodi.
-            <span class="text-end" data-i18n="home.card.details">Részletek...</span>
-        </p>
-                </div>
-                <div class="card-footer">
-                    <div class="actions">
-                        <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
-                        <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
 
         </div>
     </div>

@@ -43,7 +43,7 @@ login_manager.login_view = 'auth.login'
 def check_profile_completion():
     if not current_user.is_authenticated:
         return
-    if request.endpoint in ['profile.createprofile', 'static', 'auth.login', 'auth.logout']:
+    if request.endpoint in ['profile.createprofile', 'static', 'auth.login', 'auth.logout', 'main.varmegyek']:
         return
     if not current_user.name or not current_user.address or not current_user.birthdate:
         return redirect(url_for('profile.createprofile'))

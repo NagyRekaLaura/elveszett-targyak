@@ -266,4 +266,31 @@ def handle_mark_message_seen(data):
         'message_id': message.id
     }, room=f'user_{message.sender_id}')
 
+@socketio.on('get_partner_info')
+@authenticated_only
+def handle_get_partner_info(data):
+    """Get partner info for starting a new conversation"""
+    partner_id = data.get('partner_id')
+    if not partner_id:
+        emit('error', {'message': 'Partner ID required'})
+        return
+    
+    partner = User.query.get(partner_id)
+    if not partner:
+        emit('error', {'message': 'Partner not found'})
+        return
+    
+    pic = '/static/default-avatar.png'
+    if partner.profile_picture:
+        att = Attachment.query.get(partner.profile_picture)
+        if att:
+            pic = f'/static/attachments/{att.filename}'
+    
+    emit('partner_info', {
+        'id': partner.id,
+        'name': partner.name or partner.username,
+        'pic': pic,
+        'status': 'online' if partner.id in online_users else 'offline'
+    })
+
 

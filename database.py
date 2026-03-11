@@ -48,6 +48,8 @@ class Item(db.Model):
     active = db.Column(db.Boolean, default=True)
     type = db.Column(db.String(20), default='lost') 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    location = db.Column(db.String(200), nullable=True)
+    category = db.relationship('Category', backref='items', lazy=True)
 
 class Attachment(db.Model):
     id = db.Column(db.Integer, primary_key=True) 

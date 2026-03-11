@@ -26,12 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let images = [];
     let carouselInstance = null;
+    window.postUploadedFiles = [];
 
     imageInput.addEventListener('change', (e) => {
         const files = [...e.target.files].filter(f => f.type.startsWith('image/'));
         if (!files.length) return;
 
         files.forEach(file => {
+            window.postUploadedFiles.push(file);
             const reader = new FileReader();
             reader.onload = ev => {
                 images.push({
@@ -99,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function removeImage(index) {
         images.splice(index, 1);
+        window.postUploadedFiles.splice(index, 1);
 
         if (!images.length) {
             carouselWrapper.style.display = 'none';
@@ -109,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     modal.addEventListener('hidden.bs.modal', () => {
         images = [];
+        window.postUploadedFiles = [];
         carouselWrapper.style.display = 'none';
         document.getElementById('uploadInner').innerHTML = '';
         document.getElementById('uploadIndicators').innerHTML = '';

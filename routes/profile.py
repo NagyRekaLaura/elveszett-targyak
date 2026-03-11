@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from flask_login import login_user, current_user, login_required
-from database import db, User, Attachment
+from database import db, User, Attachment, Item
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
@@ -26,7 +26,11 @@ def profile(user_id):
         if user is None:
             return redirect(url_for('main.home'))
     print(user.id)
-    return render_template("profile.html", user=user)
+    user_items = Item.query.filter_by(uploader_id=user.id).order_by(Item.created_at.desc()).all()
+    total = len(user_items)
+    lost_count = sum(1 for i in user_items if i.type == 'lost')
+    found_count = sum(1 for i in user_items if i.type == 'found')
+    return render_template("profile.html", user=user, items=user_items, total=total, lost_count=lost_count, found_count=found_count)
 
 
 @profile_routes.route('/createprofile', methods=['GET', 'POST'])

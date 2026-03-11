@@ -8,6 +8,7 @@ let conversations = [];
 let messagesData = {};
 let currentActiveConversation = null;
 let typingTimeout = null;
+let autoOpenHandled = false;
 
 // DOM elemek
 const convListEl    = document.getElementById("conversation-list");
@@ -23,8 +24,36 @@ const sendBtn       = document.getElementById("send-message-btn");
 
 
 socket.on('conversations', (data) => {
+    // Ha van aktív beszélgetés ami nem szerepel a szerver adatokban, megőrizzük
+    if (currentActiveConversation !== null && currentActiveConversation !== undefined) {
+        const activeInNew = data.find(c => c.id === currentActiveConversation);
+        if (!activeInNew) {
+            const activeInOld = conversations.find(c => c.id === currentActiveConversation);
+            if (activeInOld) {
+                data.push(activeInOld);
+            }
+        }
+    }
     conversations = data;
     renderConversations();
+    
+    // ============== AUTO-OPEN FROM URL PARAM ==============
+    const urlParams = new URLSearchParams(window.location.search);
+    const partnerId = urlParams.get('partner');
+    if (partnerId && !autoOpenHandled) {
+        autoOpenHandled = true;
+        const pid = parseInt(partnerId);
+        const existingConv = conversations.find(c => c.id === pid);
+        if (existingConv) {
+            openConversation(pid);
+        } else {
+            // Új beszélgetés indítása - partner adatok lekérése
+            socket.emit('get_partner_info', { partner_id: pid });
+        }
+        // URL param eltávolítása
+        window.history.replaceState({}, '', window.location.pathname);
+    }
+    // ============== END AUTO-OPEN FROM URL PARAM ==============
     
     // ============== UPDATE ACTIVE CHAT HEADER ==============
     // Ha egy chat van megnyitva, frissítsd az online/offline státuszát
@@ -126,6 +155,23 @@ socket.on('message_seen', (data) => {
 
 socket.on('error', (data) => {
     showToast(data.message, 'error');
+});
+
+socket.on('partner_info', (data) => {
+    // Új beszélgetés hozzáadása a listához
+    const newConv = {
+        id: data.id,
+        name: data.name,
+        pic: data.pic,
+        lastMsg: '',
+        time: '',
+        status: data.status,
+        unread: 0,
+        is_system: false
+    };
+    conversations.push(newConv);
+    renderConversations();
+    openConversation(data.id);
 });
 
 socket.on('disconnect', () => {
