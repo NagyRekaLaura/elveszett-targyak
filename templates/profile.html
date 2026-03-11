@@ -22,7 +22,7 @@
                 <div class="profile-stats">
                     <div class="stat-item">
                         <span class="stat-number">{{ total }}</span>
-                        <span class="stat-label" data-i18n="post.description">Poszt</span>
+                        <span class="stat-label" data-i18n="post.number">Poszt</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">{{ found_count }}</span>
@@ -78,7 +78,7 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="detail-content">
-                            <span class="label">Tag since</span>
+                            <span class="label" data-i18n="profile.memberSince">Csatlakozás</span>
                             <span class="value">{{ user.created_at.strftime('%Y. %m. %d') }}</span>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                 <div class="profile-actions">
                     {% if current_user.is_authenticated and user.id == current_user.id %}
                     <button class="btn btn-primary">
-                        <i class="fas fa-edit"></i><span data-i18n="profile.createButton">Szerkesztés</span>
+                        <i class="fas fa-edit"></i><span data-i18n="profile.edit">Szerkesztés</span>
                     </button>
                     {% else %}
                     <a href="{{ url_for('messages.messages', partner=user.id) }}" class="btn btn-primary">
@@ -106,12 +106,12 @@
     <div class="posts-right">
         <div class="posts-container">
             <div class="posts-title-section">
-                <h1><i class="fas fa-paw"></i> <span data-i18n="post.description">Posztjaim</span></h1>
+                <h1><i class="fas fa-paw"></i> <span data-i18n="post.postsTitle">Posztjaim</span></h1>
 
                 <!-- SZŰRŐ GOMBOK - IDE KERÜLTEK A BADGE HELYÉRE -->
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-list-ul"></i><span data-i18n="home.modal.publish"> Összes</span>
+                        <i class="fas fa-list-ul"></i><span data-i18n="home.modal.all"> Összes</span>
                     </button>
                     <button class="filter-btn" data-filter="lost">
                         <i class="fas fa-times-circle"></i><span data-i18n="home.modal.lost"> Eltűnt</span>

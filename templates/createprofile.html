@@ -27,7 +27,7 @@
                 </div>
                 <!-- Felhasználónév és email (readonly), meg ami még hamarabb lesz megadva --  DISABLED LEGYEN -->
                 <div class="form-group">
-                    <label class="form-label" data-i18n="login.username">
+                    <label class="form-label">
                         <i class="fas fa-at"></i>
                             Felhasználónév <span class="required" >*</span>
                     </label>
@@ -43,18 +43,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" data-i18n="profile.displayName">
+                    <label class="form-label">
                         <i class="fas fa-user"></i>
-                        Megjelenítendő név <span class="required">*</span>
+                        <span data-i18n="profile.displayName">Megjelenítendő név</span> <span class="required">*</span>
                     </label>
                     <input type="text" class="form-control-modal" id="displayName" name="name" placeholder="Pl. ASd asd" data-i18n-attr="placeholder:profile.displayNamePlaceholder" required>
                 </div>
 
                 <!-- Telefonszám -->
                 <div class="form-group">
-                    <label class="form-label" data-i18n="profile.phone">
+                    <label class="form-label">
                         <i class="fas fa-phone"></i>
-                        Telefonszám
+                        <span data-i18n="profile.phone">Telefonszám</span>
                     </label>
                     <div class="privacy-wrapper">
                         <input type="tel" class="form-control-modal" id="phoneNumber" name="phone_number" placeholder="+36 20 123 4567" data-i18n-attr="placeholder:profile.phonePlaceholder">
@@ -68,9 +68,9 @@
 
                 <!-- Születési idő -->
                 <div class="form-group">
-                    <label class="form-label" data-i18n="profile.birthdate">
+                    <label class="form-label">
                         <i class="fas fa-birthday-cake"></i>
-                        Születési idő <span class="required">*</span>
+                        <span data-i18n="profile.birthdate">Születési idő</span> <span class="required">*</span>
                     </label>
                     <input type="date" class="form-control-modal" id="birthdate" name="birthdate" required>
                 </div>
@@ -78,9 +78,9 @@
 
                 <!-- Lakhely -->
                 <div class="form-group">
-                    <label class="form-label" data-i18n="profile.address">
+                    <label class="form-label" >
                         <i class="fas fa-map-marker-alt"></i>
-                        Lakhely <span class="required">*</span>
+                        <span data-i18n="profile.address">Lakhely</span> <span class="required">*</span>
                     </label>
                     <div class="privacy-wrapper">
                         <input type="text" class="form-control-modal" id="address" name="address"
@@ -93,9 +93,9 @@
                 </div>
                 <!-- 2FA -->
                 <div class="form-group">
-                    <label class="form-label" data-i18n="profile.twofa">
+                    <label class="form-label">
                         <i class="fas fa-shield-alt"></i>
-                        Kétlépcsős azonosítás (2FA)
+                        <span data-i18n="profile.twofa">Kétlépcsős azonosítás (2FA)</span>
                     </label>
 
                     <div class="privacy-wrapper">
@@ -121,11 +121,11 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn" id="submitBtn" data-i18n="profile.createButton">
-                        <i class="fas fa-check-circle"></i> Profil létrehozása
+                    <button type="submit" class="btn" id="submitBtn">
+                        <i class="fas fa-check-circle"></i> <span data-i18n="profile.createButton">Profil létrehozása</span>
                     </button>
-                    <button type="button" class="btn" id="cancelBtn" onclick="history.back()" data-i18n="profile.cancel">
-                        <i class="fas fa-times"></i> Mégse
+                    <button type="button" class="btn" id="cancelBtn" onclick="history.back()"   >
+                        <i class="fas fa-times"></i> <span data-i18n="profile.cancel">Mégse</span>
                     </button>
                 </div>
             </form>
