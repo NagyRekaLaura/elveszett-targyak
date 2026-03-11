@@ -8,7 +8,7 @@
   },
   "footer": {
     "brand": "Lost&Found",
-    "description": "Help us find.",
+    "description": "We help you find it.",
     "quickLinks": "Quick Links",
     "home": "Home",
     "posting": "Posting",
@@ -56,14 +56,16 @@
       "lost": "Lost",
       "found": "Found",
       "close": "Close",
-      "publish": "Publish"
+      "publish": "Publish",
+      "all": "All"
     },
     "card": {
       "details": "Details...",
       "hoursAgo": "{hours} hours ago",
       "message": "Message",
       "share": "Share",
-      "timestamp": "Timestamp"
+      "timestamp": "Timestamp",
+      "description": "Description: "
     }
   },
   "login": {
@@ -108,7 +110,9 @@
     "qrCode": "Scan this QR code with your authenticator app",
     "enterCode": "Enter the 6-digit code shown in the app:",
     "incorrectCode": "Incorrect code, please try again.",
-    "verify": "Verify and Enable"
+    "verify": "Verify and Enable",
+    "memberSince": "Member since",
+    "edit": "Edit Profile"
   },
   "messages": {
     "title": "Messages",
@@ -123,7 +127,7 @@
     "contact": "Contact",
     "category": "Category",
     "gender": "Gender",
-    "description": "Description",
+    "number": "All",
     "map": "Map",
     "contactSection": "Contact",
     "contactText": "If you think this is your item or know the owner, contact:",
@@ -131,7 +135,8 @@
     "sendMessage": "Send Message",
     "sendEmail": "Send Email",
     "sender": "Sender",
-    "previousAds": "Previous postings"
+    "previousAds": "Previous postings",
+    "postsTitle": "My Posts"
   },
   "error404": {
     "title": "404 - Page Not Found",

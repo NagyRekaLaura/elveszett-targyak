@@ -14,8 +14,8 @@
         {% else %}
         <p class="info-text" data-i18n="home.lostOrFound">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
         {% endif %}
-        <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-i18n="home.createPost">
-            <i class="fas fa-plus-circle me-2"></i>Poszt létrehozása
+        <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+             <i class="fas fa-plus-circle me-2"></i><span data-i18n="home.createPost">Poszt létrehozása</span>
         </button>
     </div>
 </div>
@@ -39,26 +39,26 @@
             <div class="modal-body">
                 <!--Kép feltötés, leírás megadása, neve, helyszín, talált/keres-->
                 <div class="modal-sor">
-                    <label class="form-label" data-i18n="home.modal.image">
+                    <label class="form-label">
                         <i class="fas fa-image"></i>
-                        Kép:
+                        <span data-i18n="home.modal.image">Kép:</span>
                     </label>
                     <input type="file" id="image-upload" hidden multiple accept="image/*">
                     <label for="image-upload" class="image-label" data-i18n="home.modal.uploadImage">Kép feltötése</label>
                 </div>
                 <div class="modal-sor">
-                    <label class="form-label" data-i18n="home.modal.name">
+                    <label class="form-label">
                         <i class="fas fa-tag"></i>
-                        Neve:
+                        <span data-i18n="home.modal.name">Neve:</span>
                     </label>
                     <input type="text" class="form-control-modal" placeholder="Írd be a megnevezését..." data-i18n-attr="placeholder:home.modal.namePlaceholder">
                 </div>
                 
                 <!-- heelyszín-->
                 <div class="modal-sor">
-                    <label class="form-label" data-i18n="home.modal.location">
+                    <label class="form-label">
                         <i class="fas fa-map-marker-alt"></i>
-                        Helyszín:
+                        <span data-i18n="home.modal.location">Helyszín:</span>
                     </label>
                     <div class="location">
                         <select class="form-control-modal megye-select" id="megye" data-i18n-attr="placeholder:home.modal.selectCounty">
@@ -73,9 +73,9 @@
                 </div>
 
                 <div class="modal-sor"> 
-                    <label class="form-label" data-i18n="home.modal.category">
+                    <label class="form-label">
                         <i class="fas fa-folder-open"></i>
-                        Kategória:
+                        <span data-i18n="home.modal.category">Kategória:</span>
                     </label>
                     <select class="form-control-modal">
                         <option value="allat" data-i18n="home.categories.animal">Állat</option>
@@ -89,15 +89,15 @@
                 <div class="modal-sor">
                     <label class="form-label" data-i18n="home.modal.description">
                         <i class="fas fa-pencil-alt"></i>
-                        Leírás:
+                        <span data-i18n="home.modal.description">Leírás:</span>
                     </label>
                     <textarea class="form-control-modal" placeholder="Írj leírást a tárgyról..." data-i18n-attr="placeholder:home.modal.descriptionPlaceholder"></textarea>
                 </div>
 
                 <div class="modal-sor">
-                    <label class="form-label" data-i18n="home.modal.status">
+                    <label class="form-label">
                         <i class="fas fa-box"></i>
-                        Állapot:
+                        <span data-i18n="home.modal.status">Állapot:</span>
                     </label>
                     <div class="status-toggle">
                         <div class="toggle-switch">
@@ -133,7 +133,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+        <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
@@ -169,7 +169,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+        <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
@@ -205,7 +205,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+        <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
@@ -241,7 +241,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-        <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+        <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>

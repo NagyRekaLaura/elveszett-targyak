@@ -22,7 +22,7 @@
                 <div class="profile-stats">
                     <div class="stat-item">
                         <span class="stat-number">4</span>
-                        <span class="stat-label" data-i18n="post.description">Poszt</span>
+                        <span class="stat-label" data-i18n="post.number">Poszt</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">2</span>
@@ -78,7 +78,7 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="detail-content">
-                            <span class="label">Tag since</span>
+                            <span class="label" data-i18n="profile.memberSince">Csatlakozás</span>
                             <span class="value">{{ user.created_at.strftime('%Y. %m. %d') }}</span>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
 
                 <div class="profile-actions">
                     <button class="btn btn-primary">
-                        <i class="fas fa-edit"></i><span data-i18n="profile.createButton">{{ 'Szerkesztés' if user.id == current_user.id else 'Üzenet' }}</span>
+                        <i class="fas fa-edit"></i><span data-i18n="profile.edit">{{ 'Szerkesztés' if user.id == current_user.id else 'Üzenet' }}</span>
                     </button>
                     <button class="btn">
                         <i class="fas fa-share-alt"></i><span data-i18n="home.card.share"> Megosztás</span>
@@ -100,12 +100,12 @@
     <div class="posts-right">
         <div class="posts-container">
             <div class="posts-title-section">
-                <h1><i class="fas fa-paw"></i> <span data-i18n="post.description">Posztjaim</span></h1>
+                <h1><i class="fas fa-paw"></i> <span data-i18n="post.postsTitle">Posztjaim</span></h1>
 
                 <!-- SZŰRŐ GOMBOK - IDE KERÜLTEK A BADGE HELYÉRE -->
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-list-ul"></i><span data-i18n="home.modal.publish"> Összes</span>
+                        <i class="fas fa-list-ul"></i><span data-i18n="home.modal.all"> Összes</span>
                     </button>
                     <button class="filter-btn" data-filter="lost">
                         <i class="fas fa-times-circle"></i><span data-i18n="home.modal.lost"> Eltűnt</span>
@@ -133,7 +133,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
@@ -160,7 +160,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
@@ -188,7 +188,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
@@ -215,7 +215,7 @@
             <span class="card-time"><i class="far fa-clock me-1"></i><span data-i18n="home.card.hoursAgo" data-i18n-hours="2">2 órája</span></span>
             <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>xyz, zyx</p>
         </div>
-                    <p class="card-text"><strong> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
+                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Necessitatibus est similique facere voluptatum alias excepturi autem ipsa tenetur magnam
             commodi.
             <span class="text-end" data-i18n="home.card.details">Részletek...</span>
