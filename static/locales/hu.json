@@ -108,7 +108,8 @@
     "qrCode": "Olvassa be ezt a QR-kódot az auth alkalmazásban",
     "enterCode": "Írja be az alkalmazásban látható 6 számjegyű kódot:",
     "incorrectCode": "Hibás kód, kérlek próbáld újra.",
-    "verify": "Ellenőrzés és bekapcsolás"
+    "verify": "Ellenőrzés és bekapcsolás",
+    "sendMessage": "Üzenet"
   },
   "messages": {
     "title": "Üzenetek",
@@ -131,7 +132,8 @@
     "sendMessage": "Üzenet küldése",
     "sendEmail": "Email küldése",
     "sender": "Feladó",
-    "previousAds": "Korábbi hirdetések"
+    "previousAds": "Korábbi hirdetések",
+    "number": "Összes"
   },
   "error404": {
     "title": "404 - Oldal nem található",

@@ -112,7 +112,8 @@
     "incorrectCode": "Incorrect code, please try again.",
     "verify": "Verify and Enable",
     "memberSince": "Member since",
-    "edit": "Edit Profile"
+    "edit": "Edit Profile",
+    "sendMessage": "Message"
   },
   "messages": {
     "title": "Messages",
