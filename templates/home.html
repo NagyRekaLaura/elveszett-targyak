@@ -127,7 +127,7 @@
 {% set cat_icons = {'allat': 'fa-paw', 'elektronika': 'fa-laptop', 'ruhazat': 'fa-tshirt', 'ekszer': 'fa-gem', 'dokumentum': 'fa-file-alt', 'egyeb': 'fa-gift'} %}
 {% set cat_i18n = {'allat': 'home.categories.animal', 'elektronika': 'home.categories.electronics', 'ruhazat': 'home.categories.clothing', 'ekszer': 'home.categories.jewelry', 'dokumentum': 'home.categories.document', 'egyeb': 'home.categories.other'} %}
 {% set cat_names = {'allat': 'Állat', 'elektronika': 'Elektronika', 'ruhazat': 'Ruházat', 'ekszer': 'Ékszer', 'dokumentum': 'Dokumentum', 'egyeb': 'Egyéb'} %}
-<div class="card mb-3">
+<div class="card mb-3" onclick="window.location = '{{ url_for("post.post", item_id=item.id) }}';">
     <div class="card-image">
         {% if item.attachments %}
         <img src="{{ url_for('static', filename='attachments/' + item.attachments[0].filename) }}" class="card-img-top" alt="{{ item.name }}">

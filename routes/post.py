@@ -81,11 +81,49 @@ def create_post():
     return jsonify({'success': True, 'item_id': item.id})
 
 
-@post_routes.route('/post', defaults={'item_id': None})
+@post_routes.route('/post', defaults={'item_id': 1})
 @post_routes.route('/post/<int:item_id>')
 def post(item_id):
     item = Item.query.get(item_id)
-    #if item is None:
-    #    return redirect(url_for('main.home'))
-    return render_template("post.html", item=item)
+    if item is None:
+        return redirect(url_for('main.home'))
+
+    uploader = User.query.get(item.uploader_id)
+
+    category_name = item.category.name if item.category else "-"
+    category_i18n_map = {
+        'allat': 'animal',
+        'elektronika': 'electronics',
+        'ruhazat': 'clothing',
+        'ekszer': 'jewelry',
+        'dokumentum': 'document',
+        'egyeb': 'other',
+    }
+    category_i18n_key = category_i18n_map.get(category_name.lower()) if category_name != "-" else None
+
+    public_phone = None
+    if uploader and uploader.phone_number and not uploader.phone_number_is_private:
+        public_phone = uploader.phone_number
+
+    public_email = uploader.email if uploader and uploader.email else None
+    contact_value = public_phone or public_email or "-"
+
+    sender_name = "Ismeretlen felhasznalo"
+    if uploader:
+        sender_name = uploader.name or uploader.username
+
+    previous_ads_count = Item.query.filter_by(uploader_id=item.uploader_id).count() if uploader else 0
+
+    return render_template(
+        "post.html",
+        item=item,
+        uploader=uploader,
+        category_name=category_name,
+        category_i18n_key=category_i18n_key,
+        public_phone=public_phone,
+        public_email=public_email,
+        contact_value=contact_value,
+        sender_name=sender_name,
+        previous_ads_count=previous_ads_count,
+    )
 
