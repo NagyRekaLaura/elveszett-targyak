@@ -12,7 +12,7 @@
 
             <div class="profil-pic-div">
                 <div class="profile-pic">
-                    <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="profilkep">
+                    <img src="{{ url_for('static', filename=profile_picture_path) if profile_picture_path else url_for('static', filename='attachments/cat.jpg') }}" alt="profilkep">
                 </div>
             </div>
             <div class="profile-info">
@@ -86,9 +86,9 @@
 
                 <div class="profile-actions">
                     {% if current_user.is_authenticated and user.id == current_user.id %}
-                    <button class="btn btn-primary">
+                    <a href="{{ url_for('profile.editprofile') }}" class="btn btn-primary">
                         <i class="fas fa-edit"></i><span data-i18n="profile.edit">Szerkesztés</span>
-                    </button>
+                    </a>
                     {% else %}
                     <a href="{{ url_for('messages.messages', partner=user.id) }}" class="btn btn-primary">
                         <i class="fas fa-envelope"></i><span data-i18n="profile.sendMessage"> Üzenet</span>

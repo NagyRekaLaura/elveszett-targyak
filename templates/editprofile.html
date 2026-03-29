@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Profil{% endblock %}
+{% block js %}
+<script src="{{ url_for('static', filename='js/createprofile.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
+{% endblock %}
+{% block content %}
+<body class="mainbody">
+
+    <div class="createprofile-container">
+        <div class="createprofile-card">
+            <div class="createprofile-header">
+                <div class="header-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h1 data-i18n="profile.edit">Profil szerkesztése</h1>
+            </div>
+
+            <form class="createprofile-form" id="createProfileForm" action="{{ url_for('profile.editprofile') }}" method="post" enctype="multipart/form-data">
+                <!-- Profilkép feltöltés -->
+                <div class="profile-pic-upload">
+                    <div class="profile-pic-preview" id="profilePicPreview" onclick="document.getElementById('profilePic').click()">
+                        {% if profile_picture_path %}
+                        <img src="{{ url_for('static', filename=profile_picture_path) }}" alt="Profilkép" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        {% else %}
+                        <i class="fas fa-camera"></i>
+                        {% endif %}
+                    </div>
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*" hidden>
+
+                </div>
+                <!-- Felhasználónév és email (readonly), meg ami még hamarabb lesz megadva --  DISABLED LEGYEN -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-at"></i>
+                            Felhasználónév <span class="required" >*</span>
+                    </label>
+                    <input type="text" class="form-control-modal" value="{{ user.username }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-i18n="login.email">
+                        <i class="fas fa-envelope"></i>
+                        Email cím <span class="required">*</span>
+                    </label>
+                    <input type="email" class="form-control-modal" value="{{ user.email }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i>
+                        <span data-i18n="profile.displayName">Megjelenítendő név</span> <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control-modal" id="displayName" name="name" value="{{ user.name or '' }}" placeholder="Pl. ASd asd" data-i18n-attr="placeholder:profile.displayNamePlaceholder" required>
+                </div>
+
+                <!-- Telefonszám -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i>
+                        <span data-i18n="profile.phone">Telefonszám</span>
+                    </label>
+                    <div class="privacy-wrapper">
+                        <input type="tel" class="form-control-modal" id="phoneNumber" name="phone_number" value="{{ user.phone_number or '' }}" placeholder="+36 20 123 4567" data-i18n-attr="placeholder:profile.phonePlaceholder">
+                        <label class="privacy-toggle" for="phoneNumberPrivate">
+                            <input type="checkbox" id="phoneNumberPrivate" {% if user.phone_number_is_private %}checked{% endif %}>
+                            <i class="fas fa-lock"></i> <span data-i18n="profile.private">Privát</span>
+                        </label>
+                    </div>
+                    <small class="form-text" data-i18n="profile.defaultPrivacy">Alapértelmezetten privát, mások nem látják</small>
+                </div>
+
+                <!-- Születési idő -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span data-i18n="profile.birthdate">Születési idő</span> <span class="required">*</span>
+                    </label>
+                    <input type="date" class="form-control-modal" id="birthdate" name="birthdate" value="{{ user.birthdate.strftime('%Y-%m-%d') if user.birthdate else '' }}" required>
+                </div>
+
+
+                <!-- Lakhely -->
+                <div class="form-group">
+                    <label class="form-label" >
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-i18n="profile.address">Lakhely</span> <span class="required">*</span>
+                    </label>
+                    <div class="privacy-wrapper">
+                        <input type="text" class="form-control-modal" id="address" name="address" value="{{ user.address or '' }}"
+                            placeholder="Budapest, XIII. kerület" data-i18n-attr="placeholder:profile.addressPlaceholder" required>
+                        <label class="privacy-toggle" for="addressPrivate">
+                            <input type="checkbox" id="addressPrivate" {% if user.address_is_private %}checked{% endif %}>
+                            <i class="fas fa-lock-open"></i> <span data-i18n="profile.public">Nyilvános</span>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="submit" class="btn" id="submitBtn">
+                        <i class="fas fa-check-circle"></i> <span data-i18n="profile.save">Mentés</span>
+                    </button>
+                    <button type="button" class="btn" id="cancelBtn" onclick="history.back()"   >
+                        <i class="fas fa-times"></i> <span data-i18n="profile.cancel">Mégse</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock %}

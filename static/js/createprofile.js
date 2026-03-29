@@ -164,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (form) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
+            const submitUrl = form.getAttribute('action') || '/createprofile';
 
             const displayName = document.getElementById('displayName').value.trim();
             const birthdate = document.getElementById('birthdate').value.trim();
@@ -228,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             try {
-                const response = await fetch('/createprofile', {
+                const response = await fetch(submitUrl, {
                     method: 'POST',
                     body: formData
                 });
