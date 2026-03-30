@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import current_user, login_required, login_user, logout_user
 from database import db, User
 
@@ -15,6 +15,10 @@ def login():
 
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
+                if user._2fa_enabled:
+                    session['2fa_user_id'] = user.id
+                    return redirect(url_for("auth.verify_2fa"))
+                
                 login_user(user, remember=True)
                 return redirect(url_for("main.home"))
 
@@ -38,6 +42,25 @@ def login():
             return redirect(url_for("main.home"))
 
     return render_template("login.html")
+
+@auth_routes.route("/2fa-verification", methods=["GET", "POST"])
+def verify_2fa():
+    if request.method == "POST":
+        user_id = session.get('2fa_user_id')
+        user = User.query.get(user_id)
+        session.pop('2fa_user_id', None)
+        login_user(user, remember=True)
+        return redirect(url_for("main.home"))
+    
+    return render_template("2fa_verification.html")
+
+@auth_routes.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
+    if request.method == "POST":
+        new_password = request.form.get("new_password")
+        return redirect(url_for("auth.login"))
+    
+    return render_template("reset_password.html")
 
 @auth_routes.route("/logout")
 @login_required

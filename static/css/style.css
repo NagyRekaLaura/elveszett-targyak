@@ -1327,6 +1327,14 @@ select.form-control-modal option {
     transform: rotateY(0deg);
 }
 
+.twofa-page .login-card-wrapper {
+    max-width: 450px;
+}
+
+.twofa-page .login-card {
+    max-width: 450px;
+}
+
 
 .login-header {
     text-align: center;
@@ -1412,6 +1420,24 @@ form{
     font-weight: 500;
     cursor: pointer;
 }
+
+.forgot-password-section {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password-section a {
+    color: var(--button-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.forgot-password-section a:hover {
+    text-decoration: underline;
+}
+
 /* =============================== */
 /* Profil elkészítése */
 /* =============================== */

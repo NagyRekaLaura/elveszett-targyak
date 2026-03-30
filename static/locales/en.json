@@ -80,7 +80,26 @@
     "confirmPassword": "Confirm Password",
     "registerButton": "Register",
     "haveAccount": "Already have an account?",
-    "loginLink": "Login"
+    "loginLink": "Login",
+    "forgotPassword": "Forgot password?"
+  },
+  "resetPassword": {
+    "title": "Change Password",
+    "description": "Enter your new password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordMismatch": "Passwords do not match!",
+    "passwordTooShort": "Password must be at least 6 characters long!",
+    "submit": "Update Password",
+    "backToLogin": "Back to Login"
+  },
+  "2fa": {
+    "title": "Two-Factor Authentication",
+    "description": "Enter the 6-digit code from your authenticator app:",
+    "incorrectCode": "Incorrect code, please try again.",
+    "incomplete": "Please enter all 6 digits.",
+    "verify": "Verify",
+    "backToLogin": "Back to Login"
   },
   "profile": {
     "title": "Profile",
@@ -131,13 +150,15 @@
     "number": "All",
     "map": "Map",
     "contactSection": "Contact",
-    "contactText": "If you think this is your item or know the owner, contact:",
+    "contactText": "If you think this is your item or know the owner, please contact the poster:",
     "call": "Call: {phone}",
     "sendMessage": "Send Message",
     "sendEmail": "Send Email",
-    "sender": "Sender",
+    "sender": "Poster",
     "previousAds": "Previous postings",
-    "postsTitle": "My Posts"
+    "postsTitle": "My Posts",
+    "status": "Status",
+    "description": "Description:"
   },
   "error404": {
     "title": "404 - Page Not Found",

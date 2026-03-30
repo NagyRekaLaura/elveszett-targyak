@@ -92,7 +92,7 @@
                                 <i class="fas fa-info-circle"></i>
                             </div>
                             <div class="detail-content">
-                                <strong>Státusz:</strong>
+                                <strong data-i18n="post.status">Státusz:</strong>
                                 <p>{{ 'Elveszett' if item.type == 'lost' else 'Talált' }}</p>
                             </div>
                         </div>
@@ -145,16 +145,16 @@
 
                     <div class="action-buttons">
                         {% if public_phone %}
-                        <a href="tel:{{ public_phone }}" class="btn action-btn" data-i18n="post.call" data-i18n-phone="{{ public_phone }}">
-                            <i class="fas fa-phone-alt me-2"></i>Hívás: {{ public_phone }}
+                        <a href="tel:{{ public_phone }}" class="btn action-btn" data-i18n-phone="{{ public_phone }}">
+                            <i class="fas fa-phone-alt me-2"></i><span data-i18n="post.call">Hívás</span>: {{ public_phone }}
                         </a>
                         {% endif %}
                         <a href="{{ url_for('messages.messages', partner=uploader.id) }}" class="btn action-btn" data-i18n="post.sendMessage">
-                            <i class="fas fa-comment me-2"></i>Üzenet küldése
+                            <i class="fas fa-comment me-2"></i><span data-i18n="post.sendMessage">Üzenet küldése</span>
                         </a>
                         {% if public_email %}
                         <a href="mailto:{{ public_email }}" class="btn action-btn" data-i18n="post.sendEmail">
-                            <i class="fas fa-envelope me-2"></i>Email küldése
+                            <i class="fas fa-envelope me-2"></i><span data-i18n="post.sendEmail">Email küldése</span>
                         </a>
                         {% endif %}
                     </div>

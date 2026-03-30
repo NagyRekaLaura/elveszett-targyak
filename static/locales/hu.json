@@ -78,7 +78,26 @@
     "confirmPassword": "Jelszó megerősítése",
     "registerButton": "Regisztráció",
     "haveAccount": "Már van fiókod?",
-    "loginLink": "Bejelentkezés"
+    "loginLink": "Bejelentkezés",
+    "forgotPassword": "Elfelejtett jelszó?"
+  },
+  "resetPassword": {
+    "title": "Jelszó Megváltoztatása",
+    "description": "Adja meg az új jelszavát",
+    "newPassword": "Új jelszó",
+    "confirmPassword": "Jelszó megerősítése",
+    "passwordMismatch": "A jelszavak nem egyeznek!",
+    "passwordTooShort": "A jelszó legalább 6 karakter hosszú legyen!",
+    "submit": "Jelszó frissítése",
+    "backToLogin": "Vissza a bejelentkezéshez"
+  },
+  "2fa": {
+    "title": "Kétlépcsős azonosítás",
+    "description": "Írja be az alkalmazásban látható 6 számjegyű kódot:",
+    "incorrectCode": "Hibás kód, kérlek próbáld újra.",
+    "incomplete": "Kérlek add meg mind a 6 számjegyet!",
+    "verify": "Ellenőrzés",
+    "backToLogin": "Vissza a bejelentkezéshez"
   },
   "profile": {
     "title": "Profil",
