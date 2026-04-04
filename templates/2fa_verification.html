@@ -31,7 +31,7 @@
 
                 <input type="hidden" id="otpCode" name="otp_code" value="">
 
-                <div id="otpError" class="text-danger mb-3" style="display:none;">
+                <div id="otpError" class="text-danger mb-3" {%if not error%}style="display:none;"{% endif %}>
                     <small data-i18n="2fa.incorrectCode">Hibás kód, kérlek próbáld újra.</small>
                 </div>
 

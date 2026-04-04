@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import current_user, login_required, login_user, logout_user
-from database import db, User
+from database import db, User, TwoFactorAuth
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -47,10 +47,19 @@ def login():
 def verify_2fa():
     if request.method == "POST":
         user_id = session.get('2fa_user_id')
+        otp = request.form.get("otp_code")
         user = User.query.get(user_id)
-        session.pop('2fa_user_id', None)
-        login_user(user, remember=True)
-        return redirect(url_for("main.home"))
+        if not user:
+            return redirect(url_for("auth.login"))
+        _2fa = TwoFactorAuth.query.get(user._2fa_id)
+        if not _2fa:
+            return redirect(url_for("auth.login"))
+        if _2fa.verify_otp(otp):
+            session.pop('2fa_user_id', None)
+            login_user(user, remember=True)
+            return redirect(url_for("main.home"))
+        else:
+            return render_template("2fa_verification.html", error=True)
     
     return render_template("2fa_verification.html")
 

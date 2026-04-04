@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, redirect, session, url_for, jsonify
 from flask_login import login_user, current_user, login_required
-from database import db, User, Attachment, Item
+from database import TwoFactorAuth, db, User, Attachment, Item
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
@@ -81,7 +81,10 @@ def _save_profile_form(user):
 
     enable_2fa = request.form.get('2fa_enabled') == 'true'
     if enable_2fa and not user._2fa_enabled:
-        user._2fa_enabled = True
+        return jsonify({
+            'success': False,
+            'error': 'A 2FA bekapcsolasahoz elobb sikeres kodellenorzes szukseges.'
+        }), 400
 
     db.session.commit()
 
@@ -156,3 +159,49 @@ def editprofile():
         user=current_user,
         profile_picture_path=_get_profile_picture_url(current_user)
     )
+
+
+@profile_routes.route('/create2fa', methods=['POST'])
+@login_required
+def create_2fa():
+    otp_code = (request.form.get('2fa_code') or '').strip()
+
+    if otp_code:
+        _2fa = TwoFactorAuth.query.filter_by(user_id=current_user.id).first()
+        if not _2fa:
+            return jsonify({
+                'success': False,
+                'error': 'Nincs elozetes 2FA beallitas ehhez a felhasznalohoz.'
+            }), 400
+
+        if not _2fa.verify_otp(otp_code):
+            return jsonify({
+                'success': False,
+                'error': 'Hibas ellenorzo kod.'
+            }), 400
+
+        current_user._2fa_enabled = True
+        current_user._2fa_id = _2fa.id
+        db.session.commit()
+        return jsonify({
+            'success': True,
+            'message': 'Ketfaktoros hitelesites engedelyezve.'
+        }), 200
+
+    if current_user._2fa_enabled:
+        return jsonify({
+            'success': False,
+            'error': 'A ketfaktoros hitelesites mar engedelyezve van.'
+        }), 400
+
+    _2fa = TwoFactorAuth.query.filter_by(user_id=current_user.id).first()
+    if not _2fa:
+        _2fa = TwoFactorAuth(user_id=current_user.id)
+        session['2fa_key'] = _2fa.set_2fa_secret()
+        db.session.add(_2fa)
+        db.session.commit()
+
+    return jsonify({
+        'success': True,
+        'qr_code': _2fa.generate_qr_code(current_user.email)
+    }), 200
