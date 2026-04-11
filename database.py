@@ -121,6 +121,39 @@ class TwoFactorAuth(db.Model):
         except Exception:
             return False
     
+class PasswordResetToken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    token = db.Column(db.String(64), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    used = db.Column(db.Boolean, default=False)
+
+    def create_token(self):
+        '''Egyedi token generálása és tárolása az adatbázisban'''
+        self.token = pyotp.random_base32(length=64)
+        return self.token
+    def is_active(self):
+        '''Token érvényességének ellenőrzése'''
+        return not self.used 
+    def mark_as_used(self):
+        '''Token használatának jelzése az adatbázisban'''
+        self.used = True
+        db.session.commit()
+    def get_user(self):
+        '''Tokenhez tartozó felhasználó lekérése'''
+        return User.query.get(self.user_id)
+    def reset_password(self, new_password: str):
+        '''Felhasználó jelszavának visszaállítása és token használatának jelzése'''
+        user = self.get_user()
+        if user and self.is_active():
+            user.set_password(new_password)
+            db.session.commit()
+            self.mark_as_used()
+            return True
+        return False
+        
+
+
 def init_db(app):
     with app.app_context():
         db.create_all()

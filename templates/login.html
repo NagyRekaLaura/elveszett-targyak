@@ -3,6 +3,7 @@
 {% block search %}style="visibility: hidden;"{% endblock %}
 {% block js %}
 <script src="{{ url_for('static', filename='js/flipcard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/reset_password_req.js') }}" defer></script>
 {% endblock %}
 {% block content %}
 <div class="login-page">
@@ -21,7 +22,7 @@
                 <div class="input-container">
                     <div class="input-with-icon">
                         <i class="fas fa-user input-icon"></i>
-                        <input type="text" class="form-input" placeholder="Felhasználónév" name="username" data-i18n-attr="placeholder:login.username" required>
+                        <input type="text" id="username" class="form-input" placeholder="Felhasználónév" name="username" data-i18n-attr="placeholder:login.username" required>
                     </div>
                 </div>
 
@@ -33,7 +34,7 @@
                 </div>
 
                 <div class="forgot-password-section">
-                    <a href="{{ url_for('auth.reset_password') }}" data-i18n="login.forgotPassword">Elfelejtett jelszó?</a>
+                    <a id="reset_passwd_req" data-i18n="login.forgotPassword">Elfelejtett jelszó?</a>
                 </div>
                 
                 <input type="hidden" name="type" value="login">

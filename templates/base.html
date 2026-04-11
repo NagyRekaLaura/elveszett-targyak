@@ -148,6 +148,16 @@
         </div>
     </footer>
     {% endblock %}
+
+    {% set messages = get_flashed_messages(with_categories=True) %}
+
+    {% if messages %}
+        {% for category, message in messages %}
+            <script>
+                showToast("{{ message }}", "{{ category }}");
+            </script>
+        {% endfor %}
+    {% endif %}
 </body>
 
 </html>

@@ -1,15 +1,17 @@
+import json
+
 from flask import Flask, url_for, redirect, request
 from flask_login import LoginManager, current_user
 from flask_socketio import SocketIO, emit, disconnect
 from database import init_db, db, User
 import os
 from datetime import datetime
-from routes import auth_routes, main_routes, post_routes, profile_routes, messages_routes
+from routes import auth_routes, main_routes, post_routes, profile_routes, messages_routes, Translate
 from sockets import ensure_models, disable_ai, socketio
 import ollama
 
 AI_DISABLED = False
-
+translate_ai = Translate()
 #set cdw to file lokacio
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -87,5 +89,22 @@ if __name__ == '__main__':
     except:
         print("Ollama is not running or not installed. Please start ollama and ensure it's properly set up.")
         disable_ai()
+    if os.path.exists('tokens.json'):
+        with open('tokens.json', 'r') as f:
+            tokens = json.load(f)
+            if 'ollama_api_key' in tokens and 'mailgun_api_key' in tokens and tokens['ollama_api_key'] and tokens['mailgun_api_key']:
+                app.config['OLLAMA_API_KEY'] = tokens['ollama_api_key']
+                app.config['MAILGUN_API_KEY'] = tokens['mailgun_api_key']
+            else:
+                print("Nem találhatók a szükséges API kulcsok a tokens.json fájlban. Kérem, adja meg őket, különben az AI és email funkciók nem fognak működni.")
+                app.config['OLLAMA_API_KEY'] = None
+                app.config['MAILGUN_API_KEY'] = None
+    else:
+        print("Nem található a tokens.json fájl. Létrehozás...")
+        with open('tokens.json', 'w') as f:
+            json.dump({'ollama_api_key': None, 'mailgun_api_key': None}, f)
+        print("Kérem, adja meg az API kulcsokat a tokens.json fájlban, különben az AI és email funkciók nem fognak működni.")
+        app.config['OLLAMA_API_KEY'] = None
+        app.config['MAILGUN_API_KEY'] = None
 
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)

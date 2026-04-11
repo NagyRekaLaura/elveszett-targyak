@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
 from flask_login import current_user, login_required, login_user, logout_user
-from database import db, User, TwoFactorAuth
+from database import PasswordResetToken, db, User, TwoFactorAuth
+from flask import current_app as app, flash
+from routes.send_mail import send_password_reset_email
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -65,11 +67,55 @@ def verify_2fa():
 
 @auth_routes.route("/reset-password", methods=["GET", "POST"])
 def reset_password():
+    token = request.args.get("token") if request.method == "GET" else request.form.get("token")
+
     if request.method == "POST":
+        if not token:
+            return redirect(url_for("auth.login"))
         new_password = request.form.get("new_password")
-        return redirect(url_for("auth.login"))
+        if not new_password:
+            flash("Kérem, adja meg az új jelszavát!", "error")
+            return redirect(url_for("auth.reset_password", token=token))
+        reset = PasswordResetToken.query.filter_by(token=token).first()
+        if reset.reset_password(new_password):
+            flash("Jelszó sikeresen visszaállítva. Most már bejelentkezhet az új jelszavával.", "success")
+            return redirect(url_for("auth.login"))
+        else:
+            flash("Érvénytelen vagy már használt token. Kérem, próbálja meg újra a jelszó visszaállítási folyamatot.", "error")
+            return redirect(url_for("auth.login"))
+
+        
     
-    return render_template("reset_password.html")
+    if not token:
+        return redirect(url_for("auth.login"))
+
+    return render_template("reset_password.html", token=token)
+
+
+@auth_routes.route("/reset_password_req", methods=["POST"])
+def reset_password_req():
+    data = request.get_json(silent=True) or {}
+    username = (data.get("username") or "").strip()
+
+    if not username:
+        return jsonify(False)
+    
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify(False)
+    reset_token = PasswordResetToken(user_id=user.id)
+    reset_token.create_token()
+    db.session.add(reset_token)
+    db.session.commit()
+    try:
+        send_password_reset_email(user.email, reset_token.token)
+        exists = True
+    except Exception as e:
+        app.logger.error(f"Failed to send password reset email: {e}")
+        flash("Hiba történt a jelszó visszaállító email küldése közben. Kérem, próbálja meg később.", "error")
+        exists = False
+
+    return jsonify(exists)
 
 @auth_routes.route("/logout")
 @login_required
