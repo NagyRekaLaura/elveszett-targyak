@@ -113,12 +113,25 @@ class i18js {
   }
 }
 
+function persistLanguageCookie(lang) {
+  document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+}
+
+function notifyLanguageChanged(lang) {
+  document.dispatchEvent(new CustomEvent('app-language-changed', {
+    detail: { lang }
+  }));
+}
+
 // Create global instance
 const i18 = new i18js();
+window.i18 = i18;
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   i18.init(['hu', 'en']);
+  persistLanguageCookie(i18.getLanguage());
+  notifyLanguageChanged(i18.getLanguage());
 });
 
 // Language switcher function
@@ -153,8 +166,10 @@ i18js.prototype.setLanguage = function(lang) {
   if (this.translations[lang]) {
     this.currentLanguage = lang;
     localStorage.setItem('lang', lang);
+    persistLanguageCookie(lang);
     updateLanguageButtons();
     this.applyLanguage(lang);
     document.documentElement.lang = lang;
+    notifyLanguageChanged(lang);
     }
 };

@@ -25,6 +25,17 @@ def _get_profile_picture_url(user):
     return f"attachments/{attachment.filename}"
 
 
+def _normalize_language(language_value):
+    language_value = (language_value or '').strip().lower()
+    return 'en' if language_value.startswith('en') else 'hu'
+
+
+def _localized_description(item, language):
+    if language == 'en':
+        return item.description_en or item.description_hu or ''
+    return item.description_hu or item.description_en or ''
+
+
 def _save_profile_form(user):
     name = request.form.get('name', '').strip()
     address = request.form.get('address', '').strip()
@@ -106,7 +117,13 @@ def profile(user_id):
         if user is None:
             return redirect(url_for('main.home'))
     print(user.id)
-    user_items = Item.query.filter_by(uploader_id=user.id).order_by(Item.created_at.desc()).all()
+    user_items = Item.query.filter_by(uploader_id=user.id, active=True).order_by(Item.created_at.desc()).all()
+    current_language = _normalize_language(
+        request.cookies.get('lang') or request.headers.get('Accept-Language')
+    )
+    for item in user_items:
+        item.localized_description = _localized_description(item, current_language)
+
     total = len(user_items)
     lost_count = sum(1 for i in user_items if i.type == 'lost')
     found_count = sum(1 for i in user_items if i.type == 'found')

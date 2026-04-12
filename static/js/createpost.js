@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Típus (lost/found) meghatározása a toggle alapján
         const activeToggle = document.querySelector('.toggle-switch .toggle-btn.active');
         const type = activeToggle && activeToggle.classList.contains('found') ? 'found' : 'lost';
+        const currentLanguage = (window.i18 && typeof window.i18.getLanguage === 'function')
+            ? window.i18.getLanguage()
+            : (localStorage.getItem('lang') || document.documentElement.lang || 'hu');
 
         // Validáció
         if (!name) {
@@ -76,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('category', category);
         formData.append('location', location);
         formData.append('type', type);
+        formData.append('language', currentLanguage);
 
         // Képek hozzáadása
         const imageInput = document.getElementById('image-upload');
@@ -98,6 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (result.success) {
+                if (result.processing) {
+                    showToast(result.message || 'A poszt forditasa folyamatban van, hamarosan megjelenik.', 'success');
+                }
+
                 // Modal bezárása
                 const bsModal = bootstrap.Modal.getInstance(modal);
                 if (bsModal) bsModal.hide();

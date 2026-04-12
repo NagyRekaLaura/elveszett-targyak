@@ -41,7 +41,8 @@ class User(db.Model, UserMixin):
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     name = db.Column(db.String(80), nullable=False) 
-    description =  db.Column(db.Text, nullable=False)
+    description_hu =  db.Column(db.Text, nullable=True)
+    description_en = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     attachments= db.relationship('Attachment', backref='item', lazy=True)
     uploader_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

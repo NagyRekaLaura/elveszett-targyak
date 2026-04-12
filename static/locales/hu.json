@@ -63,7 +63,8 @@
       "hoursAgo": "{hours} órája",
       "message": "Üzenet",
       "share": "Megosztás",
-      "timestamp": "Időpont"
+      "timestamp": "Időpont",
+      "description": "Leírás: "
     }
   },
   "login": {

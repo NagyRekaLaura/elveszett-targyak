@@ -154,7 +154,13 @@
                         <p class="card-location"><i class="fas fa-map-marker-alt me-1"></i>{{ item.location }}</p>
                         {% endif %}
                     </div>
-                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>{{ item.description[:150] }}{% if item.description|length > 150 %}...
+                    {% set hu_desc = item.description_hu or '' %}
+                    {% set en_desc = item.description_en or '' %}
+                    {% set show_details = hu_desc|length > 150 or en_desc|length > 150 %}
+                    <p class="card-text"><strong data-i18n="home.card.description"> Leírás: </strong>
+                        <span data-lang-content="hu">{{ hu_desc[:150] }}{% if hu_desc|length > 150 %}...{% endif %}</span>
+                        <span data-lang-content="en">{{ en_desc[:150] }}{% if en_desc|length > 150 %}...{% endif %}</span>
+                    {% if show_details %}
                         <a href="{{ url_for('post.post', item_id=item.id) }}" class="text-end" data-i18n="home.card.details">Részletek...</a>
                     {% endif %}
                     </p>

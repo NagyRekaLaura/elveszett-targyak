@@ -122,7 +122,8 @@
                     
                     <div class="description">
                         <h3 data-i18n="post.description">Leírás:</h3>
-                    <p>{{ item.description }}</p>
+                    <p data-lang-content="hu">{{ item.description_hu or '' }}</p>
+                    <p data-lang-content="en">{{ item.description_en or '' }}</p>
                     </div>
                 </div>
             </div>

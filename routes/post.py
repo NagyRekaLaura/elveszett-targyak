@@ -3,7 +3,9 @@ from flask_login import login_required, current_user
 from database import db, User, Item, Attachment, Category
 from werkzeug.utils import secure_filename, send_from_directory
 import os
+import threading
 import uuid
+from routes.translate import Translate
 
 post_routes = Blueprint("post", __name__)
 
@@ -13,11 +15,63 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def _normalize_language(language_value):
+    language_value = (language_value or '').strip().lower()
+    return 'en' if language_value.startswith('en') else 'hu'
+
+
+def _localized_description(item, language):
+    if language == 'en':
+        return item.description_en or item.description_hu or ''
+    return item.description_hu or item.description_en or ''
+
+
+def _translate_in_background(app, item_id, source_language, source_text):
+    try:
+        with app.app_context():
+            item = Item.query.get(item_id)
+            if not item:
+                return
+
+            if item.description_hu and item.description_en:
+                item.active = True
+                db.session.commit()
+                return
+
+            api_key = app.config.get('OLLAMA_API_KEY')
+            if not api_key:
+                app.logger.warning('Nincs OLLAMA_API_KEY, a poszt forditasa nem indult el. item_id=%s', item_id)
+                return
+
+            target_language = 'en' if source_language == 'hu' else 'hu'
+
+            translator = Translate()
+            translator.set_token(api_key)
+            translated_text = translator.translate(target_language, source_text)
+
+            if target_language == 'hu':
+                item.description_hu = translated_text
+            else:
+                item.description_en = translated_text
+
+            item.active = bool(item.description_hu and item.description_en)
+            db.session.commit()
+    except Exception:
+        with app.app_context():
+            db.session.rollback()
+        app.logger.exception('Hiba tortent a hatterforditas kozben. item_id=%s', item_id)
+
+
 @post_routes.route('/post/create', methods=['POST'])
 @login_required
 def create_post():
     name = request.form.get('name', '').strip()
     description = request.form.get('description', '').strip()
+    language = _normalize_language(
+        request.form.get('language')
+        or request.cookies.get('lang')
+        or request.headers.get('Accept-Language')
+    )
     category = request.form.get('category', '').strip()
     location = request.form.get('location', '').strip()
     post_type = request.form.get('type', 'lost').strip()
@@ -49,7 +103,9 @@ def create_post():
 
     item = Item(
         name=name,
-        description=description,
+        description_hu=description if language == 'hu' else None,
+        description_en=description if language == 'en' else None,
+        active=False,
         uploader_id=current_user.id,
         type=post_type,
         category_id=category_id,
@@ -78,14 +134,27 @@ def create_post():
 
     db.session.commit()
 
-    return jsonify({'success': True, 'item_id': item.id})
+    app_obj = current_app._get_current_object()
+    translation_worker = threading.Thread(
+        target=_translate_in_background,
+        args=(app_obj, item.id, language, description),
+        daemon=True,
+    )
+    translation_worker.start()
+
+    return jsonify({
+        'success': True,
+        'item_id': item.id,
+        'processing': True,
+        'message': 'A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.'
+    })
 
 
 @post_routes.route('/post', defaults={'item_id': 1})
 @post_routes.route('/post/<int:item_id>')
 def post(item_id):
     item = Item.query.get(item_id)
-    if item is None:
+    if item is None or not item.active:
         return redirect(url_for('main.home'))
 
     uploader = User.query.get(item.uploader_id)
