@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block js %}
+<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+<script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/createpost.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/profile-filter.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/editpost.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -130,7 +134,7 @@
             {% set cat_icons = {'allat': 'fa-paw', 'elektronika': 'fa-laptop', 'ruhazat': 'fa-tshirt', 'ekszer': 'fa-gem', 'dokumentum': 'fa-file-alt', 'egyeb': 'fa-gift'} %}
             {% set cat_i18n = {'allat': 'home.categories.animal', 'elektronika': 'home.categories.electronics', 'ruhazat': 'home.categories.clothing', 'ekszer': 'home.categories.jewelry', 'dokumentum': 'home.categories.document', 'egyeb': 'home.categories.other'} %}
             {% set cat_names = {'allat': 'Állat', 'elektronika': 'Elektronika', 'ruhazat': 'Ruházat', 'ekszer': 'Ékszer', 'dokumentum': 'Dokumentum', 'egyeb': 'Egyéb'} %}
-            <div class="card mb-3" data-status="{{ item.type }}">
+            <div class="card mb-3" data-status="{{ item.type }}" data-post-id="{{ item.id }}" {% if item.is_closed %}style="opacity: 0.6;"{% endif %}>
                 <div class="card-image">
                     {% if item.attachments %}
                     <img src="{{ url_for('static', filename='attachments/' + item.attachments[0].filename) }}" class="card-img-top" alt="{{ item.name }}">
@@ -169,6 +173,11 @@
                     <div class="actions">
                         {% if current_user.is_authenticated and current_user.id == user.id %}
                         <button class="btn-action btn-edit" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-pencil-alt"></i></button>
+                        {% if item.is_closed %}
+                        <button class="btn-action btn-close-post btn-close-open" title="Poszt megnyitása" data-post-id="{{ item.id }}"><i class="fas fa-lock-open"></i></button>
+                        {% else %}
+                        <button class="btn-action btn-close-post" title="Poszt lezárása" data-post-id="{{ item.id }}"><i class="fas fa-lock"></i></button>
+                        {% endif %}
                         <button class="btn-action btn-delete" data-i18n-attr="aria-label:home.card.message"><i class="fas fa-trash-alt"></i></button>
                         {% endif %}
                         <button class="btn-action btn-share" data-i18n-attr="aria-label:home.card.share"><i class="fas fa-share-alt"></i></button>
@@ -179,14 +188,100 @@
 
             {% if not items %}
             <div class="text-center py-5 w-100">
-                <i class="fas fa-inbox fa-3x mb-3" style="color: #888;"></i>
-                <p style="color: #888;" data-i18n="home.noPosts">Még nincsenek posztok.</p>
+                <i class="fas fa-inbox fa-3x mb-3" style="color: #421b1b;"></i>
+                <p style="color: #421b1b;" data-i18n="home.noPosts">Még nincsenek posztok.</p>
             </div>
             {% endif %}
 
         </div>
     </div>
 </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" data-i18n="home.modal.title">Poszt szerkesztése</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-sor">
+                    <label class="form-label">
+                        <i class="fas fa-image"></i>
+                        <span data-i18n="home.modal.image">Kép:</span>
+                    </label>
+                    <input type="file" id="image-upload" hidden multiple accept="image/*">
+                    <label for="image-upload" class="image-label" data-i18n="home.modal.uploadImage">Kép feltötése</label>
+                </div>
+                <div class="modal-sor">
+                    <label class="form-label">
+                        <i class="fas fa-tag"></i>
+                        <span data-i18n="home.modal.name">Neve:</span>
+                    </label>
+                    <input type="text" id="post-name" class="form-control-modal" placeholder="Írd be a megnevezését..." data-i18n-attr="placeholder:home.modal.namePlaceholder">
+                </div>
+                
+                <div class="modal-sor">
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-i18n="home.modal.location">Helyszín:</span>
+                    </label>
+                    <div class="location">
+                        <select class="form-control-modal megye-select" id="megye" data-i18n-attr="placeholder:home.modal.selectCounty">
+                            <option value="" disabled selected data-i18n="home.modal.selectCounty">Válassz megyét</option>
+                        </select>
+                        <select class="form-control-modal telepules-select" id="telepules" data-i18n-attr="placeholder:home.modal.selectSettlement">
+                            <option value="" disabled selected data-i18n="home.modal.selectSettlement">Válassz települést</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-sor"> 
+                    <label class="form-label">
+                        <i class="fas fa-folder-open"></i>
+                        <span data-i18n="home.modal.category">Kategória:</span>
+                    </label>
+                    <select id="post-category" class="form-control-modal">
+                        <option value="allat" data-i18n="home.categories.animal">Állat</option>
+                        <option value="elektronika" data-i18n="home.categories.electronics">Elektronika</option>
+                        <option value="ruhazat" data-i18n="home.categories.clothing">Ruházat</option>
+                        <option value="ekszer" data-i18n="home.categories.jewelry">Ékszer</option>
+                        <option value="dokumentum" data-i18n="home.categories.document">Dokumentum</option>
+                        <option value="egyeb" data-i18n="home.categories.other">Egyéb</option>
+                    </select>
+                </div>
+                <div class="modal-sor">
+                    <label class="form-label" data-i18n="home.modal.description">
+                        <i class="fas fa-pencil-alt"></i>
+                        <span data-i18n="home.modal.description">Leírás:</span>
+                    </label>
+                    <textarea id="post-description" class="form-control-modal" placeholder="Írj leírást a tárgyról..." data-i18n-attr="placeholder:home.modal.descriptionPlaceholder"></textarea>
+                </div>
+
+                <div class="modal-sor">
+                    <label class="form-label">
+                        <i class="fas fa-box"></i>
+                        <span data-i18n="home.modal.status">Állapot:</span>
+                    </label>
+                    <div class="status-toggle">
+                        <div class="toggle-switch">
+                            <button type="button" class="toggle-btn lost active" onclick="toggleStatus(this)">
+                                <i class="fas fa-search me-1"></i><span data-i18n="home.modal.lost">Elveszett</span>
+                            </button>
+                            <button type="button" class="toggle-btn found" onclick="toggleStatus(this)">
+                                <i class="fas fa-check me-1"></i><span data-i18n="home.modal.found">Talált</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="home.modal.close">Bezárás</button>
+                <button type="button" id="post-publish-btn" class="btn btn-primary" data-i18n="home.modal.publish">Közzététel</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

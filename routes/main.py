@@ -16,7 +16,7 @@ def _localized_description(item, language):
 
 @main_routes.route('/')
 def home():
-    items = Item.query.filter_by(active=True).order_by(Item.created_at.desc()).all()
+    items = Item.query.filter_by(active=True, is_closed=False).order_by(Item.created_at.desc()).all()
     current_language = _normalize_language(
         request.cookies.get('lang') or request.headers.get('Accept-Language')
     )

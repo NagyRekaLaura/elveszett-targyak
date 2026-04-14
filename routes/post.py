@@ -156,6 +156,9 @@ def post(item_id):
     item = Item.query.get(item_id)
     if item is None or not item.active:
         return redirect(url_for('main.home'))
+    
+    if item.is_closed and (not current_user.is_authenticated or item.uploader_id != current_user.id):
+        return redirect(url_for('main.home'))
 
     uploader = User.query.get(item.uploader_id)
 
@@ -195,4 +198,206 @@ def post(item_id):
         sender_name=sender_name,
         previous_ads_count=previous_ads_count,
     )
+
+
+@post_routes.route('/post/<int:item_id>/data', methods=['GET'])
+@login_required
+def get_post_data(item_id):
+    """Fetch post data for editing"""
+    item = Item.query.get(item_id)
+    
+    if item is None:
+        return jsonify({'success': False, 'error': 'Poszt nem található.'}), 404
+    
+    if item.uploader_id != current_user.id:
+        return jsonify({'success': False, 'error': 'Nincs jogosultsága szerkeszteni ezt a posztot.'}), 403
+    
+    location_parts = []
+    if item.location:
+        location_parts = [part.strip() for part in item.location.split(',')]
+    
+    megye = location_parts[0] if location_parts else ''
+    telepules = location_parts[1] if len(location_parts) > 1 else ''
+    
+    current_language = (request.cookies.get('lang') or request.headers.get('Accept-Language') or 'hu').lower()
+    if current_language.startswith('en'):
+        current_language = 'en'
+    else:
+        current_language = 'hu'
+    
+    description = (item.description_en if current_language == 'en' else item.description_hu) or item.description_hu or item.description_en or ''
+    
+    return jsonify({
+        'success': True,
+        'id': item.id,
+        'name': item.name,
+        'description': description,
+        'category': item.category.name if item.category else 'egyeb',
+        'type': item.type,
+        'megye': megye,
+        'telepules': telepules,
+        'is_closed': item.is_closed,
+        'attachments': [att.filename for att in item.attachments]
+    })
+
+
+@post_routes.route('/post/<int:item_id>/edit', methods=['POST'])
+@login_required
+def edit_post(item_id):
+    """Update an existing post"""
+    item = Item.query.get(item_id)
+    
+    if item is None:
+        return jsonify({'success': False, 'error': 'Poszt nem található.'}), 404
+    
+    if item.uploader_id != current_user.id:
+        return jsonify({'success': False, 'error': 'Nincs jogosultsága szerkeszteni ezt a posztot.'}), 403
+    
+    name = request.form.get('name', '').strip()
+    description = request.form.get('description', '').strip()
+    category = request.form.get('category', '').strip()
+    location = request.form.get('location', '').strip()
+    post_type = request.form.get('type', 'lost').strip()
+    language = _normalize_language(
+        request.form.get('language')
+        or request.cookies.get('lang')
+        or request.headers.get('Accept-Language')
+    )
+    is_closed = request.form.get('is_closed', 'false').lower() == 'true'
+    
+    removed_images_str = request.form.get('removed_images', '[]')
+    try:
+        import json
+        removed_images = json.loads(removed_images_str)
+    except:
+        removed_images = []
+    
+    if removed_images:
+        upload_dir = os.path.join(current_app.root_path, 'static', 'attachments')
+        for filename in removed_images:
+            attachment = Attachment.query.filter_by(filename=filename, item_id=item_id).first()
+            if attachment:
+                db.session.delete(attachment)
+                filepath = os.path.join(upload_dir, filename)
+                if os.path.exists(filepath):
+                    try:
+                        os.remove(filepath)
+                    except Exception as e:
+                        print(f"Error deleting file {filepath}: {e}")
+    
+    if not name or not description:
+        return jsonify({'success': False, 'error': 'A név és leírás megadása kötelező.'}), 400
+    
+    if post_type not in ('lost', 'found'):
+        post_type = 'lost'
+    
+    item.name = name
+    item.type = post_type
+    item.location = location
+    item.is_closed = is_closed
+    
+    if language == 'hu':
+        item.description_hu = description
+    else:
+        item.description_en = description
+    threading.Thread(
+        target=_translate_in_background,
+        args=(item, language)
+    ).start()
+    if category:
+        category_icons = {
+            'allat': 'fa-paw',
+            'elektronika': 'fa-laptop',
+            'ruhazat': 'fa-tshirt',
+            'ekszer': 'fa-gem',
+            'dokumentum': 'fa-file-alt',
+            'egyeb': 'fa-gift'
+        }
+        category_obj = Category.query.filter_by(name=category).first()
+        if not category_obj:
+            category_obj = Category(
+                name=category,
+                icon=category_icons.get(category, 'fa-tag')
+            )
+            db.session.add(category_obj)
+            db.session.flush()
+        item.category_id = category_obj.id
+    
+    upload_dir = os.path.join(current_app.root_path, 'static', 'attachments')
+    os.makedirs(upload_dir, exist_ok=True)
+    
+    files = request.files.getlist('images')
+    for file in files:
+        if file and file.filename and allowed_file(file.filename):
+            ext = file.filename.rsplit('.', 1)[1].lower()
+            filename = f"{uuid.uuid4().hex}.{ext}"
+            filepath = os.path.join(upload_dir, filename)
+            file.save(filepath)
+            
+            attachment = Attachment(
+                filename=filename,
+                item_id=item.id
+            )
+            db.session.add(attachment)
+    
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'Poszt módosítva.'
+    })
+
+
+@post_routes.route('/post/<int:item_id>/close', methods=['POST'])
+@login_required
+def close_post(item_id):
+    """Toggle closed status of a post"""
+    item = Item.query.get(item_id)
+    
+    if item is None:
+        return jsonify({'success': False, 'error': 'Poszt nem található.'}), 404
+    
+    if item.uploader_id != current_user.id:
+        return jsonify({'success': False, 'error': 'Nincs jogosultsága lezárni ezt a posztot.'}), 403
+    
+    item.is_closed = not item.is_closed
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'is_closed': item.is_closed,
+        'message': 'Poszt lezárva.' if item.is_closed else 'Poszt megnyitva.'
+    })
+
+
+@post_routes.route('/post/<int:item_id>/delete', methods=['POST'])
+@login_required
+def delete_post(item_id):
+    """Delete a post"""
+    item = Item.query.get(item_id)
+    
+    if item is None:
+        return jsonify({'success': False, 'error': 'Poszt nem található.'}), 404
+    
+    if item.uploader_id != current_user.id:
+        return jsonify({'success': False, 'error': 'Nincs jogosultsága törölni ezt a posztot.'}), 403
+    
+    for attachment in item.attachments:
+        try:
+            filepath = os.path.join(current_app.root_path, 'static', 'attachments', attachment.filename)
+            if os.path.exists(filepath):
+                os.remove(filepath)
+        except Exception as e:
+            current_app.logger.warning(f'Failed to delete file {attachment.filename}: {e}')
+        
+        db.session.delete(attachment)
+    
+    db.session.delete(item)
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'Poszt törölve.'
+    })
+
 

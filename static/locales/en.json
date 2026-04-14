@@ -55,9 +55,10 @@
       "status": "Status",
       "lost": "Lost",
       "found": "Found",
+      "closePost": "Close Post",
+      "postClosed": "Post Closed",
       "close": "Close",
-      "publish": "Publish",
-      "all": "All"
+      "publish": "Publish"
     },
     "card": {
       "details": "Details...",

@@ -55,6 +55,8 @@
       "status": "Állapot",
       "lost": "Elveszett",
       "found": "Talált",
+      "closePost": "Poszt lezárása",
+      "postClosed": "Poszt lezárva",
       "close": "Bezárás",
       "publish": "Közzététel"
     },
