@@ -6,59 +6,59 @@ from flask import current_app as app, url_for
 
 def _build_reset_email_html(reset_url: str) -> str:
 	return f"""
-	<div style="margin:0;padding:0;background:#f3f6fb;font-family:Segoe UI,Arial,sans-serif;color:#0f172a;">
+	<div style="margin:0;padding:0;background:#f3e8e0;font-family:Segoe UI,Arial,sans-serif;color:#2d1f1e;">
 		<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:32px 16px;">
 			<tr>
 				<td align="center">
-					<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(15,23,42,0.08);">
+					<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border:1px solid #d4c5ba;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(148,106,97,0.12);">
 						<tr>
-							<td style="padding:0;background:linear-gradient(135deg,#0f766e 0%,#0ea5a4 45%,#14b8a6 100%);">
+							<td style="padding:0;background:linear-gradient(135deg,#9E3F41 0%,#9A5A3B 45%,#946A61 100%);">
 								<div style="padding:34px 36px 30px;color:#ffffff;">
 									<div style="display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.16);font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">
 										Lost & Found
 									</div>
-									<h1 style="margin:18px 0 10px;font-size:30px;line-height:1.15;font-weight:800;">Jelszo visszaallitasa</h1>
+									<h1 style="margin:18px 0 10px;font-size:30px;line-height:1.15;font-weight:800;">Jelszó visszaállitása</h1>
 									<p style="margin:0;font-size:15px;line-height:1.7;max-width:520px;opacity:0.96;">
-										Biztonsagi okokbol kaptad ezt az emailt. Ha te kerestel jelszovisszaallitast, az alabbi gombbal uj jelszot allithatsz be.
+										Biztonsági okokbol kaptad ezt az emailt. Ha te kértél jelszóvisszaállitást, az alábbi gombbal új jelszót állithatsz be.
 									</p>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td style="padding:36px;">
-								<p style="margin:0 0 16px;font-size:16px;line-height:1.75;color:#1f2937;">
-									Ha a jelszavadat szeretned megvaltoztatni, kattints az alabbi gombra. A link egy ideig ervenyes, es csak egyszer hasznalhato.
+								<p style="margin:0 0 16px;font-size:16px;line-height:1.75;color:#3d2a23;">
+									Ha a jelszavadat szeretnéd megváltoztatni, kattints az alábbi gombra. A link csak egy ideig érvényes, és csak egyszer hasznalható.
 								</p>
 
 								<table role="presentation" cellspacing="0" cellpadding="0" style="margin:28px 0 26px;">
 									<tr>
-										<td style="border-radius:14px;background:#0f766e;">
+										<td style="border-radius:14px;background:#9E3F41;">
 											<a href="{reset_url}" style="display:inline-block;padding:14px 22px;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:14px;">
-												Jelszo visszaallitasa
+												Jelszó visszaállitása
 											</a>
 										</td>
 									</tr>
 								</table>
 
-								<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:18px 18px 16px;margin:0 0 22px;">
-									<p style="margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:#0f172a;">Mit tegyel, ha nem te kerted?</p>
-									<p style="margin:0;font-size:14px;line-height:1.7;color:#475569;">
-										Ha ez a kereses nem toled szarmazik, egyszeruen torold ezt az emailt. A jelszavad ekkor sem valtozik.
+								<div style="background:#f9e8dc;border:1px solid #e5d5c8;border-radius:14px;padding:18px 18px 16px;margin:0 0 22px;">
+									<p style="margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:#2d1f1e;">Mit tegyél, ha nem te kérted?</p>
+									<p style="margin:0;font-size:14px;line-height:1.7;color:#5a4741;">
+										Ha ez a kérés nem tőled származik, egyszerűen töröld ezt az emailt. A jelszavad ekkor nem változik.
 									</p>
 								</div>
 
-								<p style="margin:0 0 10px;font-size:14px;line-height:1.7;color:#64748b;">
-									Ha a gomb nem mukodik, masold be ezt a linket a bongeszobe:
+								<p style="margin:0 0 10px;font-size:14px;line-height:1.7;color:#6b5a4f;">
+									Ha a gomb nem működik, másold be ezt a linket a böngésződbe:
 								</p>
-								<p style="margin:0 0 6px;word-break:break-all;font-size:13px;line-height:1.7;color:#0f766e;">
-									<a href="{reset_url}" style="color:#0f766e;text-decoration:underline;">{reset_url}</a>
+								<p style="margin:0 0 6px;word-break:break-all;font-size:13px;line-height:1.7;color:#9E3F41;">
+									<a href="{reset_url}" style="color:#9E3F41;text-decoration:underline;">{reset_url}</a>
 								</p>
 							</td>
 						</tr>
 						<tr>
-							<td style="padding:18px 36px 24px;border-top:1px solid #e5e7eb;background:#fafafa;">
-								<p style="margin:0;font-size:12px;line-height:1.7;color:#64748b;">
-									Ez egy automatikusan generalt email a Lost & Found rendszerbol. Kerjuk, ne valaszolj ra kozvetlenul.
+							<td style="padding:18px 36px 24px;border-top:1px solid #d4c5ba;background:#f5ede5;">
+								<p style="margin:0;font-size:12px;line-height:1.7;color:#7a6a60;">
+									Ez egy automatikusan generált email a Lost & Found rendszerből. Kerjük, ne válaszolj rá közvetlenül.
 								</p>
 							</td>
 						</tr>
