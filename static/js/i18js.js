@@ -142,14 +142,12 @@ function switchLanguage(lang) {
 // Update language button styles
 function updateLanguageButtons() {
   const currentLang = i18.getLanguage();
-  document.querySelectorAll('.language-switcher button').forEach(btn => {
-    btn.classList.remove('active', 'btn-secondary');
-    btn.classList.add('btn-outline-secondary');
+  document.querySelectorAll('.language-switcher .lang-btn').forEach(btn => {
+    btn.classList.remove('active');
   });
   const activeBtn = document.getElementById(`lang-${currentLang}`);
   if (activeBtn) {
-    activeBtn.classList.remove('btn-outline-secondary');
-    activeBtn.classList.add('btn-secondary', 'active');
+    activeBtn.classList.add('active');
   }
 }
 

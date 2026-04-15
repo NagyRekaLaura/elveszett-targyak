@@ -1,0 +1,654 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="postbody">
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="logo">
+                <h2>Admin</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard" onclick="switchAdminPage(event, 'dashboard')">
+                    <i class="fas fa-chart-pie"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-page="users" onclick="switchAdminPage(event, 'users')">
+                    <i class="fas fa-users"></i> Manage Users
+                </a>
+                <a href="#" class="nav-item" data-page="posts" onclick="switchAdminPage(event, 'posts')">
+                    <i class="fas fa-file-alt"></i> Manage Posts
+                </a>
+                <a href="#" class="nav-item" data-page="reports" onclick="switchAdminPage(event, 'reports')">
+                    <i class="fas fa-chart-line"></i> Reports
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{{ url_for('auth.logout') }}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        <main class="admin-main">
+            <div id="dashboard-page" class="admin-page active">
+                <header class="admin-header">
+                    <div class="header-left">
+                        <h1>Dashboard</h1>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search...">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="user-menu">
+                            <span>Admin User</span>
+                            <div class="avatar">A</div>
+                        </div>
+                    </div>
+                </header>
+                <section class="dashboard-content">
+                    <div class="dashboard-top-section">
+                        <div class="charts-container">
+                            <div class="chart-box">
+                                <h3>RAM Usage</h3>
+                                <div class="chart-usage-display" id="ramUsageDisplay">8 GB / 16 GB</div>
+                                <canvas id="ramChart"></canvas>
+                            </div>
+                            <div class="chart-box">
+                                <h3>CPU Usage</h3>
+                                <div class="chart-usage-display" id="cpuUsageDisplay">2.4 GHz / 4 GHz</div>
+                                <canvas id="cpuChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="stats-cards-vertical">
+                            <div class="stat-card stat-card-vertical">
+                                <div class="stat-icon" style="background: #3498db;"><i class="fas fa-users" style="font-size: 28px; color: white;"></i></div>
+                                <div class="stat-info">
+                                    <h3>Total Users</h3>
+                                    <p class="stat-number">1,234</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-card stat-card-vertical">
+                                <div class="stat-icon" style="background: #2ecc71;"><i class="fas fa-file-alt" style="font-size: 28px; color: white;"></i></div>
+                                <div class="stat-info">
+                                    <h3>Total Posts</h3>
+                                    <p class="stat-number">5,678</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-card stat-card-vertical">
+                                <div class="stat-icon" style="background: #f39c12;"><i class="fas fa-exclamation-circle" style="font-size: 28px; color: white;"></i></div>
+                                <div class="stat-info">
+                                    <h3>Pending Reports</h3>
+                                    <p class="stat-number">23</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn">
+                                <span><i class="fas fa-plus"></i></span>
+                                <span>Create User</span>
+                            </button>
+                            <button class="action-btn">
+                                <span><i class="fas fa-search"></i></span>
+                                <span>Search Posts</span>
+                            </button>
+                            <button class="action-btn">
+                                <span><i class="fas fa-list"></i></span>
+                                <span>View Reports</span>
+                            </button>
+                            <button class="action-btn">
+                                <span><i class="fas fa-download"></i></span>
+                                <span>Export Data</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="activity-section">
+                        <div class="section-header">
+                            <h3>Recent Activity</h3>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #3498db;"><i class="fas fa-user-plus"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>New user registration - </strong> Test User </p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                                <span class="activity-status">New</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #e74c3c;"><i class="fas fa-ban"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>User suspended - </strong> Spam Activity</p>
+                                    <span class="activity-time">5 hours ago</span>
+                                </div>
+                                <span class="activity-status">Action</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #2ecc71;"><i class="fas fa-flag"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>Post reported - </strong> Inappropriate content (5 reports)</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                                <span class="activity-status">Pending</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: #f39c12;"><i class="fas fa-edit"></i></div>
+                                <div class="activity-content">
+                                    <p><strong>Post edited - </strong> Test User updated their post</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                                <span class="activity-status">Info</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="users-page" class="admin-page">
+                <header class="admin-header">
+                    <div class="header-left">
+                        <h1>Manage Users</h1>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search users...">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </header>
+                <section class="dashboard-content">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>Status:</label>
+                            <select>
+                                <option selected>All Status</option>
+                                <option>Active</option>
+                                <option>Suspended</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Role:</label>
+                            <select>
+                                <option selected>All Roles</option>
+                                <option>Admin</option>
+                                <option>User</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Joined:</label>
+                            <input type="date">
+                        </div>
+                        <button class="btn-secondary"><i class="fas fa-check"></i> Apply</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Role</th>
+                                    <th>Posts</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="user-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">JD</div>
+                                            <strong>John Doe</strong>
+                                        </div>
+                                    </td>
+                                    <td>john@example.com</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>User</td>
+                                    <td>45</td>
+                                    <td>2 months ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="user-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">JS</div>
+                                            <strong>Jane Smith</strong>
+                                        </div>
+                                    </td>
+                                    <td>jane@example.com</td>
+                                    <td><span class="status-badge suspended">Suspended</span></td>
+                                    <td>User</td>
+                                    <td>12</td>
+                                    <td>1 month ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="user-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">MJ</div>
+                                            <strong>Mike Johnson</strong>
+                                        </div>
+                                    </td>
+                                    <td>mike@example.com</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>User</td>
+                                    <td>89</td>
+                                    <td>3 months ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="user-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">SL</div>
+                                            <strong>Sarah Lee</strong>
+                                        </div>
+                                    </td>
+                                    <td>sarah@example.com</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>Admin</td>
+                                    <td>156</td>
+                                    <td>6 months ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="user-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">RP</div>
+                                            <strong>Robert Park</strong>
+                                        </div>
+                                    </td>
+                                    <td>robert@example.com</td>
+                                    <td><span class="status-badge suspended">Suspended</span></td>
+                                    <td>User</td>
+                                    <td>23</td>
+                                    <td>2 weeks ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="user-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">EC</div>
+                                            <strong>Emma Chen</strong>
+                                        </div>
+                                    </td>
+                                    <td>emma@example.com</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>User</td>
+                                    <td>67</td>
+                                    <td>1 month ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="page-btn"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span class="page-info">... Page 1 of 15</span>
+                        <button class="page-btn">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+
+                </section>
+            </div>
+
+            <div id="posts-page" class="admin-page">
+                <header class="admin-header">
+                    <div class="header-left">
+                        <h1>Manage Posts</h1>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search posts...">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </header>
+                <section class="dashboard-content">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>Status:</label>
+                            <select>
+                                <option selected>All Status</option>
+                                <option>Active</option>
+                                <option>Closed</option>
+                                <option>Deleted</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Category:</label>
+                            <select>
+                                <option selected>All Categories</option>
+                                <option>Lost Items</option>
+                                <option>Found Items</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Posted:</label>
+                            <input type="date">
+                        </div>
+                        <button class="btn-secondary"><i class="fas fa-check"></i> Apply</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Post Title</th>
+                                    <th>Author</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Reports</th>
+                                    <th>Posted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="post-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="post-cell">
+                                            <strong>Lost Silver Watch</strong>
+                                            <span class="post-preview">Missing since Tuesday in downtown area...</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">JD</div>
+                                            <span>John Doe</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="category-badge">Lost Items</span></td>
+                                    <td><span class="status-badge active">Published</span></td>
+                                    <td><span class="report-count">0</span></td>
+                                    <td>2 hours ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="post-row reported">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="post-cell">
+                                            <strong>Found iPhone 15 Pro</strong>
+                                            <span class="post-preview">Found in parking lot near mall, needs owner identification...</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">EC</div>
+                                            <span>Emma Chen</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="category-badge">Found Items</span></td>
+                                    <td><span class="status-badge warning">Reported</span></td>
+                                    <td><span class="report-count">3</span></td>
+                                    <td>1 day ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="post-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="post-cell">
+                                            <strong>Lost Black Wallet with ID</strong>
+                                            <span class="post-preview">Any sightings appreciated. Reward offered...</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">MJ</div>
+                                            <span>Mike Johnson</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="category-badge">Lost Items</span></td>
+                                    <td><span class="status-badge active">Published</span></td>
+                                    <td><span class="report-count">0</span></td>
+                                    <td>3 days ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="post-row reported">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="post-cell">
+                                            <strong>Found Keys and Keychain</strong>
+                                            <span class="post-preview">Located at central train station, contain car key...</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">RP</div>
+                                            <span>Robert Park</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="category-badge">Found Items</span></td>
+                                    <td><span class="status-badge warning">Reported</span></td>
+                                    <td><span class="report-count">2</span></td>
+                                    <td>5 days ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="post-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="post-cell">
+                                            <strong>Lost Wedding Ring</strong>
+                                            <span class="post-preview">Gold band with diamond, very sentimental value...</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">SL</div>
+                                            <span>Sarah Lee</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="category-badge">Lost Items</span></td>
+                                    <td><span class="status-badge closed">Closed</span></td>
+                                    <td><span class="report-count">0</span></td>
+                                    <td>Just now</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="post-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>
+                                        <div class="post-cell">
+                                            <strong>Platform Maintenance Notification</strong>
+                                            <span class="post-preview">Please note scheduled maintenance next week...</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">AD</div>
+                                            <span>Admin</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="category-badge">Announcement</span></td>
+                                    <td><span class="status-badge active">Published</span></td>
+                                    <td><span class="report-count">0</span></td>
+                                    <td>1 week ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="page-btn"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span class="page-info">... Page 1 of 8</span>
+                        <button class="page-btn">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </section>
+            </div>
+
+            <div id="reports-page" class="admin-page">
+                <header class="admin-header">
+                    <div class="header-left">
+                        <h1>Reports</h1>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search reports...">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </header>
+                <section class="dashboard-content">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>Status:</label>
+                            <select>
+                                <option selected>All Status</option>
+                                <option>Pending</option>
+                                <option>Reviewed</option>
+                                <option>Resolved</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Type:</label>
+                            <select>
+                                <option selected>All Types</option>
+                                <option>Post Report</option>
+                                <option>User Report</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Date:</label>
+                            <input type="date">
+                        </div>
+                        <button class="btn-secondary"><i class="fas fa-check"></i> Apply</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Report ID</th>
+                                    <th>Type</th>
+                                    <th>Reported By</th>
+                                    <th>Content</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="report-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>#R001</td>
+                                    <td>Post Report</td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">JD</div>
+                                            <span>John Doe</span>
+                                        </div>
+                                    </td>
+                                    <td>Lost Silver Watch - Inappropriate content</td>
+                                    <td><span class="status-badge warning">Pending</span></td>
+                                    <td>2 hours ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Review"><i class="fas fa-check-circle"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="report-row">
+                                    <td><input type="checkbox"></td>
+                                    <td>#R002</td>
+                                    <td>User Report</td>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="avatar">EC</div>
+                                            <span>Emma Chen</span>
+                                        </div>
+                                    </td>
+                                    <td>Suspicious user activity detected</td>
+                                    <td><span class="status-badge active">Reviewed</span></td>
+                                    <td>1 day ago</td>
+                                    <td class="action-cell">
+                                        <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon" title="Review"><i class="fas fa-check-circle"></i></button>
+                                        <button class="btn-icon btn-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="page-btn"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span class="page-info">... Page 1 of 3</span>
+                        <button class="page-btn">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
