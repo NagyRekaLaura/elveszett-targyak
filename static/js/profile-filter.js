@@ -31,3 +31,19 @@ function resetFilter() {
         allButton.click();
     }
 }
+
+
+
+
+
+
+    document.querySelectorAll('input[name="report-reason"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const textarea = document.getElementById('other-reason-text');
+            if (this.value === 'other') {
+                textarea.style.display = 'block';
+            } else {
+                textarea.style.display = 'none';
+            }
+        });
+    });
