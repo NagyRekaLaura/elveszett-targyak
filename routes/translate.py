@@ -6,9 +6,16 @@ class Translate:
 
 	def __init__(self, token: str | None = None):
 		self._token = None
-		self._client: Client | None = None
 		if token:
 			self.set_token(token)
+
+	def _build_client(self) -> Client:
+		if not self._token:
+			raise ValueError("Eloszor allitsd be a tokent a set_token(token) metodussal.")
+		return Client(
+			host="https://ollama.com",
+			headers={"Authorization": f"Bearer {self._token}"},
+		)
 
 	def set_token(self, token: str):
 		token = token.strip()
@@ -16,14 +23,9 @@ class Translate:
 			raise ValueError("A token nem lehet ures.")
 
 		self._token = token
-		self._client = Client(
-			host="https://ollama.com",
-			headers={"Authorization": f"Bearer {token}"},
-		)
 
 	def translate(self, nyelv: str, szoveg: str):
-		if self._client is None:
-			raise ValueError("Eloszor allitsd be a tokent a set_token(token) metodussal.")
+		client = self._build_client()
 
 		target_lang = nyelv.strip().lower()
 		if target_lang not in {"hu", "en"}:
@@ -48,7 +50,7 @@ class Translate:
 			f"{szoveg}"
 		)
 
-		response = self._client.chat(
+		response = client.chat(
 			model=self.MODEL,
 			messages=[{"role": "user", "content": prompt}],
 			think=False,

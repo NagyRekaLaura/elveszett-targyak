@@ -133,7 +133,18 @@
     "verify": "Verify and Enable",
     "memberSince": "Member since",
     "edit": "Edit Profile",
-    "sendMessage": "Message"
+    "sendMessage": "Message",
+    "report": "Report",
+    "reportButton": "Report Profile",
+    "reportTitle": "Report Profile",
+    "reportDescription": "Choose a reason for reporting:",
+    "reason1": "Inappropriate content",
+    "reason2": "Spam",
+    "reason3": "Fraud",
+    "reason4": "Harassment",
+    "reason5": "Other",
+    "reasonPlaceholder": "Describe the issue...",
+    "submitReport": "Submit Report"
   },
   "messages": {
     "title": "Messages",

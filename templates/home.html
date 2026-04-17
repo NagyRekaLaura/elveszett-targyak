@@ -177,12 +177,14 @@
 
         <div class="card-footer">
             <div class="user-info">
-                    <div class="post-profile-pic">
+                    <div class="post-profile-pic" >
+                        <a href="{{ url_for('profile.profile', user_id=uploader.id) }}">
                         {% if uploader and uploader.profile_picture %}
-                        <img src="{{ url_for('static', filename='attachments/cat.jpg') }}" alt="Felhasználó profilképe">
+                        <img src="{{ url_for('static', filename='attachments/' + at.query.filter(at.id == uploader.profile_picture).first().filename) }}" alt="Felhasználó profilképe">
                         {% else %}
                         <i class="fa-solid fa-circle-user fa-2x"></i>
                         {% endif %}
+                        </a>
                     </div>
                 <span class="username">{{ uploader.name or uploader.username if uploader else 'Ismeretlen' }}</span>
                 <div class="actions">

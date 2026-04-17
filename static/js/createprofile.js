@@ -1,37 +1,43 @@
 const ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif'];
 const MAX_FILE_SIZE_MB = 5;
 
-document.getElementById('profilePic').addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    if (file) {
-        const ext = file.name.split('.').pop().toLowerCase();
-        if (!ALLOWED_EXTENSIONS.includes(ext)) {
-            showToast(`Nem támogatott fájlformátum! Engedélyezett: ${ALLOWED_EXTENSIONS.join(', ')}`);
-            this.value = '';
-            return;
+const profilePicInput = document.getElementById('profilePic');
+if (profilePicInput) {
+    profilePicInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (!ALLOWED_EXTENSIONS.includes(ext)) {
+                showToast(`Nem támogatott fájlformátum! Engedélyezett: ${ALLOWED_EXTENSIONS.join(', ')}`);
+                this.value = '';
+                return;
+            }
+            if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+                showToast(`A fájl mérete nem haladhatja meg az ${MAX_FILE_SIZE_MB} MB-ot!`);
+                this.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const preview = document.getElementById('profilePicPreview');
+                if (!preview) {
+                    return;
+                }
+                preview.innerHTML = `<img src="${event.target.result}" alt="Profilkép" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                preview.style.background = 'none';
+            };
+            reader.onerror = function () {
+                showToast('Hiba történt a kép beolvasása közben!');
+            };
+            reader.readAsDataURL(file);
         }
-        if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-            showToast(`A fájl mérete nem haladhatja meg az ${MAX_FILE_SIZE_MB} MB-ot!`);
-            this.value = '';
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const preview = document.getElementById('profilePicPreview');
-            preview.innerHTML = `<img src="${event.target.result}" alt="Profilkép" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-            preview.style.background = 'none';
-        };
-        reader.onerror = function () {
-            showToast('Hiba történt a kép beolvasása közben!');
-        };
-        reader.readAsDataURL(file);
-    }
-});
+    });
+}
 document.addEventListener("DOMContentLoaded", function () {
 
     const enable2FA = document.getElementById("enable2FA");
     const modalEl = document.getElementById("twoFAModal");
-    const modal = new bootstrap.Modal(modalEl);
+    const modal = modalEl ? new bootstrap.Modal(modalEl) : null;
     const cancelBtn = document.getElementById("cancel2FA");
     const verifyBtn = document.getElementById("verify2FA");
     const otpDigits = document.querySelectorAll(".otp-digit");
@@ -45,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             update2FAUI(enable2FA, icon, label);
 
             enable2FA.addEventListener('change', function() {
-                if (this.checked) {
+                if (this.checked && modal) {
                     modal.show();
                     clearOtpInputs();
                     if (otpError) otpError.style.display = 'none';
@@ -88,7 +94,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     update2FAUI(enable2FA, icon, label);
                 }
             }
-            modal.hide();
+            if (modal) {
+                modal.hide();
+            }
             if (otpError) otpError.style.display = 'none';
             clearOtpInputs();
         });
@@ -96,7 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (modalEl) {
         modalEl.addEventListener('hidden.bs.modal', function () {
-            if (enable2FA && !verifyBtn.dataset.verified) {
+            const verified = verifyBtn && verifyBtn.dataset && verifyBtn.dataset.verified;
+            if (enable2FA && !verified) {
                 enable2FA.checked = false;
                 const label = enable2FA.closest('.privacy-toggle');
                 const icon = enable2FA.nextElementSibling;
@@ -155,7 +164,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (enable2FA) {
                 verifyBtn.dataset.verified = 'true';
             }
-            modal.hide();
+            if (modal) {
+                modal.hide();
+            }
             showToast('Kétlépcsős azonosítás sikeresen bekapcsolva!', 'success');
         });
     }

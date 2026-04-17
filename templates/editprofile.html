@@ -5,8 +5,6 @@
 <script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
 {% endblock %}
 {% block content %}
-<body class="mainbody">
-
     <div class="createprofile-container">
         <div class="createprofile-card">
             <div class="createprofile-header">
@@ -26,7 +24,7 @@
                         <i class="fas fa-camera"></i>
                         {% endif %}
                     </div>
-                    <input type="file" id="profilePic" name="profilePic" accept="image/*" hidden>
+                    <input type="file" id="profilePic" name="profile_picture" accept="image/*" hidden>
 
                 </div>
                 <!-- Felhasználónév és email (readonly), meg ami még hamarabb lesz megadva --  DISABLED LEGYEN -->

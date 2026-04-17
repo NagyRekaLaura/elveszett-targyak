@@ -131,7 +131,18 @@
     "enterCode": "Írja be az alkalmazásban látható 6 számjegyű kódot:",
     "incorrectCode": "Hibás kód, kérlek próbáld újra.",
     "verify": "Ellenőrzés és bekapcsolás",
-    "sendMessage": "Üzenet"
+    "sendMessage": "Üzenet",
+    "report": "Bejelentés",
+    "reportButton": "Profil bejelentése",
+    "reportTitle": "Profil bejelentése",
+    "reportDescription": "Válassz egy indoklást a bejelentéshez:",
+    "reason1": "Nem megfelelő tartalom",
+    "reason2": "Spam",
+    "reason3": "Csalás",
+    "reason4": "Zaklatás",
+    "reason5": "Egyéb",
+    "reasonPlaceholder": "Írj részleteket...",
+    "submitReport": "Bejelentés"
   },
   "messages": {
     "title": "Üzenetek",
