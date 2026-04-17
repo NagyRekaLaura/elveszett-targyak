@@ -154,7 +154,13 @@ class PasswordResetToken(db.Model):
             return True
         return False
         
-
+class Reports(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    reporter_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    reason = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    pending = db.Column(db.Boolean, default=True)
 
 def init_db(app):
     with app.app_context():

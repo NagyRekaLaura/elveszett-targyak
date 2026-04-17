@@ -38,12 +38,17 @@ def _translate_in_background(app, item_id, source_language, source_text):
                 db.session.commit()
                 return
 
+            target_language = 'en' if source_language == 'hu' else 'hu'
+
             api_key = app.config.get('OLLAMA_API_KEY')
             if not api_key:
-                app.logger.warning('Nincs OLLAMA_API_KEY, a poszt forditasa nem indult el. item_id=%s', item_id)
+                if target_language == 'hu':
+                    item.description_hu = source_text
+                else:
+                    item.description_en = source_text
+                item.active = bool(item.description_hu and item.description_en)
+                db.session.commit()
                 return
-
-            target_language = 'en' if source_language == 'hu' else 'hu'
 
             translator = Translate()
             translator.set_token(api_key)
@@ -198,6 +203,35 @@ def post(item_id):
         sender_name=sender_name,
         previous_ads_count=previous_ads_count,
     )
+
+
+@post_routes.route('/post/test-map')
+def test_map():
+    items_with_location = Item.query.filter(
+        Item.location.isnot(None),
+        Item.location != ''
+    ).all()
+
+    unique_settlements = {}
+    for item in items_with_location:
+        raw_location = (item.location or '').strip()
+        if not raw_location:
+            continue
+
+        location_parts = [part.strip() for part in raw_location.split(',') if part.strip()]
+        settlement = location_parts[-1] if location_parts else raw_location
+        key = settlement.casefold()
+
+        if key not in unique_settlements:
+            unique_settlements[key] = {
+                'name': settlement,
+                'post_count': 1,
+            }
+        else:
+            unique_settlements[key]['post_count'] += 1
+
+    settlements = sorted(unique_settlements.values(), key=lambda x: x['name'])
+    return render_template('test_map.html', settlements=settlements)
 
 
 @post_routes.route('/post/<int:item_id>/data', methods=['GET'])
