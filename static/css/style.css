@@ -363,6 +363,9 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
 }
 
 .info {
@@ -393,6 +396,15 @@
   line-height: 24px;
   color: #d0d0d0;
   margin: 0;
+  flex: 1;
+}
+
+.card-body > .card-text {
+  max-height: 144px;
+  overflow: hidden;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .text-end {
@@ -410,6 +422,7 @@
   border: none;
   border-top: 1px solid #333333;
   margin: 0;
+  margin-top: auto;
 }
 
 .card-footer {
@@ -1275,6 +1288,10 @@ select.form-control-modal option {
 
 .profile-own-cards .card-image {
   height: 190px;
+}
+
+.profile-own-cards .card-body {
+  min-height: auto;
 }
 /* ==================== */
 /* kapcsolat felvétel / POSZT*/
