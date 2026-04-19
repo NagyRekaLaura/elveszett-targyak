@@ -44,6 +44,10 @@ function showToast(message, type = 'error', customTitle = null) {
 }
 
 socket.on('notification', (data) => {
-    if (data.error) {
-        showToast(data.message, '', data.title);
-    }});
+    showToast(data.message, 'success', data.title);
+});
+
+socket.on('new_message', (data) => {
+    // Notification when a new message arrives
+    showToast(`${data.sender_name} üzenetet küldött`, 'success', 'Új üzenet');
+});

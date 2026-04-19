@@ -1,4 +1,4 @@
-from .main import socketio
+from .main import socketio, notify_user
 from database import db, User, Attachment, Messages
 from flask_login import current_user, login_required
 from flask_socketio import emit, join_room, leave_room, rooms
@@ -241,6 +241,9 @@ def handle_send_message(data):
         'sender_id': user_id,
         'message_id': message.id
     }, room=f'user_{partner_id}')
+    
+    # Send notification to receiver
+    notify_user(partner_id, f'{current_user.name or current_user.username} új üzenetet küldött', 'Új üzenet érkezett')
 
 @socketio.on('mark_message_seen')
 @authenticated_only
