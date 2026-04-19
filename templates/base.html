@@ -8,6 +8,7 @@
     <script src="{{ url_for('static', filename='js/i18js.js') }}"></script>
     <script src="{{ url_for('static', filename='js/language-content-toggle.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mobile-menu.js') }}"></script>
     <script src="{{ url_for('static', filename='js/support.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -23,25 +24,48 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main.home') }}"><img src="{{ url_for('static', filename='logo.svg') }}"
                     width="110px" alt=""></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            
+            {% if current_user.is_authenticated %}
+            <button class="navbar-toggler mobile-hamburger" type="button" id="mobileMenuToggle" aria-label="Menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <form class="d-flex" role="search" {% block search %}{% endblock %}>
+            <div class="mobile-dropdown-menu" id="mobileDropdownMenu">
+                <a href="{{ url_for('messages.messages') }}" class="mobile-dropdown-item" data-i18n="nav.messages">Üzenetek</a>
+                <a href="{{ url_for('auth.logout') }}" class="mobile-dropdown-item" data-i18n="nav.logout">Kijelentkezés</a>
+            </div>
+            {% endif %}
+
+            <form class="d-flex desktop-search" role="search" {% block search %}{% endblock %}>
                 <input class="form-control me-2 search" type="search" placeholder="&#x1F50D  Keresés"
                     aria-label="Search" data-i18n-attr="placeholder:nav.search" />
             </form>
 
+            <div class="mobile-navbar-icons">
+                <a href="#" class="mobile-search-icon" title="Keresés" data-i18n-attr="title:nav.search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile.profile') }}" class="mobile-profile-icon" title="Profil">
+                    <i class="fa-solid fa-circle-user"></i>
+                </a>
+                {% else %}
+                <a href="{{ url_for('auth.login') }}" class="mobile-profile-icon" title="Bejelentkezés">
+                    <i class="fa-solid fa-circle-user"></i>
+                </a>
+                {% endif %}
+            </div>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav" id="login">
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item nav-icon-item">
+                    <li class="nav-item nav-icon-item desktop-only">
                         <a class="btn-logged-nav" href="{{ url_for('profile.profile') }}" title="Profil"><i class="fa-solid fa-circle-user"></i></a>
                     </li>
-                    <li class="nav-item nav-icon-item">
+                    <li class="nav-item nav-icon-item desktop-only">
                         <a class="btn-logged-nav" href="{{ url_for('messages.messages') }}" title="Üzenetek"><i class="fa-solid fa-envelope"></i></a>
                     </li>
-                    <li class="nav-item nav-icon-item">
+                    <li class="nav-item nav-icon-item desktop-only">
                         <a class="btn-logged-nav" href="{{ url_for('auth.logout') }}" title="Kijelentkezés"><i class="fa-solid fa-right-from-bracket"></i></a>
                     </li>
                     {% else %}

@@ -1,5 +1,4 @@
 
-
 // Initialize Socket.IO
 const socket = io();
 
@@ -20,6 +19,31 @@ const partnerName   = document.getElementById("chat-partner-name");
 const partnerStatus = document.getElementById("chat-partner-status");
 const input         = document.getElementById("chat-input");
 const sendBtn       = document.getElementById("send-message-btn");
+const backBtn       = document.getElementById("chat-back-btn");
+const sidebar       = document.getElementById("conversations-sidebar");
+const mainChat      = document.getElementById("main-chat");
+
+if (backBtn) {
+  backBtn.addEventListener('click', () => {
+    sidebar.classList.remove('hidden');
+    mainChat.classList.add('hidden');
+    currentActiveConversation = null;
+  });
+}
+
+function showChatMobile() {
+  if (window.innerWidth <= 576) {
+    sidebar.classList.add('hidden');
+    mainChat.classList.remove('hidden');
+  }
+}
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 576) {
+    sidebar.classList.remove('hidden');
+    mainChat.classList.remove('hidden');
+  }
+});
 
 
 
@@ -223,6 +247,9 @@ function renderConversations() {
 
 function openConversation(convId) {
     console.log('Opening conversation:', convId, 'Available conversations:', conversations);
+    
+    showChatMobile();
+    
     const conv = conversations.find(c => c.id === convId);
     if (!conv) {
         console.error('Conversation not found:', convId);

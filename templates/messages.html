@@ -3,6 +3,23 @@
 {% block search %}style="visibility: hidden;"{% endblock %}
 
 {% block js %}
+    <style>
+        @media (max-width: 576px) {
+            #supportWidget {
+                display: none !important;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth <= 576) {
+                document.body.style.overflow = 'hidden';
+            }
+            window.addEventListener('beforeunload', function() {
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
     <script src="{{ url_for('static', filename='js/messages.js') }}" defer></script>
 {% endblock %}
 
@@ -11,7 +28,9 @@
     <div class="messages-container">
         <!-- Bal oldali sidebar-->
         <aside class="messages-sidebar" id="conversations-sidebar">
-            <h2 data-i18n="messages.title">Üzenetek</h2>
+            <div class="messages-sidebar-header">
+                <h2 data-i18n="messages.title">Üzenetek</h2>
+            </div>
             <div class="conversation-list" id="conversation-list">
                 <!-- JS tölti fel -->
             </div>
@@ -21,13 +40,16 @@
         <main class="messages-chat" id="main-chat">
             <!-- Üres állapot – ha nincs kiválasztott beszélgetés -->
             <div class="no-chat-selected" id="no-chat-placeholder">
-                <i class="fas fa-comment-dots fa-3x"></i>
+                <i class="fas fa-comment-dots"></i>
                 <h3 data-i18n="messages.selectConversation">Válassz egy beszélgetést</h3>
                 <p data-i18n="messages.startChat">Kezdj el csevegni valakivel az elveszett vagy talált állatokkal kapcsolatban.</p>
             </div>
 
             <div class="chat-interface" id="chat-interface" style="display: none;">
                 <header class="chat-header">
+                    <button class="chat-back-btn" id="chat-back-btn" aria-label="Vissza" data-i18n-attr="aria-label:messages.back">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
                     <div class="chat-header-profile">
                         <div class="chat-header-pic">
                             <img id="chat-partner-pic" src="" alt="Profilkép">
@@ -45,7 +67,7 @@
 
                 <footer class="chat-footer">
                     <input type="text" class="chat-input" id="chat-input" placeholder="Írj üzenetet..." data-i18n-attr="placeholder:messages.placeholder">
-                    <button class="chat-send" id="send-message-btn">
+                    <button class="chat-send" id="send-message-btn" aria-label="Küldés" data-i18n-attr="aria-label:messages.send">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </footer>
