@@ -3,6 +3,7 @@
 {% block js %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{{ url_for('static', filename='js/profile-report.js') }}" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const mapContainer = document.getElementById('postMap');
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 {% endblock %}
 {% block content %}
 
-<div class="container post-container mt-4">
+<div class="container post-container mt-4" data-report-post-id="{{ item.id }}">
         <div class="row">
             <div class="col-lg-8">
                 <div class="carousel-container">
@@ -192,6 +193,64 @@ document.addEventListener('DOMContentLoaded', function () {
                         <p><strong data-i18n="post.sender">Feladó:</strong> {{ sender_name }}</p>
                         <p><strong data-i18n="post.previousAds">Korábbi hirdetések:</strong> {{ previous_ads_count }}</p>
                     </div>
+
+                    {% if current_user.is_authenticated and uploader.id != current_user.id %}
+                    <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reportModal" data-i18n="post.reportButton" title="Poszt bejelentése">
+                        <i class="fas fa-exclamation me-2"></i><span data-i18n="post.reportButton">Poszt bejelentése</span>
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORT MODAL -->
+    <div class="modal fade" id="reportModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="reportModalLabel" data-i18n="profile.reportTitle">Profil bejelentése</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body report-modal-body">
+                    <p data-i18n="profile.reportDescription">Válassz egy indoklást a bejelentéshez:</p>
+                    <div class="report-reasons">
+                        <div class="reason-option">
+                            <input type="radio" id="reason1" name="report-reason" value="inappropriate" class="reason-radio">
+                            <label for="reason1" class="reason-label">
+                                <span data-i18n="profile.reason1">Nem megfelelő tartalom</span>
+                            </label>
+                        </div>
+                        <div class="reason-option">
+                            <input type="radio" id="reason2" name="report-reason" value="spam" class="reason-radio">
+                            <label for="reason2" class="reason-label">
+                                <span data-i18n="profile.reason2">Spam</span>
+                            </label>
+                        </div>
+                        <div class="reason-option">
+                            <input type="radio" id="reason3" name="report-reason" value="fraud" class="reason-radio">
+                            <label for="reason3" class="reason-label">
+                                <span data-i18n="profile.reason3">Csalás</span>
+                            </label>
+                        </div>
+                        <div class="reason-option">
+                            <input type="radio" id="reason4" name="report-reason" value="harassment" class="reason-radio">
+                            <label for="reason4" class="reason-label">
+                                <span data-i18n="profile.reason4">Zaklatás</span>
+                            </label>
+                        </div>
+                        <div class="reason-option">
+                            <input type="radio" id="reason5" name="report-reason" value="other" class="reason-radio">
+                            <label for="reason5" class="reason-label">
+                                <span data-i18n="profile.reason5">Egyéb</span>
+                            </label>
+                        </div>
+                        <textarea id="other-reason-text" class="form-control-modal other-reason-textarea" placeholder="Írj részleteket..." data-i18n-attr="placeholder:profile.reasonPlaceholder" style="display: none;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="home.modal.close">Bezárás</button>
+                    <button type="button" class="btn btn-primary" id="submit-report-btn" data-i18n="profile.submitReport">Bejelentés</button>
                 </div>
             </div>
         </div>

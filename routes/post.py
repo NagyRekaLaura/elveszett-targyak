@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, current_app
 from flask_login import login_required, current_user
-from database import db, User, Item, Attachment, Category
+from database import db, User, Item, Attachment, Category, Reports
 from werkzeug.utils import secure_filename, send_from_directory
 import os
 import threading
@@ -434,4 +434,68 @@ def delete_post(item_id):
         'message': 'Poszt törölve.'
     })
 
+
+@post_routes.route('/report-post/<int:item_id>', methods=['POST'])
+@login_required
+def report_post(item_id):
+    """Report a post"""
+    if not current_user.is_authenticated:
+        return jsonify({
+            'success': False,
+            'error': 'Bejelentkezés szükséges!'
+        }), 401
+    
+    # Check if post exists
+    item = Item.query.get(item_id)
+    if not item:
+        return jsonify({
+            'success': False,
+            'error': 'Poszt nem található!'
+        }), 404
+    
+    # Check if user is reporting their own post
+    if item.uploader_id == current_user.id:
+        return jsonify({
+            'success': False,
+            'error': 'Nem jellentheted a saját posztod!'
+        }), 400
+    
+    reason = request.form.get('reason', '').strip()
+    content = request.form.get('content', '').strip()
+    
+    if not reason:
+        return jsonify({
+            'success': False,
+            'error': 'Az indoklás megadása kötelező!'
+        }), 400
+    
+    # Check if user already reported this post
+    existing_report = Reports.query.filter_by(
+        reporter_id=current_user.id,
+        item_id=item_id,
+        pending=True
+    ).first()
+    
+    if existing_report:
+        return jsonify({
+            'success': False,
+            'error': 'Már bejelentettél ezt a posztot!'
+        }), 400
+    
+    # Create report
+    report = Reports(
+        reporter_id=current_user.id,
+        item_id=item_id,
+        reason=reason,
+        content=content,
+        pending=True
+    )
+    
+    db.session.add(report)
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'Bejelentés sikeresen elküldve!'
+    }), 200
 

@@ -88,27 +88,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <h3>Quick Actions</h3>
-                        <div class="action-buttons">
-                            <button class="action-btn">
-                                <span><i class="fas fa-plus"></i></span>
-                                <span>Create User</span>
-                            </button>
-                            <button class="action-btn">
-                                <span><i class="fas fa-search"></i></span>
-                                <span>Search Posts</span>
-                            </button>
-                            <button class="action-btn">
-                                <span><i class="fas fa-list"></i></span>
-                                <span>View Reports</span>
-                            </button>
-                            <button class="action-btn">
-                                <span><i class="fas fa-download"></i></span>
-                                <span>Export Data</span>
-                            </button>
-                        </div>
-                    </div>
                     <div class="activity-section">
                         <div class="section-header">
                             <h3>Recent Activity</h3>
@@ -354,6 +333,25 @@
                 </section>
             </div>
         </main>
+    </div>
+
+    <!-- REPORT DETAILS MODAL -->
+    <div id="reportDetailsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Report Details</h2>
+                <button class="modal-close" onclick="closeReportDetailsModal()" style="background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="reportDetails"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary btn-delete" onclick="handleDeleteUserPost()"><i class="fas fa-trash"></i> Delete</button>
+                <button class="btn-primary btn-punish" onclick="handlePunishUser()"><i class="fas fa-gavel"></i> Punish</button>
+                <button class="btn-success" onclick="handleResolveReport()"><i class="fas fa-check"></i> Resolve</button>
+                <button class="btn-secondary" onclick="closeReportDetailsModal()">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -29,17 +29,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Get the user ID from the report button data attribute or URL
-        const userId = document.querySelector('[data-report-user-id]')?.getAttribute('data-report-user-id') ||
-                       window.location.pathname.split('/profile/')[1];
+        const userId = document.querySelector('[data-report-user-id]')?.getAttribute('data-report-user-id');
+        const postId = document.querySelector('[data-report-post-id]')?.getAttribute('data-report-post-id') ||
+                       window.location.pathname.split('/post/')[1];
         
-        if (!userId) {
-            showToast('Felhasználó ID nem található!', 'error');
-            return;
+        if (userId) {
+            submitUserReport(userId, reason, content);
+        } else if (postId) {
+            submitPostReport(postId, reason, content);
+        } else {
+            showToast('Nem található bejelentendő elem!', 'error');
         }
-        
-        // Submit the report
-        submitReport(userId, reason, content);
     });
     
     // Handle "other" reason text area visibility
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-async function submitReport(userId, reason, content) {
+async function submitUserReport(userId, reason, content) {
     try {
         const formData = new FormData();
         formData.append('reason', reason);
@@ -81,6 +81,38 @@ async function submitReport(userId, reason, content) {
             if (modal) modal.hide();
             
             // Reset the form
+            document.querySelector('form[name="report-form"]')?.reset() || 
+            Array.from(document.querySelectorAll('input[name="report-reason"]')).forEach(r => r.checked = false);
+            document.getElementById('other-reason-text').value = '';
+            
+        } else {
+            showToast(data.error || 'Hiba a bejelentés feldolgozása során', 'error');
+        }
+    } catch (error) {
+        console.error('Report error:', error);
+        showToast('Hiba a bejelentés küldése során', 'error');
+    }
+}
+
+async function submitPostReport(postId, reason, content) {
+    try {
+        const formData = new FormData();
+        formData.append('reason', reason);
+        formData.append('content', content);
+        
+        const response = await fetch(`/post/report-post/${postId}`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            showToast(data.message, 'success');
+            
+            const modal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
+            if (modal) modal.hide();
+            
             document.querySelector('form[name="report-form"]')?.reset() || 
             Array.from(document.querySelectorAll('input[name="report-reason"]')).forEach(r => r.checked = false);
             document.getElementById('other-reason-text').value = '';

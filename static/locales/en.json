@@ -170,7 +170,8 @@
     "previousAds": "Previous postings",
     "postsTitle": "My Posts",
     "status": "Status",
-    "description": "Description:"
+    "description": "Description:",
+    "reportButton": "Report Post"
   },
   "error404": {
     "title": "404 - Page Not Found",

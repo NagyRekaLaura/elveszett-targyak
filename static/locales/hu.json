@@ -166,7 +166,8 @@
     "sendEmail": "Email küldése",
     "sender": "Feladó",
     "previousAds": "Korábbi hirdetések",
-    "number": "Összes"
+    "number": "Összes",
+    "reportButton": "Poszt bejelentése"
   },
   "error404": {
     "title": "404 - Oldal nem található",

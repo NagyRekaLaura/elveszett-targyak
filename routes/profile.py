@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for, jsonify
 from flask_login import login_user, current_user, login_required
-from database import TwoFactorAuth, db, User, Attachment, Item
+from database import TwoFactorAuth, db, User, Attachment, Item, Reports
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
@@ -221,4 +221,69 @@ def create_2fa():
     return jsonify({
         'success': True,
         'qr_code': _2fa.generate_qr_code(current_user.email)
+    }), 200
+
+
+@profile_routes.route('/report-user/<int:user_id>', methods=['POST'])
+@login_required
+def report_user(user_id):
+    """Report a user"""
+    if not current_user.is_authenticated:
+        return jsonify({
+            'success': False,
+            'error': 'Bejelentkezés szükséges!'
+        }), 401
+    
+    # Check if user is reporting themselves
+    if current_user.id == user_id:
+        return jsonify({
+            'success': False,
+            'error': 'Nem jellentheted magadat!'
+        }), 400
+    
+    # Check if user exists
+    reported_user = User.query.get(user_id)
+    if not reported_user:
+        return jsonify({
+            'success': False,
+            'error': 'Felhasználó nem található!'
+        }), 404
+    
+    reason = request.form.get('reason', '').strip()
+    content = request.form.get('content', '').strip()
+    
+    if not reason:
+        return jsonify({
+            'success': False,
+            'error': 'Az indoklás megadása kötelező!'
+        }), 400
+    
+    # Check if user already reported this user
+    existing_report = Reports.query.filter_by(
+        reporter_id=current_user.id,
+        user_id=user_id,
+        pending=True
+    ).first()
+    
+    if existing_report:
+        return jsonify({
+            'success': False,
+            'error': 'Már bejelentettél ezt a felhasználót!'
+        }), 400
+    
+    # Create report
+    report = Reports(
+        reporter_id=current_user.id,
+        user_id=user_id,
+        reason=reason,
+        content=content,
+        pending=True
+    )
+    
+    db.session.add(report)
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'Bejelentés sikeresen elküldve!'
     }), 200

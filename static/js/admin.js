@@ -437,10 +437,18 @@ function populateReportsTable(reports) {
             <td>${report.created}</td>
             <td class="action-cell">
                 <button class="btn-icon" title="Review"><i class="fas fa-eye"></i></button>
+                <button class="btn-icon details-btn" title="Details" data-report-id="${report.id}"><i class="fas fa-info-circle"></i></button>
                 <button class="btn-icon" title="Resolve"><i class="fas fa-check"></i></button>
             </td>
         `;
         tbody.appendChild(row);
+        
+        const detailsBtn = row.querySelector('.details-btn');
+        if (detailsBtn) {
+            detailsBtn.addEventListener('click', () => {
+                showReportDetailsModal(report);
+            });
+        }
     });
 }
 
@@ -517,3 +525,114 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+// ============== REPORT DETAILS MODAL ==============
+let currentReport = null;
+
+function showReportDetailsModal(report) {
+    currentReport = report;
+    const modal = document.getElementById('reportDetailsModal');
+    const detailsContainer = document.getElementById('reportDetails');
+    
+    if (!modal || !detailsContainer) return;
+    
+    // Build the details HTML
+    const reportTypeLabel = report.type === 'post' ? 'Post Report' : 'User Report';
+    const targetInfo = report.type === 'post' 
+        ? `<div class="detail-row"><strong>Post ID:</strong> <span>${report.post_id || 'N/A'}</span></div>` 
+        : '';
+    
+    detailsContainer.innerHTML = `
+        <div class="report-details-content">
+            <div class="detail-row">
+                <strong>Report ID:</strong>
+                <span>${report.id}</span>
+            </div>
+            <div class="detail-row">
+                <strong>Type:</strong>
+                <span>${escapeHtml(reportTypeLabel)}</span>
+            </div>
+            <div class="detail-row">
+                <strong>Reported By:</strong>
+                <span>${escapeHtml(report.reporter)}</span>
+            </div>
+            <div class="detail-row">
+                <strong>Reason:</strong>
+                <span>${escapeHtml(report.reason)}</span>
+            </div>
+            <div class="detail-row">
+                <strong>Status:</strong>
+                <span><span class="status-badge ${report.status.toLowerCase()}">${report.status}</span></span>
+            </div>
+            <div class="detail-row">
+                <strong>Date Created:</strong>
+                <span>${report.created}</span>
+            </div>
+            ${targetInfo}
+            <div class="detail-section">
+                <strong>Description:</strong>
+                <p class="description-text">${report.description ? escapeHtml(report.description) : '<em>No description provided</em>'}</p>
+            </div>
+        </div>
+    `;
+    
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeReportDetailsModal() {
+    const modal = document.getElementById('reportDetailsModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    currentReport = null;
+}
+
+function handleDeleteUserPost() {
+    if (!currentReport) return;
+    
+    const confirmation = confirm(`Are you sure you want to delete this ${currentReport.type}?`);
+    if (!confirmation) return;
+    
+    // Here you would make an API call to delete the post/user
+    console.log(`Deleting ${currentReport.type}:`, currentReport);
+    showToast(`${currentReport.type} deleted successfully`, 'success');
+    closeReportDetailsModal();
+    loadReportsData();
+}
+
+function handlePunishUser() {
+    if (!currentReport) return;
+    
+    const punishment = prompt('Enter punishment (e.g., "suspend", "warn", "ban"):');
+    if (!punishment) return;
+    
+    // Here you would make an API call to punish the user
+    console.log(`Punishing user with ${punishment}:`, currentReport);
+    showToast(`User punished with: ${punishment}`, 'success');
+    closeReportDetailsModal();
+    loadReportsData();
+}
+
+function handleResolveReport() {
+    if (!currentReport) return;
+    
+    // Here you would make an API call to mark the report as resolved
+    console.log('Resolving report:', currentReport);
+    showToast('Report marked as resolved', 'success');
+    closeReportDetailsModal();
+    loadReportsData();
+}
+
+// Close modal when clicking outside of it
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('reportDetailsModal');
+    if (modal) {
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeReportDetailsModal();
+            }
+        });
+    }
+});
