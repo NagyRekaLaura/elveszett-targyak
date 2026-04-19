@@ -5,10 +5,11 @@
 <script src="{{ url_for('static', filename='js/createpost.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/profile-filter.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/editpost.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/profile-report.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
-<div class="profilepart">
+<div class="profilepart" data-report-user-id="{{ user.id }}">
     <!--   PROFIL -->
     <div class="profile-left">
         <div class="profil">
@@ -329,7 +330,7 @@
                             <span data-i18n="profile.reason5">Egyéb</span>
                         </label>
                     </div>
-                    <textarea id="other-reason-text" class="form-control-modal other-reason-textarea" placeholder="Írj részleteket..." data-i18n-attr="placeholder:profile.reasonPlaceholder"></textarea>
+                    <textarea id="other-reason-text" class="form-control-modal other-reason-textarea" placeholder="Írj részleteket..." data-i18n-attr="placeholder:profile.reasonPlaceholder" style="display: none;"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

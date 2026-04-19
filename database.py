@@ -25,6 +25,7 @@ class User(db.Model, UserMixin):
     address_is_private = db.Column(db.Boolean, default=False)
     _2fa_enabled = db.Column(db.Boolean, default=False)
     _2fa_id = db.Column(db.Integer, db.ForeignKey('two_factor_auth.id'), nullable=True)
+    role = db.Column(db.String(20), default='user', nullable=False)
 
 
     def set_password(self, password: str) -> None:
@@ -157,8 +158,10 @@ class PasswordResetToken(db.Model):
 class Reports(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     reporter_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     reason = db.Column(db.Text, nullable=True)
+    content = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     pending = db.Column(db.Boolean, default=True)
 

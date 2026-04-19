@@ -16,6 +16,15 @@ function switchAdminPage(event, page) {
     }
     
     event.target.closest('.nav-item').classList.add('active');
+    
+    // Load data when switching to a page
+    if (page === 'users') {
+        loadUsersData();
+    } else if (page === 'posts') {
+        loadPostsData();
+    } else if (page === 'reports') {
+        loadReportsData();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -76,11 +85,23 @@ function initializeFilters() {
 
     filterSelects.forEach(filter => {
         filter.addEventListener('change', function() {
-            console.log('Filter changed:', this.value);
+            const pageId = this.closest('.admin-page').id;
+            if (pageId === 'users-page') loadUsersData();
+            else if (pageId === 'posts-page') loadPostsData();
+            else if (pageId === 'reports-page') loadReportsData();
         });
     });
 
     resetButtons.forEach(btn => {
+        if (btn.innerHTML.includes('Apply') || btn.innerHTML.includes('Check')) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.closest('.admin-page').id;
+                if (pageId === 'users-page') loadUsersData();
+                else if (pageId === 'posts-page') loadPostsData();
+                else if (pageId === 'reports-page') loadReportsData();
+            });
+        }
         if (btn.innerHTML.includes('Reset')) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -120,7 +141,10 @@ function initializeSearch() {
     const searchInputs = document.querySelectorAll('.search-bar input');
     searchInputs.forEach(input => {
         input.addEventListener('input', function() {
-            console.log('Searching for:', this.value);
+            const pageId = this.closest('.admin-page').id;
+            if (pageId === 'users-page') loadUsersData();
+            else if (pageId === 'posts-page') loadPostsData();
+            else if (pageId === 'reports-page') loadReportsData();
         });
     });
 
@@ -130,7 +154,10 @@ function initializeSearch() {
             e.preventDefault();
             const input = this.previousElementSibling;
             if (input && input.value) {
-                console.log('Search submitted:', input.value);
+                const pageId = this.closest('.admin-page').id;
+                if (pageId === 'users-page') loadUsersData();
+                else if (pageId === 'posts-page') loadPostsData();
+                else if (pageId === 'reports-page') loadReportsData();
             }
         });
     });
@@ -278,4 +305,215 @@ function initializeDashboardCharts() {
 
     refreshDashboardMetrics();
     setInterval(refreshDashboardMetrics, 5000);
+}
+
+// ============== USERS DATA LOADING ==============
+async function loadUsersData(page = 1) {
+    try {
+        const role = document.querySelector('[data-page="users"] ~ .filter-bar select[value]')?.value || 'all';
+        const search = document.querySelector('#users-page .search-bar input')?.value || '';
+        
+        const url = `/admin/api/users?page=${page}&role=${role}&search=${search}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) throw new Error('Failed to load users');
+        
+        const data = await response.json();
+        populateUsersTable(data.users);
+        updatePagination('users-page', data.pages, page);
+    } catch (error) {
+        console.error('Error loading users:', error);
+        showToast('Failed to load users', 'error');
+    }
+}
+
+function populateUsersTable(users) {
+    const tbody = document.querySelector('#users-page tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><input type="checkbox"></td>
+            <td><strong>${escapeHtml(user.name)}</strong><br><small>@${escapeHtml(user.username)}</small></td>
+            <td>${escapeHtml(user.email)}</td>
+            <td><span class="status-badge active">Active</span></td>
+            <td><span class="badge" style="background: ${user.role === 'admin' ? '#e74c3c' : '#3498db'}">${user.role}</span></td>
+            <td>${user.posts}</td>
+            <td>${user.joined}</td>
+            <td class="action-cell">
+                <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// ============== POSTS DATA LOADING ==============
+async function loadPostsData(page = 1) {
+    try {
+        const status = document.querySelector('#posts-page .filter-group select')?.value || 'all';
+        const search = document.querySelector('#posts-page .search-bar input')?.value || '';
+        
+        const url = `/admin/api/posts?page=${page}&status=${status}&search=${search}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) throw new Error('Failed to load posts');
+        
+        const data = await response.json();
+        populatePostsTable(data.posts);
+        updatePagination('posts-page', data.pages, page);
+    } catch (error) {
+        console.error('Error loading posts:', error);
+        showToast('Failed to load posts', 'error');
+    }
+}
+
+function populatePostsTable(posts) {
+    const tbody = document.querySelector('#posts-page tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    posts.forEach(post => {
+        const row = document.createElement('tr');
+        row.className = post.has_reports ? 'reported' : '';
+        row.innerHTML = `
+            <td><input type="checkbox"></td>
+            <td><strong>${escapeHtml(post.name)}</strong></td>
+            <td>${escapeHtml(post.uploader)}</td>
+            <td>${post.type}</td>
+            <td><span class="status-badge ${post.status.toLowerCase()}">${post.status}</span></td>
+            <td>${post.category}</td>
+            <td>${post.reports > 0 ? `<span style="color: #e74c3c; font-weight: bold;">${post.reports}</span>` : '0'}</td>
+            <td>${post.posted}</td>
+            <td class="action-cell">
+                <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// ============== REPORTS DATA LOADING ==============
+async function loadReportsData(page = 1) {
+    try {
+        const status = document.querySelector('#reports-page .filter-group select')?.value || 'all';
+        const search = document.querySelector('#reports-page .search-bar input')?.value || '';
+        
+        const url = `/admin/api/reports?page=${page}&status=${status}&search=${search}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) throw new Error('Failed to load reports');
+        
+        const data = await response.json();
+        populateReportsTable(data.reports);
+        updatePagination('reports-page', data.pages, page);
+    } catch (error) {
+        console.error('Error loading reports:', error);
+        showToast('Failed to load reports', 'error');
+    }
+}
+
+function populateReportsTable(reports) {
+    const tbody = document.querySelector('#reports-page tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    reports.forEach(report => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><input type="checkbox"></td>
+            <td>${report.id}</td>
+            <td>${escapeHtml(report.type)}</td>
+            <td>${escapeHtml(report.reporter)}</td>
+            <td>${escapeHtml(report.reason)}</td>
+            <td><span class="status-badge ${report.status.toLowerCase()}">${report.status}</span></td>
+            <td>${report.created}</td>
+            <td class="action-cell">
+                <button class="btn-icon" title="Review"><i class="fas fa-eye"></i></button>
+                <button class="btn-icon" title="Resolve"><i class="fas fa-check"></i></button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// ============== HELPER FUNCTIONS ==============
+function updatePagination(pageId, totalPages, currentPage) {
+    const pagination = document.querySelector(`#${pageId} .pagination`);
+    if (!pagination) return;
+    
+    // Határozd meg az oldal típusát
+    let loadFunction;
+    if (pageId === 'users-page') {
+        loadFunction = loadUsersData;
+    } else if (pageId === 'posts-page') {
+        loadFunction = loadPostsData;
+    } else if (pageId === 'reports-page') {
+        loadFunction = loadReportsData;
+    }
+    
+    // Töröld az összes oldal gombot és a page-info-t (de tartsd meg a Previous és Next gombokat)
+    const allButtons = pagination.querySelectorAll('.page-btn');
+    const pageInfo = pagination.querySelector('.page-info');
+    
+    // Tárolj Previous és Next gombokat
+    const prevBtn = allButtons[0];
+    const nextBtn = allButtons[allButtons.length - 1];
+    
+    // Távolítsd el az összes köztes gombot (1, 2, 3...)
+    for (let i = 1; i < allButtons.length - 1; i++) {
+        allButtons[i].remove();
+    }
+    
+    // Távolítsd el a page-info-t
+    if (pageInfo) pageInfo.remove();
+    
+    // Módosítsd a Previous gombot
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = (e) => {
+        e.preventDefault();
+        if (currentPage > 1 && loadFunction) loadFunction(currentPage - 1);
+    };
+    
+    // Módosítsd a Next gombot
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.onclick = (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages && loadFunction) loadFunction(currentPage + 1);
+    };
+    
+    // Generálj oldal gombokat 1-től totalPages-ig
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-btn';
+        if (i === currentPage) pageBtn.classList.add('active');
+        pageBtn.textContent = i;
+        pageBtn.onclick = (e) => {
+            e.preventDefault();
+            if (loadFunction) loadFunction(i);
+        };
+        
+        // Szúrd be az új gombot a Next gomb előtt
+        pagination.insertBefore(pageBtn, nextBtn);
+    }
+    
+    // Generálj és szúrd be az oldal info szöveget a Next gomb előtt
+    const newPageInfo = document.createElement('span');
+    newPageInfo.className = 'page-info';
+    newPageInfo.textContent = `... Page ${currentPage} of ${totalPages}`;
+    pagination.insertBefore(newPageInfo, nextBtn);
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
