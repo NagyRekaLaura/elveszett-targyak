@@ -4,6 +4,7 @@
 <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
 <script src="{{ url_for('static', filename='js/toggle.js') }}"></script>
 <script src="{{ url_for('static', filename='js/createpost.js') }}"></script>
+<script src="{{ url_for('static', filename='js/category-filter.js') }}"></script>
 {% endblock %}
 {% block content %}
 <!-- Info az oldalról -->
@@ -138,7 +139,7 @@
 {% set cat_icons = {'allat': 'fa-paw', 'elektronika': 'fa-laptop', 'ruhazat': 'fa-tshirt', 'ekszer': 'fa-gem', 'dokumentum': 'fa-file-alt', 'egyeb': 'fa-gift'} %}
 {% set cat_i18n = {'allat': 'home.categories.animal', 'elektronika': 'home.categories.electronics', 'ruhazat': 'home.categories.clothing', 'ekszer': 'home.categories.jewelry', 'dokumentum': 'home.categories.document', 'egyeb': 'home.categories.other'} %}
 {% set cat_names = {'allat': 'Állat', 'elektronika': 'Elektronika', 'ruhazat': 'Ruházat', 'ekszer': 'Ékszer', 'dokumentum': 'Dokumentum', 'egyeb': 'Egyéb'} %}
-<div class="card mb-3" data-url="{{ url_for('post.post', item_id=item.id) }}" onclick="window.location.href=this.dataset.url;">
+<div class="card mb-3" data-url="{{ url_for('post.post', item_id=item.id) }}" data-category="{{ item.category.name if item.category else '' }}" onclick="window.location.href=this.dataset.url;">
     <div class="card-image">
         {% if item.attachments %}
         <img src="{{ url_for('static', filename='attachments/' + item.attachments[0].filename) }}" class="card-img-top" alt="{{ item.name }}">
