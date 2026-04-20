@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required
 import psutil
-from database import Item, Reports, User
+from database import Item, Reports, User, db
 from functools import wraps
 from flask import abort
 from flask_login import current_user
@@ -244,11 +244,15 @@ def api_reports():
         reports_data.append({
             'id': report.id,
             'reporter': reporter.username if reporter else 'Unknown',
+            'reporter_id': report.reporter_id,
             'post': target_name,
             'reason': report.reason or 'No reason',
             'status': 'Pending' if report.pending else 'Resolved',
             'created': report.created_at.strftime('%Y-%m-%d %H:%M'),
-            'type': report_type
+            'type': report_type,
+            'item_id': report.item_id,
+            'user_id': report.user_id,
+            'description': report.content or ''
         })
     
     return jsonify({
@@ -256,4 +260,19 @@ def api_reports():
         'total': reports_paginated.total,
         'pages': reports_paginated.pages,
         'current_page': page
+    })
+
+
+@admin_routes.route("/api/reports/<int:report_id>/resolve", methods=['POST'])
+@login_required
+@admin_required
+def resolve_report(report_id):
+    """Mark a report as resolved"""
+    report = Reports.query.get_or_404(report_id)
+    report.pending = False
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'Report marked as resolved'
     })

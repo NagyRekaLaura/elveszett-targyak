@@ -7,8 +7,7 @@ from database import init_db, db, User
 import os
 from datetime import datetime
 from routes import auth_routes, main_routes, post_routes, profile_routes, messages_routes, admin_routes, Translate
-from sockets import ensure_models, disable_ai, socketio
-import ollama
+from sockets import disable_ai, socketio
 
 AI_DISABLED = False
 translate_ai = Translate()
@@ -84,12 +83,6 @@ def elapsedTime(value, format='%Y-%m-%d %H:%M'):
 
 
 if __name__ == '__main__':
-    try:
-        ollama.list()
-        ensure_models()
-    except:
-        print("Ollama is not running or not installed. Please start ollama and ensure it's properly set up.")
-        disable_ai()
     if os.path.exists('tokens.json'):
         with open('tokens.json', 'r') as f:
             tokens = json.load(f)

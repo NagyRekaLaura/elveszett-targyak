@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var socket = null;
     var currentResponseElement = null;
     var isWaitingForResponse = false;
+    var hasReceivedFirstToken = false;
+    var typingInterval = null;
 
     function initSocket() {
         if (!socket) {
@@ -32,6 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
             
             socket.on('support_token', function(data) {
                 if (currentResponseElement) {
+                    if (!hasReceivedFirstToken) {
+                        hasReceivedFirstToken = true;
+                        clearInterval(typingInterval);
+                        currentResponseElement.classList.remove('support-msg-typing');
+                        currentResponseElement.textContent = '';
+                    }
                     currentResponseElement.textContent += data.token;
                     if (currentResponseElement.parentElement) {
                         currentResponseElement.parentElement.scrollTop = 
@@ -42,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
             
             socket.on('support_response_end', function(data) {
                 isWaitingForResponse = false;
+                hasReceivedFirstToken = false;
+                clearInterval(typingInterval);
                 currentResponseElement = null;
             });
             
@@ -180,11 +190,22 @@ document.addEventListener('DOMContentLoaded', function () {
         input.value = '';
         
         isWaitingForResponse = true;
+        hasReceivedFirstToken = false;
         currentResponseElement = document.createElement('div');
-        currentResponseElement.className = 'support-msg bot';
-        currentResponseElement.textContent = '';
+        currentResponseElement.className = 'support-msg bot support-msg-typing';
+        currentResponseElement.textContent = '.';
         body.appendChild(currentResponseElement);
         body.scrollTop = body.scrollHeight;
+        
+        // Start typing animation
+        var dotCount = 1;
+        clearInterval(typingInterval);
+        typingInterval = setInterval(function() {
+            if (currentResponseElement && currentResponseElement.parentElement) {
+                dotCount = (dotCount % 3) + 1;
+                currentResponseElement.textContent = Array(dotCount + 1).join('.');
+            }
+        }, 500);
         
         if (socket && socket.connected) {
             socket.emit('support_message', { message: text });

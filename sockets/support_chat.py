@@ -1,112 +1,110 @@
-import ollama
-import os
-from tqdm import tqdm
-
-REQUIRED_MODELS = [
-    "qwen3.5:9b"
-]
-
-
-def ensure_models():
-    print("Starting ollama...\n")
-    os.system("ollama ps")
-    print("Checking Ollama models...\n")
-
-    installed = [m.model for m in ollama.list().models]
-
-    for model in REQUIRED_MODELS:
-
-        if model in installed:
-            print(f"{model} already installed")
-            continue
-
-        print(f"Downloading {model}...")
-
-        pbar = None
-
-        for chunk in ollama.pull(model, stream=True):
-
-            if "total" in chunk and "completed" in chunk:
-
-                if pbar is None:
-                    pbar = tqdm(
-                        total=chunk["total"],
-                        unit="B",
-                        unit_scale=True,
-                        desc=model
-                    )
-
-                pbar.update(chunk["completed"] - pbar.n)
-
-        if pbar:
-            pbar.close()
-
-        print(f"{model} download finished\n")
-
-    print("All required models ready.\n")
-    print("Preparing AI models...")
-    asd =ollama.generate(
-        model="qwen3.5:9b",keep_alive=-1)
+from ollama import Client
 
 
 class SupportAI:
+    MODEL = "gpt-oss:120b"
 
-    def __init__(self, documentation):
-
+    def __init__(self, documentation: str = ""):
+        self._token = None
         self.documentation = documentation
+        self.sessions = {}  # {session_id: messages_list}
 
-        self.messages = [
-            {
-                "role": "system",
-                "content": f"""
+    def _get_system_message(self) -> dict:
+        return {
+    "role": "system",
+    "content": f"""
 You are a strict customer support assistant.
 
-Rules:
-1. Answer ONLY using the provided documentation.
-2. If the answer is not explicitly present in the documentation, respond with exactly:
+You MUST follow these rules without exception:
+
+CORE RULES:
+1. Answer ONLY with information that is explicitly and clearly stated in the provided documentation.
+2. If the exact answer is not found in the documentation, respond with EXACTLY this sentence and nothing else:
 Sajnos nem tudok segíteni a kérdéseddel kapcsolatban.
-3. Do NOT guess.
-4. Do NOT provide general advice.
-5. Do NOT explain why you don't know.
-6. Do NOT use formatting like **bold**, *italic*, `code`.
-7. Answer in same language as the question, but do NOT translate the button labels.
+3. Do NOT infer, assume, guess, or combine multiple pieces of information unless the documentation explicitly connects them.
+4. Do NOT use prior knowledge.
+5. Do NOT add explanations, suggestions, or extra context.
+
+STRICT BEHAVIOR:
+6. If the question is ambiguous or partially answerable, treat it as NOT answerable.
+7. If multiple interpretations exist and the documentation does not clearly resolve them, refuse.
+8. Only answer what is directly asked. Do not expand the scope.
+9. Do NOT rephrase or summarize beyond what is necessary.
+
+LANGUAGE RULES:
+10. ALWAYS answer in the same language as the user's question.
+11. The user's language has priority over the documentation language.
+12. If the documentation is in a different language, translate the meaning internally but respond in the user's language.
+
+OUTPUT FORMAT:
+13. Output plain text only.
+14. No formatting (no markdown, no bold, no code blocks, no lists).
+15. No quotes, no prefixes, no suffixes.
+
+DOCUMENTATION USAGE:
+16. Every statement in your answer must be directly traceable to the documentation.
+17. If any part of your answer is not explicitly supported, do NOT answer.
 
 Documentation:
-{documentation}
+{self.documentation}
 """
-            }
-        ]
+}
 
-    def ask(self, question):
+    def _get_session_messages(self, session_id: str) -> list:
+        """Get or create messages list for a session"""
+        if session_id not in self.sessions:
+            self.sessions[session_id] = [self._get_system_message()]
+        return self.sessions[session_id]
 
-        self.messages.append({
+    def _build_client(self) -> Client:
+        if not self._token:
+            raise ValueError("Support AI token not set. Use set_token() first.")
+        return Client(
+            host="https://ollama.com",
+            headers={"Authorization": f"Bearer {self._token}"},
+        )
+
+    def set_token(self, token: str):
+        """Set the API token"""
+        token = token.strip()
+        if not token:
+            raise ValueError("Token cannot be empty.")
+        self._token = token
+
+    def ask(self, question: str, session_id: str):
+        """Ask a question in a specific session"""
+        if not self._token:
+            raise ValueError("Support AI token not configured.")
+
+        messages = self._get_session_messages(session_id)
+        messages.append({
             "role": "user",
             "content": question
         })
 
         response_text = ""
+        client = self._build_client()
 
-        stream = ollama.chat(
-            model="qwen3.5:9b",
-            messages=self.messages,
-            options={
-                "temperature": 0
-            },
+        for chunk in client.chat(
+            model=self.MODEL,
+            messages=messages,
             think=False,
             stream=True
-        )
-
-        for chunk in stream:
-
+        ):
             if "message" in chunk:
                 part = chunk["message"]["content"]
                 response_text += part
                 if part != "":
                     yield part
 
-        self.messages.append({
+        messages.append({
             "role": "assistant",
             "content": response_text
         })
+
+    def clear_session(self, session_id: str):
+        """Clear a session"""
+        if session_id in self.sessions:
+            del self.sessions[session_id]
 
 

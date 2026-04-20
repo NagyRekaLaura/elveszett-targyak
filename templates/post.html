@@ -175,15 +175,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     <div class="action-buttons">
                         {% if public_phone %}
-                        <a href="tel:{{ public_phone }}" class="btn action-btn" data-i18n-phone="{{ public_phone }}">
-                            <i class="fas fa-phone-alt me-2"></i><span data-i18n="post.call">Hívás</span>: {{ public_phone }}
+                        <a href="tel:{{ public_phone }}" class="btn action-btn" >
+                            <i class="fas fa-phone-alt me-2"></i><span data-i18n-phone="{{ public_phone }}" data-i18n="post.call">Hívás</span>
                         </a>
                         {% endif %}
-                        <a href="{{ url_for('messages.messages', partner=uploader.id) }}" class="btn action-btn" data-i18n="post.sendMessage">
+                        <a href="{{ url_for('messages.messages', partner=uploader.id) }}" class="btn action-btn">
                             <i class="fas fa-comment me-2"></i><span data-i18n="post.sendMessage">Üzenet küldése</span>
                         </a>
                         {% if public_email %}
-                        <a href="mailto:{{ public_email }}" class="btn action-btn" data-i18n="post.sendEmail">
+                        <a href="mailto:{{ public_email }}" class="btn action-btn">
                             <i class="fas fa-envelope me-2"></i><span data-i18n="post.sendEmail">Email küldése</span>
                         </a>
                         {% endif %}

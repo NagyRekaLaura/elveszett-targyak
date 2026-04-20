@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         const userId = document.querySelector('[data-report-user-id]')?.getAttribute('data-report-user-id');
-        const postId = document.querySelector('[data-report-post-id]')?.getAttribute('data-report-post-id') ||
-                       window.location.pathname.split('/post/')[1];
+        const postId = document.querySelector('[data-report-post-id]')?.getAttribute('data-report-post-id');
         
         if (userId) {
             submitUserReport(userId, reason, content);
@@ -76,14 +75,13 @@ async function submitUserReport(userId, reason, content) {
         if (response.ok && data.success) {
             showToast(data.message, 'success');
             
-            // Close the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
             if (modal) modal.hide();
             
             // Reset the form
-            document.querySelector('form[name="report-form"]')?.reset() || 
             Array.from(document.querySelectorAll('input[name="report-reason"]')).forEach(r => r.checked = false);
             document.getElementById('other-reason-text').value = '';
+            document.getElementById('other-reason-text').style.display = 'none';
             
         } else {
             showToast(data.error || 'Hiba a bejelentés feldolgozása során', 'error');
@@ -100,7 +98,7 @@ async function submitPostReport(postId, reason, content) {
         formData.append('reason', reason);
         formData.append('content', content);
         
-        const response = await fetch(`/post/report-post/${postId}`, {
+        const response = await fetch(`/report-post/${postId}`, {
             method: 'POST',
             body: formData
         });
@@ -113,9 +111,10 @@ async function submitPostReport(postId, reason, content) {
             const modal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
             if (modal) modal.hide();
             
-            document.querySelector('form[name="report-form"]')?.reset() || 
+            // Reset the form
             Array.from(document.querySelectorAll('input[name="report-reason"]')).forEach(r => r.checked = false);
             document.getElementById('other-reason-text').value = '';
+            document.getElementById('other-reason-text').style.display = 'none';
             
         } else {
             showToast(data.error || 'Hiba a bejelentés feldolgozása során', 'error');

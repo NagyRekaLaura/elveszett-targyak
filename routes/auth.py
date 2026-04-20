@@ -20,7 +20,9 @@ def login():
                 if user._2fa_enabled:
                     session['2fa_user_id'] = user.id
                     return redirect(url_for("auth.verify_2fa"))
-                
+                if user.role == "admin":
+                    login_user(user)
+                    return redirect(url_for("admin.dashboard"))
                 login_user(user, remember=True)
                 return redirect(url_for("main.home"))
 
@@ -58,6 +60,9 @@ def verify_2fa():
             return redirect(url_for("auth.login"))
         if _2fa.verify_otp(otp):
             session.pop('2fa_user_id', None)
+            if user.role == "admin":
+                login_user(user)
+                return redirect(url_for("admin.dashboard"))
             login_user(user, remember=True)
             return redirect(url_for("main.home"))
         else:

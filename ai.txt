@@ -1,313 +1,772 @@
-# Lost & Found - Felhasználói Dokumentáció
+# Lost & Found (Elveszett Tárgyak) – Teljes Funkciódokumentáció
 
-## Projekt Célja
-
-A Lost & Found egy internetes platform, amely segít az elveszett tárgyaknak és állatoknak visszajutni a gazdájukhoz. Az oldal célja, hogy csökkentse az utcán, hotelekben, buszokon és vonaton elhagyott vagy elveszett tárgyak és животok számát, valamint gyorsítsa meg azok megtalálásának folyamatát.
+Ez a dokumentáció a Lost & Found platform AI ügyfélszolgáltatójának forrása. Csak az itt leírt funkciók, oldalak és viselkedések léteznek a rendszerben.
 
 ---
 
-## Ki Használhatja az Oldalt?
+## FONTOS HASZNÁLATI SZABÁLYOK A SUPPORT AI SZÁMÁRA
 
-Az oldalt bárki használhatja, aki:
-- Elveszített valamit (tárgyat vagy állatot)
-- Talált egy elhagyott tárgyat vagy állatot
-- Segíteni szeretne másoknak visszajutni elveszett dolgaikhoz
+1. Gombnevek nyelve – KÖTELEZŐ:
+A platform minden gombjának, linkjének és menüpontjának KÉT hivatalos neve van: egy magyar és egy angol. Mindkettő a felület valódi része, attól függően, hogy a felhasználó melyik nyelvet választotta. A 19. szekció táblázatai mindkét nevet hivatalos UI címkének tartalmazzák.
 
----
+- Ha a felhasználó magyarul kérdez → MINDIG a magyar gombnevet használd a válaszban (pl. "Regisztrálj", "Közzététel", "Elveszett", "Talált").
+- Ha a felhasználó angolul kérdez → MINDIG az angol gombnevet használd a válaszban (pl. "Register", "Publish", "Lost", "Found").
+- SOHA ne használj magyar gombnevet angol válaszban, és fordítva. A 19. szekció táblázataiból mindig válaszd ki a felhasználó nyelvének megfelelő oszlopot.
+- Ez NEM fordítás – a két név a felület hivatalos két nyelvi verziója, mindkettő a dokumentáció része.
 
-## Főoldal (Home)
+2. Navigáció – KÖTELEZŐ:
+Ha a felhasználó azt kérdezi, "hogyan tudok X-et csinálni", a válasz MINDIG kezdődjön azzal, HOGYAN JUT EL a megfelelő oldalra (a 21. szekció navigációs útvonalai alapján). Ne feltételezd, hogy a felhasználó tudja, hol van az adott funkció.
 
-### Általános Funkciók
-
-A főoldalon a felhasználó a következőket látja:
-- Üdvözlő szöveg: Bejelentkezés után személyes üdvözlés
-- Poszt Létrehozása gomb: Új poszt létrehozásához szükséges gomb
-- Kategória szűrők: Különböző típusú tárgyak kereséshez
-
-### Kategóriák
-
-Az oldal az alábbi kategóriák szerint szűrhető:
-- 🐾 Állat - Elveszett vagy talált háziállatok
-- 💻 Elektronika - Telefonok, laptopok, táskák
-- 👕 Ruházat - Ruhaneműk, cipők, kiegészítők
-- 💎 Ékszer - Fényűző tárgyak, ékszerek
-- 📄 Dokumentum - Személyes dokumentumok, iratok
-- 🎁 Egyéb - Egyéb kategóriákba nem sorolható tárgyak
-
-### Posztok Megtekintése
-
-A főoldalon megjelennek az aktív posztok kártyaformában, amelyeken láthatóak:
-- Képek: A tárgy vagy állat fotói
-- Név: Az eltűnt tárgy/állat neve
-- Kategória: Melyik kategóriába tartozik
-- Idő: Mennyi ideje jött létre a poszt
-- Helyszín: Az eltűnés helye
-- Leírás: Rövid szöveges leírás
-- Részletek gomb: Teljes információhoz való hozzáférés
+3. Tiszta szöveg – KÖTELEZŐ:
+A válaszod TILTOTT formázni. Ne használj csillagot (*), aláhúzást (_), backtick-et (`), kettőskeresztet (#), kötőjeles listát, számozott listát, idézőjelpárt körül, vagy bármilyen markdown elemet. A gombneveket SIMA SZÖVEGKÉNT írd, idézőjelek között, formázás nélkül. PÉLDA HELYESEN: kattints a "Login/Register" gombra. PÉLDA HELYTELENÜL: kattints a **Login/Register** gombra. A dokumentáció tartalmazhat formázást (táblázatok, fejlécek), de a TE válaszodban semmi ilyesmi nem szerepelhet.
 
 ---
 
-## Bejelentkezés és Regisztráció
+## 1. A Platform Célja
 
-### Bejelentkezés
+A Lost & Found egy magyar nyelvű webes platform, amely segít az elveszett és megtalált tárgyak (illetve állatok) tulajdonosaikhoz való visszajuttatásában. A felhasználók posztokat hozhatnak létre arról, amit elvesztettek vagy megtaláltak, böngészhetik mások posztjait, és privát üzenetekben felvehetik egymással a kapcsolatot.
 
-A Bejelentkezés lap megnyomásához:
-1. Kattintson a "Bejelentkezés/Regisztráció" gombra a felső navigációs sávban
-2. Adja meg a felhasználónevet és jelszót
-3. Kattintson a "Bejelentkezés" gombra
-
-### Regisztráció
-
-Ha még nincs fiókja:
-1. A bejelentkezés oldal alján kattintson a "Regisztrálj" linkre
-2. Adja meg a szükséges adatokat:
-   - Felhasználónév
-   - Email cím
-   - Jelszó (kétszer a megerősítéshez)
-3. Kattintson a "Regisztráció" gombra
-
-Fontos: Regisztráció után kötelezően ki kell töltenie a profilját (név, cím, születési dátum).
+A platform kétnyelvű (magyar / angol), és a posztok leírásait automatikusan lefordítja a háttérben.
 
 ---
 
-## Profil Kezelés
+## 2. Ki használhatja a platformot?
 
-### Profiloldal
-
-A bejelentkezés után a profiloldal a következő információkat tartalmazza:
-- Profilkép: Felhasználó avatárja
-- Felhasználónév: Az Ön felhasználónevét mutató név
-- Email cím: Bejelentkezéshez használt email
-- Tag seit (Csatlakozási dátum): Mikor regisztrált az oldalra
-
-### Profil Szerkesztése
-
-Az "Szerkesztés" gomb segítségével módosíthatók az alábbiak:
-- Profilkép
-- Teljes név
-- Cím/lakcím
-- Születési dátum
-- 2FA (Kétfaktoros azonosítás) engedélyezése
-
-### Felhasználó Posztjai
-
-A profil jobb oldalán megjelenik az összes, az adott felhasználó által létrehozott poszt.
-
-#### Szűrés
-
-A posztok szűrhetőek az alábbiak szerint:
-- Összes: Összes poszt megtekintése
-- Talált (Found): Csak azok a posztok, amelyekben a felhasználó valamit talált
-- Keresett (Lost): Csak azok a posztok, amelyekben a felhasználó valamit keres
-
-#### Poszt Kezelés
-
-Saját posztok mellett az alábbi műveletek végezhetőek:
-- Szerkesztés (ceruzaikon): A poszt szerkesztéséhez
-- Törlés (kuka ikon): A poszt eltávolítása
+A platformot bárki használhatja, aki regisztrált felhasználó. A felhasználó posztokat hozhat létre, böngészhet, üzenhet, jelenthet más posztokat és felhasználókat. Bejelentkezéskor a felhasználó a főoldalra kerül.
 
 ---
 
-## Poszt Létrehozása
+## 3. Regisztráció és Bejelentkezés
 
-### Poszt Létrehozás Lépések
+### 3.1 Regisztráció
 
-A "Poszt Létrehozása" gomb megnyomásával megnyílik egy modal ablak.
+A bejelentkező oldalon a "Regisztrálj" linkre kattintva lehet új fiókot létrehozni.
+Megadandó adatok:
+- Felhasználónév (egyedinek kell lennie)
+- Email cím (egyedinek kell lennie)
+- Jelszó
 
-Szükséges információk:
+A jelszó titkosítva, biztonságosan kerül tárolásra. Sikeres regisztráció után a felhasználó automatikusan be van jelentkezve.
 
-1. Kép feltöltése
-   - Kattintson a "Kép feltöltése" gombra
-   - Válassza ki a tárgyról vagy állatról készült képeket
-   - Több kép is feltölthető
-   - A képeket egy képgyűjtemény (carousel) formájában lehet megjeleníteni
+Hibák:
+- "Felhasznalonev foglalt" – ha a felhasználónév már létezik
+- "Email foglalt" – ha az email már létezik
 
-2. Tárgy/Állat neve
-   - Adja meg az eltűnt vagy talált tárgy/állat nevét
+### 3.2 Bejelentkezés
 
-3. Helyszín
-   - Adja meg, hogy hol tűnt el vagy ahol megtalálta
+A bejelentkező oldalon a felhasználónév és jelszó megadásával. Ha a felhasználónál engedélyezve van a 2FA, akkor a kétfaktoros ellenőrző oldalra irányít.
 
-4. Kategória
-   - Válasszon ki egy kategóriát a fent felsorolt lehetőségekből
+### 3.3 Kétfaktoros hitelesítés (2FA)
 
-5. Talált vagy Keresett?
-   - Válasszon a két gomb közül:
-     - "Talált" - ha talált valamit
-     - "Keresett" - ha keresett valamit
+- Időalapú egyszeri jelszó (TOTP), 30 másodperces kódokkal
+- Bármely authenticator alkalmazással használható (Google Authenticator, Authy stb.)
+- A QR-kódot a profil szerkesztésekor lehet beolvasni
+- A 2FA bekapcsolásához előbb sikeres kódellenőrzés szükséges
+- Bejelentkezés után 6 számjegyű kódot kell megadni
 
-6. Leírás (csak állatnál)
-   - Ha az állat kategóriát választotta, adjon meg extra információt:
-     - Породa: Melyik állat faja
-     - Szín/Jellemzők: Hogyan néz ki
-     - Viselkedés: Hogyan viselkedik az állat
+### 3.4 Jelszó Visszaállítás
 
-7. Elérhetőség
-   - Adjon meg egy telefonszámot vagy email címet, amelyen elérhetőek lehetnek
+- A bejelentkezési oldalról indítható
+- Felhasználónév megadása után emailen érkezik egy link
+- A linkre kattintva új jelszó adható meg
+- A link egyszer használható, használat után érvénytelenné válik
 
-### Poszt Mentése
+### 3.5 Kijelentkezés
 
-Az összes információ kitöltése után kattintson a "Közzététel" gombra.
+A felső navigációs sávban a kijelentkezés ikonnal.
 
 ---
 
-## Poszt Megtekintése
+## 4. Profil Kezelés
 
-### Poszt Oldal
+### 4.1 Kötelező profilkitöltés
 
-Bármely poszt megnyitásakor az alábbi információk láthatóak:
+Regisztráció után az első használatkor a felhasználó automatikusan a profilkészítő oldalra kerül, és nem használhatja az oldalt addig, amíg a következő mezőket ki nem tölti:
+- Megjelenítendő név (kötelező)
+- Lakhely / cím (kötelező)
+- Születési dátum (kötelező, év-hónap-nap formátumban)
 
-Bal oldal:
-- Képgaléria: Az összes feltöltött kép carousel formájában
+Opcionálisan megadható:
+- Profilkép (PNG, JPG, JPEG, GIF formátum)
+- Telefonszám
+- Telefonszám láthatósága (privát / nyilvános) – alapértelmezetten privát
+- Cím láthatósága (privát / nyilvános) – alapértelmezetten nyilvános
+- 2FA engedélyezése
 
-Jobb oldal:
-- Tárgy/Állat neve
-- Helyszín: Térképpel vagy szövegesen
-- Elérhetőség: Telefonszám vagy email
-- Kategória: Melyik típus
-- Talált/Keresett státusz: A poszt típusa
-- Leírás: Részletes információ
-- Feltöltés ideje: Mennyi ideje jött létre a poszt
+### 4.2 Profil megtekintése
 
----
+- Saját profil: a felső navigációs sávban a profil ikonra kattintva
+- Más felhasználó profilja: egy poszt feltöltőjének nevére kattintva
 
-## Navigáció és Keresés
+A profiloldal tartalmazza:
+- Profilkép, név, felhasználónév, email, csatlakozási dátum
+- A felhasználó által létrehozott aktív posztok listája
+- Statisztika: összes poszt, "lost" (keresett), "found" (talált) számok
+- Más felhasználó profilján: bejelentés (report) gomb
 
-### Felső Navigációs Sáv
+### 4.3 Profil szerkesztése
 
-A sáv a következő elemeket tartalmazza:
-- Logo: Az oldalra való visszatéréshez
-- Keresősáv: Szöveges kereséshez
-- Bejelentkezés/Profilgombok: 
-  - Ha nincs bejelentkezve: "Bejelentkezés/Regisztráció" gomb
-  - Ha bejelentkezve van:
-    - Profil ikon: Profiloldal megnyitásához
-    - Kijelentkezés ikon: Kijelentkezéshez
-    - Üzenetek ikon: Privát üzenetek megtekintéséhez
-
-### Keresés
-
-A keresősávban írjon be kulcsszavakat:
-- Tárgy/Állat neve
-- Helyszín
-- Egyéb releváns információk
+A profilszerkesztő oldalon. Ugyanazok a mezők módosíthatók, mint a profilkitöltésnél, valamint itt aktiválható a 2FA QR-kóddal.
 
 ---
 
-## Üzenetek (Messaging)
+## 5. Posztok
 
-A Üzenetek (Envelope) ikon segítségével:
-- Olvashatók a más felhasználóktól kapott üzenetek
-- Küldhetőek saját üzenetek a poszt tulajdonosoknak
-- Nyomon követhető az oldallal kapcsolatos kommunikáció
+### 5.1 Poszt típusai
 
----
+Minden posztnak van egy típusa:
+- Elveszett (lost) – A felhasználó elveszített valamit és keresi
+- Talált (found) – A felhasználó talált valamit és keresi a tulajdonost
 
-## Lábléc (Footer)
+### 5.2 Kategóriák
 
-A oldal alján megtalálható:
-- Lost & Found - Az oldal neve
-- "Segítünk megtalálni" - A szlogenje
-- Gyorslinkek: Fontosabb oldalakra mutató linkek
+A posztok az alábbi kategóriákba sorolhatók:
+- 🐾 Állat
+- 💻 Elektronika
+- 👕 Ruházat
+- 💎 Ékszer
+- 📄 Dokumentum
+- 🎁 Egyéb
 
----
+### 5.3 Poszt létrehozása
 
-## Gyakori Helyzetek
+A főoldalon a "Poszt létrehozása" gomb megnyit egy modális ablakot.
 
-### Valami Elveszett
+Megadandó mezők:
+- Név (kötelező)
+- Leírás (kötelező)
+- Kategória (a fenti listából)
+- Helyszín (vármegye + település formátumban)
+- Típus (elveszett / talált)
+- Képek – több is feltölthető. Engedélyezett formátumok: PNG, JPG, JPEG, GIF, WEBP.
 
-1. Kattintson a "Poszt Létrehozása" gombra
-2. Töltse fel a tárgy/állat képét
-3. Adjon meg minden szükséges adatot
-4. Válassza a "Keresett" opciót
-5. Adjon meg elérhetőséget
-6. Kattintson a "Közzététel" gombra
+A poszt kezdetben nem látható, és csak akkor jelenik meg a főoldalon, ha a háttérben futó automatikus fordítás befejeződött (mindkét nyelven elérhető a leírás).
 
-### Valami Megtalálta
+### 5.4 Automatikus fordítás
 
-1. Kattintson a "Poszt Létrehozása" gombra
-2. Töltse fel a talált tárgy/állat képét
-3. Adjon meg minden szükséges adatot
-4. Válassza a "Talált" opciót
-5. Adjon meg elérhetőséget
-6. Kattintson a "Közzététel" gombra
+A háttérben a rendszer automatikusan lefordítja a leírást a másik nyelvre AI segítségével. Csak ezután válik a poszt láthatóvá.
 
-### Jelenlegi Posztok Szűrése
+### 5.5 Poszt megtekintése
 
-1. Nyissa meg a főoldalt
-2. Kattintson a kívánt kategóriagombra
-3. Az oldal automatikusan szűri az adott kategóriatárgyakat
+Bármely posztra kattintva megjelenik a részletes oldal:
+- Képgaléria (carousel formátumban)
+- Tárgy/állat neve
+- Helyszín (térképen vagy szövegesen)
+- Kategória
+- Típus (elveszett / talált)
+- Leírás (a felhasználó nyelvén)
+- Feltöltő neve, profilképe
+- Feltöltő elérhetősége (telefon ha nyilvános, különben email)
+- Feltöltés ideje (relatív: "X másodperce", "X perce", "X órája", "X napja", "X hónapja")
+- A feltöltő korábbi hirdetéseinek száma
 
----
+Lezárt posztot csak a tulajdonosa láthat.
 
-## Technikai Információk a Support AI-nak
+### 5.6 Poszt szerkesztése
 
-### Platform Jellemzői
+Csak a poszt tulajdonosa szerkesztheti a saját posztján található ceruza ikonnal. Ugyanazok a mezők módosíthatók, mint létrehozáskor; képek hozzáadhatók és eltávolíthatók is.
 
-- Oldal neve: Lost & Found
-- Fő funkciók: Elveszett tárgyak/állatok nyilvántartása
-- Felhasználó típusok: Regisztrált felhasználók
-- Felhasználói azonosítás: Felhasználónév és jelszó
-- Adattárolás: SQLite adatbázis
-- Frontend: HTML, CSS, JavaScript (Bootstrap 5.3.0)
-- Backend: Flask Python framework
-- Képfeltöltés: Helyi tárolás (static/attachments mappa)
+### 5.7 Poszt lezárása
 
-### Fő Oldalak
+A poszt tulajdonosa lezárhatja a posztot, ha pl. már megtalálták a tárgyat. Lezárt poszt nem jelenik meg a főoldalon, és csak a tulajdonos láthatja. A státusz visszafordítható.
 
-- Főoldal (`/`): Összes poszt megtekintése
-- Bejelentkezés (`/login`): Felhasználó azonosítás
-- Profil (`/profile`): Felhasználói adatok és posztok
-- Poszt oldal (`/post/<id>`): Egyedi poszt megtekintése
-- Profilkészítés (`/createprofile`): Első bejelentkezés után kötelező
+### 5.8 Poszt törlése
 
-### Poszt Státuszok
+Csak a tulajdonos törölheti a saját posztján található kuka ikonnal. A poszthoz tartozó képek is eltávolításra kerülnek.
 
-Posztok lehetnek:
-- Aktív (active=True): Jelenleg megjelennek az oldalon
-- Inaktív (active=False): Nem jelennek meg az oldalon
+### 5.9 Poszt jelentése
 
-### Időformátumok
+Bármely bejelentkezett felhasználó jelenthet egy posztot a poszt oldalán a "Poszt bejelentése" gombbal.
+Megadandó:
+- Indoklás – kötelező
+- Részletek – opcionális
 
-Az oldal az alábbi időformátumokat használja:
-- Teljes idő: YYYY-MM-DD HH:MM
-- Eltelt idő: "X másodperce", "X perce", "X órája", "X napja", "X hónapja"
+Korlátozások:
+- Saját posztot nem lehet jelenteni
+- Egy felhasználó egyszer jelentheti ugyanazt a posztot
 
 ---
 
-## Szín- és Dizájn Séma
+## 6. Főoldal
 
-Az oldal egy meleg, barátságos dizájnt használ:
+A főoldal megjeleníti az összes aktív, nem lezárt posztot kártyaformában, létrehozási idő szerint csökkenő sorrendben.
+
+Tartalom:
+- Üdvözlő szöveg (bejelentkezve: személyes; kijelentkezve: általános)
+- "Poszt létrehozása" gomb (csak bejelentkezve)
+- Kategória szűrők
+- Posztkártyák képpel, névvel, kategóriával, idővel, helyszínnel, leírással
+
+A keresősáv szöveges keresést tesz lehetővé (név, helyszín, leírás alapján).
+
+---
+
+## 7. Üzenetek – Privát Chat
+
+Csak bejelentkezett felhasználó férhet hozzá az üzenetek oldalhoz.
+
+A rendszer valós idejű chatet biztosít:
+- Beszélgetések listája az utolsó üzenet ideje szerint rendezve
+- Egy speciális "Rendszer" csatorna van legfelül egy üdvözlő üzenettel. Ide nem lehet üzenetet küldeni.
+- Online státusz indikátor (online / offline)
+- Olvasatlan üzenetek számlálója
+- "Látta" jelzés
+- Maximális üzenethossz: 5000 karakter
+- Új üzenetnél értesítés érkezik a címzettnek
+
+### Hogyan kezdhető új beszélgetés
+
+A poszt oldalán a feltöltő "Üzenet küldése" gombjára kattintva.
+
+---
+
+## 8. AI Support Chat
+
+A platform tartalmaz egy AI alapú támogatási chatet (jobb alsó sarok).
+
+Működés:
+- A "Segítség" gombra kattintva nyílik meg
+- Csak a hivatalos dokumentációban szereplő információk alapján válaszol
+- Ha nem találja a választ, EZT a mondatot adja vissza pontosan: "Sajnos nem tudok segíteni a kérdéseddel kapcsolatban."
+- A felhasználó nyelvén válaszol (HU vagy EN)
+- Sima szöveg formátum (nincs markdown)
+- A beszélgetés a chat bezárásakor / kapcsolat bontásakor törlődik
+
+---
+
+## 9. Felhasználó jelentése
+
+Bármely bejelentkezett felhasználó jelenthet egy másikat a profilján található "Bejelentés" gombbal.
+Korlátozások:
+- Magát nem jelentheti
+- Ugyanazt a felhasználót csak egyszer jelentheti
+
+A bejelentéseket a moderátorok bírálják el.
+
+---
+
+## 10. Navigáció – Felső Sáv
+
+A felső navigációs sáv elemei:
+- Logo – visszatérés a főoldalra
+- Keresősáv – szöveges keresés a posztok között
+- Bejelentkezés/Regisztráció gomb – ha nincs bejelentkezve
+- Bejelentkezett felhasználó esetén:
+  - Profil ikon – a saját profiloldalra navigál
+  - Üzenetek (boríték) ikon – az üzenetek oldalra navigál, olvasatlan üzenetek számával
+  - Kijelentkezés ikon – kijelentkeztet
+
+Mobilon (telefonos nézet) reszponzív menü érhető el.
+
+---
+
+## 11. Lábléc (Footer)
+
+Az oldal alján található:
+- "Lost & Found" név
+- Szlogen: "Segítünk megtalálni"
+- Gyorslinkek a fontosabb oldalakra
+- Kapcsolat: info@lostandfound.hu, +36 1 234 5678
+- Általános Szerződési Feltételek és Adatvédelmi Nyilatkozat linkek
+
+---
+
+## 12. Időformátumok
+
+- Teljes idő: év-hónap-nap óra:perc
+- Eltelt idő (relatív):
+  - 1 percen belül: "X másodperce"
+  - 1 órán belül: "X perce"
+  - 1 napon belül: "X órája"
+  - 30 napon belül: "X napja"
+  - egyébként: "X hónapja"
+
+---
+
+## 13. Színek és Dizájn
+
+A platform meleg, barátságos színpalettát használ:
 - Fő szín: Barna (#946A61)
 - Menüsáv: Sárgás-barna (#FBC288)
 - Gombok: Vörös-barna (#9E3F41)
-- Háttér: Sötét szín (#322D31)
-- Szöveg: Világos szín (#EEEFFD)
+- Háttér: Sötét (#322D31)
+- Szöveg: Világos (#EEEFFD)
+
+A felület reszponzív (asztali és mobilnézet támogatott).
 
 ---
 
-## Hibakezelés és Support
+## 14. Nyelvek
 
-### Közös Problémák
-
-Problem: "A profilom nincs befejezve"
-- Megoldás: Nyissa meg a profilbeállításokat és töltse ki az összes szükséges mezőt
-
-Problem: "Nem tudom feltölteni a képeket"
-- Megoldás: Győződjön meg róla, hogy az feltölteni kívánt fájl képformátumú (PNG, JPG, JPEG, GIF)
-
-Problem: "Nem találom a posztom"
-- Megoldás: Ellenőrizze a profilján, hogy a poszt aktív-e
+- Támogatott nyelvek: magyar (HU) és angol (EN)
+- Az aktuális nyelv a böngésző beállításai alapján kerül meghatározásra, vagy menüből választható
+- Alapértelmezett nyelv: magyar
+- A poszt leírások mindkét nyelven mentve vannak; a fordítás háttérben automatikusan készül el
+- A felhasználói felület címkéi a választott nyelv szerint váltakoznak
 
 ---
 
-## Verzióinformáció
+## 15. Gyakori Felhasználói Forgatókönyvek
 
-- Projekt neve: elveszett-targyak
-- Típus: HTML alapú webalkalmazás
-- Készítette: Nagy Réka Laura, Bozsik Ádám Botond, Tomor Noel
-- Legutóbbi frissítés: 2026-03-01
+### 15.1 "Elveszett valamim, hogyan jelentem be?"
+
+1. Jelentkezz be (vagy regisztrálj)
+2. Tölts ki a profilodat, ha még nem tetted meg
+3. A főoldalon kattints a "Poszt létrehozása" gombra
+4. Tölts fel képet (vagy többet) az elveszett tárgyról
+5. Add meg a nevét, helyszínt, kategóriát, leírást
+6. Válaszd a "Elveszett" opciót
+7. Kattints a "Közzététel" gombra
+8. A poszt a fordítás befejezése után jelenik meg a főoldalon
+
+### 15.2 "Találtam valamit, mit tegyek?"
+
+Ugyanúgy, mint fentebb, csak a "Talált" opciót válaszd.
+
+### 15.3 "Hogyan veszem fel a kapcsolatot egy poszt feltöltőjével?"
+
+A poszt oldalán látod a feltöltő telefonszámát (ha nyilvános) vagy email címét. Emellett az "Üzenet küldése" gombbal a beépített chaten is írhatsz neki.
+
+### 15.4 "Megtaláltam, amit kerestem – mit csináljak a poszttal?"
+
+A profilodban a poszt mellett a lezárás gombbal lezárhatod, vagy törölheted. Lezárt poszt eltűnik a főoldalról.
+
+### 15.5 "Szerintem egy poszt szabálytalan – mit tegyek?"
+
+A poszt oldalán a "Poszt bejelentése" gombbal jelentheted, indoklással. A moderátorok átnézik.
+
+### 15.6 "Elfelejtettem a jelszavam"
+
+A bejelentkezési oldalon a "Elfelejtett jelszó?" linkkel. Add meg a felhasználónevedet, és emailen kapsz egy linket az új jelszó beállításához.
+
+### 15.7 "Hogyan kapcsolhatom be a kétfaktoros hitelesítést?"
+
+A profilszerkesztés oldalon a "Bekapcsolás" gombbal. Az alkalmazás generál egy QR-kódot, amit egy authenticator app-pal (pl. Google Authenticator) be kell olvasnod, majd egy ellenőrző kódot kell megadnod. Csak sikeres ellenőrzés után aktiválódik a 2FA.
 
 ---
 
-Ezt a dokumentációt a support AI rendszer használja fel az ügyfélszolgáltatás nyújtásához.
+## 16. Hibakezelés és Gyakori Problémák
+
+| Probléma | Megoldás |
+|----------|----------|
+| "A profilom nincs befejezve" | Töltsd ki a név, cím és születési dátum mezőket a profilkészítő oldalon |
+| "Nem tudom feltölteni a képet" | Csak PNG, JPG, JPEG, GIF, WEBP formátumok engedélyezettek |
+| "Nem találom a posztomat a főoldalon" | Lehet, hogy még folyamatban van a fordítás, vagy a poszt lezárt/inaktív állapotban van |
+| "Felhasználónév foglalt" | Válassz másik felhasználónevet a regisztrációkor |
+| "Email foglalt" | Az email cím már használatban van, jelentkezz be vagy állítsd vissza a jelszavad |
+| "Hibás 2FA kód" | Ellenőrizd az authenticator app idejét, próbálkozz újra |
+| "AI is currently not available" | Az AI támogatás ideiglenesen nem érhető el |
+
+---
+
+## 17. Adatvédelem
+
+- A jelszavak titkosítva tárolódnak (sosem clear text)
+- A telefonszám alapértelmezetten privát (csak a tulajdonos látja)
+- A cím alapértelmezetten nyilvános, de privátra állítható
+- A privát adatok nem jelennek meg a poszt oldalon másoknak
+- A privát üzenetek csak a két érintett fél számára olvashatók
+- Védelem a rosszindulatú tartalom ellen (XSS védelem minden felhasználói tartalomra)
+
+---
+
+## 18. Készítők
+
+- Nagy Réka Laura
+- Bozsik Ádám Botond
+- Tomor Noel
+
+---
+
+## 19. Gombok és Feliratok – Magyar / Angol Címkék
+
+A platform kétnyelvű (HU/EN). Az alábbi táblázatok minden látható gombot, linket és vezérlőelemet tartalmaznak, oldalanként csoportosítva.
+
+### 19.1 Felső navigációs sáv
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Bejelentkezés/Regisztráció gomb | Bejelentkezés/Regisztráció | Login/Register |
+| Keresősáv | Keresés | Search |
+| Profil link | Profil | Profile |
+| Kijelentkezés | Kijelentkezés | Logout |
+| Üzenetek link | Üzenetek | Messages |
+
+### 19.2 Lábléc
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Brand | Lost&Found | Lost&Found |
+| Szlogen | Segítünk megtalálni. | We help you find it. |
+| Gyorslinkek cím | Gyorslinkek | Quick Links |
+| Kezdőlap link | Kezdőlap | Home |
+| Posztolás link | Posztolás | Posting |
+| Általános Szerződési Feltételek | Általános Szerződési Feltételek | Terms and Conditions |
+| Adatvédelem link | Adatvédelmi nyilatkozat | Privacy Policy |
+| Kapcsolat | Kapcsolat | Contact |
+| Email | info@lostandfound.hu | info@lostandfound.hu |
+| Telefon | +36 1 234 5678 | +36 1 234 5678 |
+| Copyright | © 2026 Lost&Found. Minden jog fenntartva. | © 2026 Lost&Found. All rights reserved. |
+
+### 19.3 AI Support Chat widget
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Chat megnyitó gomb | Segítség | Help |
+| Üdvözlő üzenet | Üdvözöljük! Miben segíthetünk? | Welcome! How can we help you? |
+| Beviteli mező placeholder | Írjon üzenetet... | Type a message... |
+| Küldés gomb | Küldés | Send |
+| Bezárás gomb | Bezárás | Close |
+
+### 19.4 Főoldal
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Oldalcím | Főoldal | Home |
+| Üdvözlés | Üdvözöllek, {felhasználónév}! | Welcome, {username}! |
+| Alapértelmezett felhasználónév | Felhasználó | User |
+| Bevezető szöveg | Találtál vagy elvesztettél valamit? Itt segítünk! | Did you find or lose something? We can help! |
+| Poszt létrehozása gomb | Poszt létrehozása | Create Post |
+
+#### Kategória gombok
+
+| Magyar | English |
+|--------|---------|
+| Állat 🐾 | Animal |
+| Elektronika 💻 | Electronics |
+| Ruházat 👕 | Clothing |
+| Ékszer 💎 | Jewelry |
+| Dokumentum 📄 | Document |
+| Egyéb 🎁 | Other |
+
+#### Posztkártya gombok
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Részletek | Részletek... | Details... |
+| Idő (relatív) | {óra} órája | {hours} hours ago |
+| Üzenet | Üzenet | Message |
+| Megosztás | Megosztás | Share |
+| Időpont | Időpont | Timestamp |
+| Leírás | Leírás: | Description: |
+
+### 19.5 Poszt létrehozása modal
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Modal cím | Poszt létrehozása | Create Post |
+| Kép címke | Kép | Image |
+| Kép feltöltése gomb | Kép feltötése | Upload Image |
+| Név mező | Neve | Name |
+| Név placeholder | Írd be a megnevezését... | Enter the name... |
+| Helyszín | Helyszín | Location |
+| Vármegye dropdown | Válassz megyét | Select county |
+| Település dropdown | Válassz települést | Select settlement |
+| Kategória | Kategória | Category |
+| Leírás | Leírás | Description |
+| Leírás placeholder | Írj leírást a tárgyról... | Describe the item... |
+| Állapot | Állapot | Status |
+| Elveszett gomb | Elveszett | Lost |
+| Talált gomb | Talált | Found |
+| Poszt lezárása gomb | Poszt lezárása | Close Post |
+| Lezárt státusz | Poszt lezárva | Post Closed |
+| Bezárás gomb | Bezárás | Close |
+| Közzététel gomb | Közzététel | Publish |
+
+### 19.6 Bejelentkezés / Regisztráció
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Bejelentkezés cím | Bejelentkezés | Login |
+| Felhasználónév | Felhasználónév | Username |
+| Jelszó | Jelszó | Password |
+| Bejelentkezés gomb | Bejelentkezés | Login |
+| Nincs fiókod kérdés | Nincs fiókod? | Don't have an account? |
+| Regisztrálj link | Regisztrálj | Register |
+| Regisztráció cím | Regisztráció | Registration |
+| Email | Email | Email |
+| Jelszó megerősítése | Jelszó megerősítése | Confirm Password |
+| Regisztráció gomb | Regisztráció | Register |
+| Van fiókod kérdés | Már van fiókod? | Already have an account? |
+| Bejelentkezés link | Bejelentkezés | Login |
+| Elfelejtett jelszó link | Elfelejtett jelszó? | Forgot password? |
+
+### 19.7 Jelszó visszaállítás
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Cím | Jelszó Megváltoztatása | Change Password |
+| Leírás | Adja meg az új jelszavát | Enter your new password |
+| Új jelszó mező | Új jelszó | New Password |
+| Megerősítő mező | Jelszó megerősítése | Confirm Password |
+| Jelszó frissítése gomb | Jelszó frissítése | Update Password |
+| Vissza a bejelentkezéshez link | Vissza a bejelentkezéshez | Back to Login |
+| Hibaüzenet (eltérő jelszavak) | A jelszavak nem egyeznek! | Passwords do not match! |
+| Hibaüzenet (rövid jelszó) | A jelszó legalább 6 karakter hosszú legyen! | Password must be at least 6 characters long! |
+
+### 19.8 Kétfaktoros hitelesítés ellenőrzés
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Cím | Kétlépcsős azonosítás | Two-Factor Authentication |
+| Leírás | Írja be az alkalmazásban látható 6 számjegyű kódot: | Enter the 6-digit code from your authenticator app: |
+| Hiba (rossz kód) | Hibás kód, kérlek próbáld újra. | Incorrect code, please try again. |
+| Hiba (hiányos) | Kérlek add meg mind a 6 számjegyet! | Please enter all 6 digits. |
+| Ellenőrzés gomb | Ellenőrzés | Verify |
+| Vissza a bejelentkezéshez link | Vissza a bejelentkezéshez | Back to Login |
+
+### 19.9 Profil – Létrehozás és Szerkesztés
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Profiloldal cím | Profil | Profile |
+| Profil létrehozása gomb / cím | Profil létrehozása | Create Profile |
+| Megjelenítendő név | Megjelenítendő név | Display Name |
+| Név placeholder | Pl. ASd asd | E.g. John Doe |
+| Telefonszám | Telefonszám | Phone Number |
+| Telefon placeholder | +36 20 123 4567 | +36 20 123 4567 |
+| Privát kapcsoló | Privát | Private |
+| Privát súgó | Alapértelmezetten privát, mások nem látják | By default private, others cannot see |
+| Születési idő | Születési idő | Birth Date |
+| Lakhely | Lakhely | Address |
+| Lakhely placeholder | Budapest, XIII. kerület | Budapest, XIII. district |
+| Nyilvános kapcsoló | Nyilvános | Public |
+| 2FA címke | Kétlépcsős azonosítás (2FA) | Two-Factor Authentication (2FA) |
+| Bekapcsolás gomb | Bekapcsolás | Enable |
+| Státusz: be | Bekapcsolva | Enabled |
+| Státusz: ki | Kikapcsolva | Disabled |
+| Adatvédelem link szöveg | adatvédelmi nyilatkozatot | Privacy Policy |
+| Felhasználási feltételek link szöveg | felhasználási feltételeket | Terms and Conditions |
+| Beleegyezés szöveg | Elfogadom az {adatvédelem} és a {feltételek} | I agree to the {privacyPolicy} and {terms} |
+| Marketing checkbox | Hozzájárulok, hogy a megadott adataimat a rendszer a hirdetések megjelenítéséhez használja | I agree that my provided data will be used for advertising purposes |
+| Profil létrehozása mentés gomb | Profil létrehozása | Create Profile |
+| Mégse gomb | Mégse | Cancel |
+| Tag óta (csak EN) | – | Member since |
+| Profil szerkesztése gomb (csak EN) | – | Edit Profile |
+
+### 19.10 2FA bekapcsolás modal
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Modal cím | Kétlépcsős azonosítás bekapcsolása | Enable Two-Factor Authentication |
+| Leírás | Vmi magyarázó szöveg | Add extra security to your account |
+| QR utasítás | Olvassa be ezt a QR-kódot az auth alkalmazásban | Scan this QR code with your authenticator app |
+| Kód mező leírása | Írja be az alkalmazásban látható 6 számjegyű kódot: | Enter the 6-digit code shown in the app: |
+| Hiba | Hibás kód, kérlek próbáld újra. | Incorrect code, please try again. |
+| Ellenőrzés és bekapcsolás gomb | Ellenőrzés és bekapcsolás | Verify and Enable |
+
+### 19.11 Profil oldal – Más felhasználó
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Üzenet gomb | Üzenet | Message |
+| Bejelentés gomb (rövid) | Bejelentés | Report |
+| Profil bejelentése gomb | Profil bejelentése | Report Profile |
+
+### 19.12 Bejelentés modal – Profil
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Modal cím | Profil bejelentése | Report Profile |
+| Leírás | Válassz egy indoklást a bejelentéshez: | Choose a reason for reporting: |
+| Indok 1 | Nem megfelelő tartalom | Inappropriate content |
+| Indok 2 | Spam | Spam |
+| Indok 3 | Csalás | Fraud |
+| Indok 4 | Zaklatás | Harassment |
+| Indok 5 | Egyéb | Other |
+| Részletek placeholder | Írj részleteket... | Describe the issue... |
+| Bejelentés gomb | Bejelentés | Submit Report |
+
+### 19.13 Üzenetek oldal
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Cím | Üzenetek | Messages |
+| Üres állapot | Válassz egy beszélgetést | Select a conversation |
+| Csevegés indítás | Kezdj el csevegni valakivel az elveszett vagy talált állatokkal kapcsolatban. | Start chatting with someone about lost or found items. |
+| Nincs üzenet | Nincs üzenet | No messages |
+| Beviteli placeholder | Írj üzenetet... | Type a message... |
+| Online státusz | Online | Online |
+
+### 19.14 Poszt megtekintése oldal
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Helyszín | Helyszín | Location |
+| Elérhetőség | Elérhetőség | Contact |
+| Kategória | Kategória | Category |
+| Nem (állat) | Nem | Gender |
+| Leírás | Leírás | Description / Description: |
+| Térkép | Térkép | Map |
+| Kapcsolatfelvétel cím | Kapcsolatfelvétel | Contact |
+| Kapcsolatfelvétel szöveg | Ha úgy gondolod, hogy ez az állat a tiéd vagy ismered a gazdáját, vedd fel a kapcsolatot: | If you think this is your item or know the owner, please contact the poster: |
+| Hívás gomb | Hívás: {telefonszám} | Call: {phone} |
+| Üzenet küldése gomb | Üzenet küldése | Send Message |
+| Email küldése gomb | Email küldése | Send Email |
+| Feladó | Feladó | Poster |
+| Korábbi hirdetések | Korábbi hirdetések | Previous postings |
+| Összes (számláló) | Összes | All |
+| Posztok cím (csak EN) | – | My Posts |
+| Státusz (csak EN) | – | Status |
+| Poszt bejelentése gomb | Poszt bejelentése | Report Post |
+
+### 19.15 404 hibaoldal
+
+| Funkció | Magyar | English |
+|---------|--------|---------|
+| Cím | 404 - Oldal nem található | 404 - Page Not Found |
+| Üzenet | Az oldal elkóborolt! | The page has gone missing! |
+| Vissza a főoldalra gomb | Vissza a főoldalra | Back to Home |
+
+---
+
+## 20. Gomb Akciók Áttekintése (magyar / angol név, hely, akció)
+
+| Magyar gomb | English button | Hely | Akció |
+|-------------|----------------|------|-------|
+| Bejelentkezés/Regisztráció | Login/Register | Felső nav | Megnyitja a bejelentkező oldalt |
+| Profil | Profile | Felső nav | A saját profiloldalra navigál |
+| Üzenetek (boríték) | Messages (envelope) | Felső nav | Az üzenetek oldalra navigál |
+| Kijelentkezés | Logout | Felső nav | Kijelentkezteti a felhasználót |
+| Bejelentkezés | Login | Bejelentkező űrlap | Bejelentkezteti a felhasználót |
+| Regisztrálj / Regisztráció | Register | Regisztrációs űrlap | Új fiókot hoz létre |
+| Elfelejtett jelszó? | Forgot password? | Bejelentkező oldal | Megnyitja a jelszó visszaállító űrlapot |
+| Jelszó frissítése | Update Password | Jelszó visszaállító oldal | Új jelszó beállítása |
+| Vissza a bejelentkezéshez | Back to Login | Visszaállító / 2FA oldal | A bejelentkező oldalra navigál |
+| Ellenőrzés | Verify | 2FA ellenőrző oldal | Ellenőrzi a beírt 6 számjegyű kódot |
+| Profil létrehozása | Create Profile | Profilkészítő oldal | Mentés a profil adatainak |
+| Mégse | Cancel | Profil modal | Bezárja a modalt |
+| Bekapcsolás | Enable | Profil szerkesztés (2FA blokk) | Megnyitja a 2FA QR kód modalt |
+| Ellenőrzés és bekapcsolás | Verify and Enable | 2FA modal | Aktiválja a 2FA-t a beírt kóddal |
+| Üzenet | Message | Más felhasználó profilja | Megnyitja az üzenetküldést |
+| Bejelentés | Report | Más felhasználó profilja | Megnyitja a bejelentés modalt |
+| Profil bejelentése | Report Profile | Profil bejelentés modal | Elküldi a felhasználó bejelentését |
+| Bejelentés (submit) | Submit Report | Bejelentés modal | Elküldi a bejelentést indoklással |
+| Poszt létrehozása | Create Post | Főoldal | Megnyitja a poszt létrehozó modalt |
+| Kép feltötése | Upload Image | Poszt modal | Fájlválasztó megnyitása |
+| Elveszett | Lost | Poszt modal | Beállítja a poszt típusát "elveszett"-re |
+| Talált | Found | Poszt modal | Beállítja a poszt típusát "talált"-ra |
+| Közzététel | Publish | Poszt modal | Elküldi az új posztot |
+| Bezárás | Close | Poszt modal / Support widget | Bezárja a modalt/widgetet mentés nélkül |
+| Részletek... | Details... | Posztkártya | A poszt részletes oldalára navigál |
+| Üzenet | Message | Posztkártya | Üzenet a feltöltőnek |
+| Megosztás | Share | Posztkártya | Poszt linkjének megosztása |
+| Üzenet küldése | Send Message | Poszt oldal | Megnyitja a chatet a feltöltővel |
+| Email küldése | Send Email | Poszt oldal | Levélküldő alkalmazás megnyitása a feltöltőnek |
+| Hívás: {telefonszám} | Call: {phone} | Poszt oldal | Hívás indítása (csak ha telefonszám nyilvános) |
+| Poszt bejelentése | Report Post | Poszt oldal | Megnyitja a bejelentés űrlapot |
+| Poszt lezárása | Close Post | Saját poszt | Lezárja vagy újranyitja a posztot |
+| Szerkesztés (ceruza) | Edit (pencil icon) | Saját poszt | Megnyitja a poszt szerkesztő modalt |
+| Törlés (kuka) | Delete (trash icon) | Saját poszt | Törli a posztot a képeivel együtt |
+| Küldés | Send | Üzenetek (chat) | Üzenetet küld a partnernek |
+| Segítség | Help | Jobb alsó (Support widget) | Megnyitja az AI support chat widget-et |
+| Küldés | Send | Support widget | Üzenetet küld az AI támogatásnak |
+| Vissza a főoldalra | Back to Home | 404 oldal | A főoldalra navigál |
+| Privát | Private | Profil szerkesztés | Adatot privátra állítja |
+| Nyilvános | Public | Profil szerkesztés | Adatot nyilvánosra állítja |
+
+---
+
+## 21. Navigációs Útvonalak – Hogyan jutok el oda?
+
+Ez a szekció megmutatja, milyen lépésekkel jut el a felhasználó az egyes oldalakra, kiindulva onnan, ahol éppen tartózkodik.
+
+### 21.1 Bejelentkezés / Regisztráció oldal
+
+Magyar: A főoldal felső navigációs sávjában jobbra kattints a "Bejelentkezés/Regisztráció" gombra. Ezzel megnyílik a bejelentkező oldal. Ha még nincs fiókod, az oldal alján a "Regisztrálj" linkre kattintva jutsz a regisztrációs űrlaphoz.
+
+English: In the top navigation bar of the main page, click the "Login/Register" button on the right. This opens the login page. If you don't have an account yet, click the "Register" link at the bottom of the page to reach the registration form.
+
+### 21.2 Saját profil oldal
+
+Magyar: Bejelentkezés után a felső navigációs sávban a profil ikonra kattintva juthatsz a saját profilodra.
+
+English: Once logged in, click the profile icon in the top navigation bar to reach your own profile page.
+
+### 21.3 Profil szerkesztés
+
+Magyar: Nyisd meg a saját profilodat (lásd 21.2), majd kattints a "Profil szerkesztése" gombra.
+
+English: Open your own profile page (see 21.2), then click the "Edit Profile" button.
+
+### 21.4 Más felhasználó profilja
+
+Magyar: Egy poszton kattints a feltöltő nevére vagy profilképére.
+
+English: On any post, click the poster's name or profile picture.
+
+### 21.5 Új poszt létrehozása
+
+Magyar: A főoldalon kattints a "Poszt létrehozása" gombra (csak bejelentkezve látható). Ezzel megnyílik egy modális ablak, ahol kitöltheted a poszt adatait, majd a "Közzététel" gombbal beküldheted.
+
+English: On the main page, click the "Create Post" button (only visible when logged in). This opens a modal window where you can fill in the post details and submit using the "Publish" button.
+
+### 21.6 Egy poszt részletes oldala
+
+Magyar: A főoldalon a posztkártyán kattints a "Részletek..." gombra, vagy magára a kártyára.
+
+English: On the main page, click the "Details..." button on a post card, or click the card itself.
+
+### 21.7 Üzenetek oldal (privát chat)
+
+Magyar: Bejelentkezés után a felső navigációs sávban kattints az üzenetek (boríték) ikonra.
+
+English: Once logged in, click the messages (envelope) icon in the top navigation bar.
+
+### 21.8 Új beszélgetés indítása valakivel
+
+Magyar: Nyisd meg az illető posztját, és kattints az "Üzenet küldése" gombra. Másik mód: a felhasználó profiloldalán az "Üzenet" gomb.
+
+English: Open the person's post and click the "Send Message" button. Alternative: click the "Message" button on the user's profile page.
+
+### 21.9 Jelszó visszaállítás
+
+Magyar: A bejelentkező oldalon (lásd 21.1) kattints az "Elfelejtett jelszó?" linkre. Add meg a felhasználónevedet, és emailen kapsz egy linket, amelyre kattintva új jelszót adhatsz meg.
+
+English: On the login page (see 21.1), click the "Forgot password?" link. Enter your username and you'll receive an email with a link to set a new password.
+
+### 21.10 Kétfaktoros hitelesítés (2FA) bekapcsolása
+
+Magyar: Nyisd meg a profil szerkesztése oldalt (lásd 21.3), keresd meg a "Kétlépcsős azonosítás (2FA)" szekciót, és kattints a "Bekapcsolás" gombra. Olvasd be a megjelenő QR-kódot egy authenticator alkalmazással (pl. Google Authenticator), írd be az alkalmazásban megjelenő 6 számjegyű kódot, majd kattints az "Ellenőrzés és bekapcsolás" gombra.
+
+English: Open the profile editing page (see 21.3), find the "Two-Factor Authentication (2FA)" section, and click the "Enable" button. Scan the QR code with an authenticator app (e.g. Google Authenticator), enter the 6-digit code shown in the app, then click "Verify and Enable".
+
+### 21.11 Poszt szerkesztése / lezárása / törlése
+
+Magyar: Nyisd meg a saját profilodat (lásd 21.2). A saját posztjaid mellett megjelennek a következő ikonok: ceruza ikon (szerkesztés), lezárás gomb ("Poszt lezárása"), kuka ikon (törlés).
+
+English: Open your own profile page (see 21.2). Next to your posts you'll see: pencil icon (edit), close button ("Close Post"), trash icon (delete).
+
+### 21.12 Poszt bejelentése
+
+Magyar: Nyisd meg az adott poszt részletes oldalát (lásd 21.6), és kattints a "Poszt bejelentése" gombra. Válassz indoklást, opcionálisan írj részleteket, majd kattints a "Bejelentés" gombra.
+
+English: Open the post's detail page (see 21.6) and click the "Report Post" button. Choose a reason, optionally add details, then click "Submit Report".
+
+### 21.13 Felhasználó bejelentése
+
+Magyar: Nyisd meg az adott felhasználó profiloldalát (lásd 21.4), és kattints a "Bejelentés" vagy "Profil bejelentése" gombra.
+
+English: Open the user's profile page (see 21.4) and click the "Report" or "Report Profile" button.
+
+### 21.14 Kijelentkezés
+
+Magyar: A felső navigációs sávban kattints a kijelentkezés ikonra.
+
+English: Click the logout icon in the top navigation bar.
+
+### 21.15 AI Support chat (segítség kérése)
+
+Magyar: Az oldal jobb alsó sarkában kattints a "Segítség" gombra. A megjelenő ablakba írd be a kérdésedet, majd kattints a "Küldés" gombra.
+
+English: Click the "Help" button in the bottom right corner of the page. Type your question in the chat window and click "Send".
+
+### 21.16 Nyelvváltás
+
+Magyar: A nyelv automatikusan a böngésző beállításai szerint kerül kiválasztásra (alapértelmezett: magyar). Ha a böngésződ angol, az oldal angolul jelenik meg.
+
+English: The language is automatically chosen based on your browser settings (default: Hungarian). If your browser is in English, the site will be displayed in English.
+
+---
+
+Ezt a dokumentációt a beépített AI support rendszer használja az ügyfelek kérdéseinek megválaszolásához. Csak az itt szereplő funkciók és viselkedések tekintendők hivatalosnak.

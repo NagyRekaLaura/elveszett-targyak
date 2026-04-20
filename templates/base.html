@@ -20,7 +20,7 @@
 </head>
 
 <body class="mainbody">
-    <nav class="navbar navbar-expand-lg" id="menu">
+    <nav class="navbar navbar-expand-lg" id="menu" {% block nav %}{% endblock %}>
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main.home') }}"><img src="{{ url_for('static', filename='logo.svg') }}"
                     width="110px" alt=""></a>

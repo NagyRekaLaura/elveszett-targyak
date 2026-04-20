@@ -391,11 +391,18 @@ function populatePostsTable(posts) {
             <td>${post.reports > 0 ? `<span style="color: #e74c3c; font-weight: bold;">${post.reports}</span>` : '0'}</td>
             <td>${post.posted}</td>
             <td class="action-cell">
-                <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                <button class="btn-icon view-post-btn" title="View" data-post-id="${post.id}"><i class="fas fa-eye"></i></button>
                 <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
             </td>
         `;
         tbody.appendChild(row);
+        
+        const viewBtn = row.querySelector('.view-post-btn');
+        if (viewBtn) {
+            viewBtn.addEventListener('click', () => {
+                window.open(`/post/${post.id}`, '_blank');
+            });
+        }
     });
 }
 
@@ -436,9 +443,9 @@ function populateReportsTable(reports) {
             <td><span class="status-badge ${report.status.toLowerCase()}">${report.status}</span></td>
             <td>${report.created}</td>
             <td class="action-cell">
-                <button class="btn-icon" title="Review"><i class="fas fa-eye"></i></button>
+                <button class="btn-icon view-report-btn" title="Review" data-item-id="${report.item_id}" data-user-id="${report.user_id}"><i class="fas fa-eye"></i></button>
                 <button class="btn-icon details-btn" title="Details" data-report-id="${report.id}"><i class="fas fa-info-circle"></i></button>
-                <button class="btn-icon" title="Resolve"><i class="fas fa-check"></i></button>
+                <button class="btn-icon resolve-btn" title="Resolve" data-report-id="${report.id}"><i class="fas fa-check"></i></button>
             </td>
         `;
         tbody.appendChild(row);
@@ -447,6 +454,39 @@ function populateReportsTable(reports) {
         if (detailsBtn) {
             detailsBtn.addEventListener('click', () => {
                 showReportDetailsModal(report);
+            });
+        }
+        
+        const viewBtn = row.querySelector('.view-report-btn');
+        if (viewBtn) {
+            viewBtn.addEventListener('click', () => {
+                if (report.item_id) {
+                    window.open(`/post/${report.item_id}`, '_blank');
+                } else if (report.user_id) {
+                    window.open(`/profile/${report.user_id}`, '_blank');
+                }
+            });
+        }
+        
+        const resolveBtn = row.querySelector('.resolve-btn');
+        if (resolveBtn) {
+            resolveBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(`/admin/api/reports/${report.id}/resolve`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to resolve report');
+                    
+                    showToast('Report marked as resolved', 'success');
+                    loadReportsData();
+                } catch (error) {
+                    console.error('Error resolving report:', error);
+                    showToast('Failed to resolve report', 'error');
+                }
             });
         }
     });
@@ -537,10 +577,10 @@ function showReportDetailsModal(report) {
     if (!modal || !detailsContainer) return;
     
     // Build the details HTML
-    const reportTypeLabel = report.type === 'post' ? 'Post Report' : 'User Report';
-    const targetInfo = report.type === 'post' 
-        ? `<div class="detail-row"><strong>Post ID:</strong> <span>${report.post_id || 'N/A'}</span></div>` 
-        : '';
+    const reportTypeLabel = report.type === 'Item Report' ? 'Post Report' : 'User Report';
+    const targetInfo = report.item_id 
+        ? `<div class="detail-row"><strong>Post ID:</strong> <span>${report.item_id}</span></div>` 
+        : (report.user_id ? `<div class="detail-row"><strong>User ID:</strong> <span>${report.user_id}</span></div>` : '');
     
     detailsContainer.innerHTML = `
         <div class="report-details-content">
