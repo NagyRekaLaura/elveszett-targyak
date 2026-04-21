@@ -17,7 +17,7 @@
 
             <div class="profil-pic-div">
                 <div class="profile-pic">
-                    <img src="{{ url_for('static', filename=profile_picture_path) if profile_picture_path else url_for('static', filename='attachments/cat.jpg') }}" alt="profilkep">
+                    <img src="{{ url_for('static', filename=profile_picture_path) if profile_picture_path else url_for('static', filename='placeholders/user.png') }}" alt="profilkep">
                 </div>
             </div>
             {% if current_user.is_authenticated and user.id != current_user.id %}
@@ -140,12 +140,14 @@
             {% set cat_icons = {'allat': 'fa-paw', 'elektronika': 'fa-laptop', 'ruhazat': 'fa-tshirt', 'ekszer': 'fa-gem', 'dokumentum': 'fa-file-alt', 'egyeb': 'fa-gift'} %}
             {% set cat_i18n = {'allat': 'home.categories.animal', 'elektronika': 'home.categories.electronics', 'ruhazat': 'home.categories.clothing', 'ekszer': 'home.categories.jewelry', 'dokumentum': 'home.categories.document', 'egyeb': 'home.categories.other'} %}
             {% set cat_names = {'allat': 'Állat', 'elektronika': 'Elektronika', 'ruhazat': 'Ruházat', 'ekszer': 'Ékszer', 'dokumentum': 'Dokumentum', 'egyeb': 'Egyéb'} %}
+            {% set cat_placeholders = {'allat': 'Cat.png', 'elektronika': 'electronics.png', 'ruhazat': 'Tie.png', 'ekszer': 'diamond.png', 'dokumentum': 'Documents.png', 'egyeb': 'etc.png'} %}
             <div class="card mb-3" data-status="{{ item.type }}" data-post-id="{{ item.id }}" {% if item.is_closed %}style="opacity: 0.6;"{% endif %}>
                 <div class="card-image">
                     {% if item.attachments %}
                     <img src="{{ url_for('static', filename='attachments/' + item.attachments[0].filename) }}" class="card-img-top" alt="{{ item.name }}">
                     {% else %}
-                    <img src="{{ url_for('static', filename='attachments/placeholder.png') }}" class="card-img-top" alt="{{ item.name }}">
+                    {% set placeholder = cat_placeholders.get(item.category.name if item.category else 'egyeb', 'etc.png') %}
+                    <img src="{{ url_for('static', filename='placeholders/' + placeholder) }}" class="card-img-top" alt="{{ item.name }}">
                     {% endif %}
                     {% if item.type == 'lost' %}
                     <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>

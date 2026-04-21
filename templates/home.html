@@ -16,9 +16,15 @@
         {% else %}
         <p class="info-text" data-i18n="home.lostOrFound">Találtál vagy elvesztettél valamit? Itt segítünk!</p>
         {% endif %}
+        {% if current_user.is_authenticated %}
         <button type="button" class="btn btn-primary info-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
              <i class="fas fa-plus-circle me-2"></i><span data-i18n="home.createPost">Poszt létrehozása</span>
         </button>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary info-btn">
+             <i class="fas fa-plus-circle me-2"></i><span data-i18n="home.createPost">Poszt létrehozása</span>
+        </a>
+        {% endif %}
     </div>
 </div>
 <!--változtatva, telefonos nézetbe még nem jó, javítandó-->
@@ -139,12 +145,14 @@
 {% set cat_icons = {'allat': 'fa-paw', 'elektronika': 'fa-laptop', 'ruhazat': 'fa-tshirt', 'ekszer': 'fa-gem', 'dokumentum': 'fa-file-alt', 'egyeb': 'fa-gift'} %}
 {% set cat_i18n = {'allat': 'home.categories.animal', 'elektronika': 'home.categories.electronics', 'ruhazat': 'home.categories.clothing', 'ekszer': 'home.categories.jewelry', 'dokumentum': 'home.categories.document', 'egyeb': 'home.categories.other'} %}
 {% set cat_names = {'allat': 'Állat', 'elektronika': 'Elektronika', 'ruhazat': 'Ruházat', 'ekszer': 'Ékszer', 'dokumentum': 'Dokumentum', 'egyeb': 'Egyéb'} %}
+{% set cat_placeholders = {'allat': 'Cat.png', 'elektronika': 'electronics.png', 'ruhazat': 'Tie.png', 'ekszer': 'diamond.png', 'dokumentum': 'Documents.png', 'egyeb': 'etc.png'} %}
 <div class="card mb-3" data-url="{{ url_for('post.post', item_id=item.id) }}" data-category="{{ item.category.name if item.category else '' }}" onclick="window.location.href=this.dataset.url;">
     <div class="card-image">
         {% if item.attachments %}
         <img src="{{ url_for('static', filename='attachments/' + item.attachments[0].filename) }}" class="card-img-top" alt="{{ item.name }}">
         {% else %}
-        <img src="{{ url_for('static', filename='attachments/placeholder.png') }}" class="card-img-top" alt="{{ item.name }}">
+        {% set placeholder = cat_placeholders.get(item.category.name if item.category else 'egyeb', 'etc.png') %}
+        <img src="{{ url_for('static', filename='placeholders/' + placeholder) }}" class="card-img-top" alt="{{ item.name }}">
         {% endif %}
         {% if item.type == 'lost' %}
         <span class="card-badge lost" data-i18n="home.modal.lost">Elveszett</span>
@@ -183,13 +191,13 @@
                         {% if uploader and uploader.profile_picture %}
                         <img src="{{ url_for('static', filename='attachments/' + at.query.filter(at.id == uploader.profile_picture).first().filename) }}" alt="Felhasználó profilképe">
                         {% else %}
-                        <i class="fa-solid fa-circle-user fa-2x"></i>
+                        <img src="{{ url_for('static', filename='placeholders/user.png') }}" alt="Felhasználó profilképe">
                         {% endif %}
                         </a>
                     </div>
                 <span class="username">{{ uploader.name or uploader.username if uploader else 'Ismeretlen' }}</span>
                 <div class="actions">
-                    {% if uploader %}
+                    {% if uploader and uploader.id != current_user.id %}
                     <button class="btn-action" aria-label="Üzenet" data-i18n-attr="aria-label:home.card.message">
                         <a href="{{ url_for('messages.messages', partner=uploader.id) }}">
                             <i class="fa-regular fa-envelope"></i>

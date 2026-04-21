@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 {% block content %}
 
 <div class="container post-container mt-4" data-report-post-id="{{ item.id }}">
+        {% set cat_placeholders = {'allat': 'Cat.png', 'elektronika': 'electronics.png', 'ruhazat': 'Tie.png', 'ekszer': 'diamond.png', 'dokumentum': 'Documents.png', 'egyeb': 'etc.png'} %}
         <div class="row">
             <div class="col-lg-8">
                 <div class="carousel-container">
@@ -70,18 +71,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         
                         <div class="carousel-inner">
+                            {% if item.attachments %}
                             {% for i in item.attachments %}
-                            <div class="carousel-item
-                             {% if loop.first %}
-                             active
-                            
-                             {% endif %}
-                             ">
-                                <img src="{{ url_for('static', filename='attachments/' + i.filename) }}"
-                                    class="d-block w-100" alt="Cat">
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ url_for('static', filename='attachments/' + i.filename) }}" class="d-block w-100" alt="{{ item.name }}">
                             </div>
                             {% endfor %}
-                            
+                            {% else %}
+                            {% set placeholder = cat_placeholders.get(item.category.name if item.category else 'egyeb', 'etc.png') %}
+                            <div class="carousel-item active">
+                                <img src="{{ url_for('static', filename='placeholders/' + placeholder) }}" class="d-block w-100" alt="{{ item.name }}">
+                            </div>
+                            {% endif %}
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                             data-bs-slide="prev">

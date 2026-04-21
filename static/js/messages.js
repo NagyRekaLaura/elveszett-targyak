@@ -220,6 +220,7 @@ function renderConversations() {
         item.className = "conversation-item";
         item.dataset.convId = conv.id;
         
+        const profilePic = conv.pic || '/static/placeholders/user.png';
 
         let unreadHtml = conv.unread > 0
             ? `<span class="unread-badge">${conv.unread}</span>`
@@ -227,7 +228,7 @@ function renderConversations() {
 
         item.innerHTML = `
             <div class="conv-profile-pic">
-                <img src="${conv.pic}" alt="${conv.name}">
+                <img src="${profilePic}" alt="${conv.name}" onerror="this.src='/static/placeholders/user.png'">
                 <div class="status-indicator ${conv.status}"></div>
             </div>
             <div class="conv-info">
@@ -263,7 +264,8 @@ function openConversation(convId) {
     document.querySelectorAll(".conversation-item").forEach(el => el.classList.remove("active"));
     document.querySelector(`[data-conv-id="${convId}"]`)?.classList.add("active");
 
-    partnerPic.src = conv.pic;
+    partnerPic.src = conv.pic || '/static/placeholders/user.png';
+    partnerPic.onerror = function() { this.src = '/static/placeholders/user.png'; };
     partnerName.textContent = escapeHtml(conv.name);
 
     // Státusz
