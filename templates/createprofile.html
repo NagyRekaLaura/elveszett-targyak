@@ -114,7 +114,7 @@
                 <div class="terms-group">
                     <label class="checkbox-label">
                         <input type="checkbox" checked required>
-                        <span data-i18n-html="profile.agreeTerms" data-i18n-privacyPolicy="adatvédelmi nyilatkozatot" data-i18n-terms="felhasználási feltételeket">Elfogadom az <a href="#">adatvédelmi nyilatkozatot</a> és a <a href="#">felhasználási feltételeket</a> <span class="required">*</span></span>
+                        <span data-i18n-html="profile.agreeTerms" data-i18n-privacypolicy="adatvédelmi nyilatkozatot" data-i18n-terms="felhasználási feltételeket">Elfogadom az <a href="#">adatvédelmi nyilatkozatot</a> és a <a href="#">felhasználási feltételeket</a> <span class="required">*</span></span>
                     </label>
                 </div>
 
@@ -146,9 +146,8 @@
             </div>
             <div class="modal-body text-center">
                 <p class="mb-4" data-i18n="profile.twoFADescription">
-                    vmi magyarázó szöveg
+                    Telepítsen egy autentikátor alkalmazást (pl. Google Authenticator, Microsoft Authenticator) és szkennezze be az alábbi QR-kódot a fiók védelméhez.
                 </p>
-
                 <div class="qr-placeholder mx-auto mb-3">
                         <img src="{{ url_for('static', filename='attachments/qr_placeholder.png') }}" alt="QR kód">
 
