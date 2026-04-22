@@ -14,7 +14,9 @@ def login():
         if action_type == "login":
             username = request.form.get("username")
             password = request.form.get("passwd")
-
+            if len(password) > 72:
+                flash("A jelszó nem lehet hosszabb 72 karakternél. Kérem, próbáljon meg egy rövidebb jelszót.", "error")
+                return render_template("login.html", error="Jelszó túl hosszú")
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
                 if user._2fa_enabled:
@@ -32,10 +34,15 @@ def login():
             password = request.form.get("passwd")
 
             if User.query.filter_by(username=username).first():
+                flash("Ez a felhasználónév már foglalt. Kérem, válasszon egy másik felhasználónevet.", "error")
                 return render_template("login.html", error="Felhasznalonev foglalt")
 
             if User.query.filter_by(email=email).first():
+                flash("Ez az email cím már használatban van. Kérem, válasszon egy másik email címet.", "error")
                 return render_template("login.html", error="Email foglalt")
+            if len(password) > 72:
+                flash("A jelszó nem lehet hosszabb 72 karakternél. Kérem, válasszon egy rövidebb jelszót.", "error")
+                return render_template("login.html", error="Jelszó túl hosszú")
 
             new_user = User(username=username, email=email)
             new_user.set_password(password)

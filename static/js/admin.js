@@ -635,11 +635,37 @@ function handleDeleteUserPost() {
     const confirmation = confirm(`Are you sure you want to delete this ${currentReport.type}?`);
     if (!confirmation) return;
     
-    // Here you would make an API call to delete the post/user
-    console.log(`Deleting ${currentReport.type}:`, currentReport);
-    showToast(`${currentReport.type} deleted successfully`, 'success');
-    closeReportDetailsModal();
-    loadReportsData();
+    // Determine if it's a user or item report and call the appropriate endpoint
+    let endpoint;
+    if (currentReport.item_id) {
+        endpoint = `/admin/api/items/${currentReport.item_id}/delete`;
+    } else if (currentReport.user_id) {
+        endpoint = `/admin/api/users/${currentReport.user_id}/delete`;
+    } else {
+        showToast('Unable to determine deletion target', 'error');
+        return;
+    }
+    
+    // Make the API call
+    fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to delete');
+        return response.json();
+    })
+    .then(data => {
+        showToast(`${currentReport.type} deleted successfully`, 'success');
+        closeReportDetailsModal();
+        loadReportsData();
+    })
+    .catch(error => {
+        console.error('Error deleting:', error);
+        showToast('Failed to delete', 'error');
+    });
 }
 
 function handlePunishUser() {
@@ -658,11 +684,26 @@ function handlePunishUser() {
 function handleResolveReport() {
     if (!currentReport) return;
     
-    // Here you would make an API call to mark the report as resolved
-    console.log('Resolving report:', currentReport);
-    showToast('Report marked as resolved', 'success');
-    closeReportDetailsModal();
-    loadReportsData();
+    // Make an API call to mark the report as resolved
+    fetch(`/admin/api/reports/${currentReport.id}/resolve`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to resolve report');
+        return response.json();
+    })
+    .then(data => {
+        showToast('Report marked as resolved', 'success');
+        closeReportDetailsModal();
+        loadReportsData();
+    })
+    .catch(error => {
+        console.error('Error resolving report:', error);
+        showToast('Failed to resolve report', 'error');
+    });
 }
 
 // Close modal when clicking outside of it

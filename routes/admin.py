@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required
 import psutil
-from database import Item, Reports, User, db
+from database import Item, Reports, User, db, Attachment, Messages, TwoFactorAuth
 from functools import wraps
 from flask import abort
 from flask_login import current_user
@@ -275,4 +275,87 @@ def resolve_report(report_id):
     return jsonify({
         'success': True,
         'message': 'Report marked as resolved'
+    })
+
+
+@admin_routes.route("/api/items/<int:item_id>/delete", methods=['POST'])
+@login_required
+@admin_required
+def delete_item(item_id):
+    """Delete a post/item"""
+    item = Item.query.get_or_404(item_id)
+    
+    # Delete related attachments
+    attachments = Attachment.query.filter_by(item_id=item_id).all()
+    for attachment in attachments:
+        db.session.delete(attachment)
+    
+    # Delete related reports
+    reports = Reports.query.filter_by(item_id=item_id).all()
+    for report in reports:
+        db.session.delete(report)
+    
+    # Delete the item
+    db.session.delete(item)
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'Item deleted successfully'
+    })
+
+
+@admin_routes.route("/api/users/<int:user_id>/delete", methods=['POST'])
+@login_required
+@admin_required
+def delete_user(user_id):
+    """Delete a user and all their posts"""
+    user = User.query.get_or_404(user_id)
+    
+    # Get all items (posts) created by this user
+    items = Item.query.filter_by(uploader_id=user_id).all()
+    
+    # Delete all items and their attachments
+    for item in items:
+        # Delete attachments
+        attachments = Attachment.query.filter_by(item_id=item.id).all()
+        for attachment in attachments:
+            db.session.delete(attachment)
+        
+        # Delete reports related to this item
+        item_reports = Reports.query.filter_by(item_id=item.id).all()
+        for report in item_reports:
+            db.session.delete(report)
+        
+        # Delete the item
+        db.session.delete(item)
+    
+    # Delete reports about this user
+    user_reports = Reports.query.filter_by(user_id=user_id).all()
+    for report in user_reports:
+        db.session.delete(report)
+    
+    # Delete messages sent by this user
+    messages_sent = Messages.query.filter_by(sender_id=user_id).all()
+    for message in messages_sent:
+        db.session.delete(message)
+    
+    # Delete messages received by this user
+    messages_received = Messages.query.filter_by(receiver_id=user_id).all()
+    for message in messages_received:
+        db.session.delete(message)
+    
+    # Delete 2FA record if exists
+    if user._2fa_id:
+        twofa = TwoFactorAuth.query.get(user._2fa_id)
+        if twofa:
+            db.session.delete(twofa)
+    
+    # Delete the user
+    db.session.delete(user)
+    db.session.commit()
+    
+    return jsonify({
+        'success': True,
+        'message': 'User and all related data deleted successfully'
     })

@@ -74,33 +74,38 @@ Documentation:
     def ask(self, question: str, session_id: str):
         """Ask a question in a specific session"""
         if not self._token:
-            raise ValueError("Support AI token not configured.")
+            yield "A szolgáltatás jelenleg nem elérhető."
+            return
 
-        messages = self._get_session_messages(session_id)
-        messages.append({
-            "role": "user",
-            "content": question
-        })
+        try:
+            messages = self._get_session_messages(session_id)
+            messages.append({
+                "role": "user",
+                "content": question
+            })
 
-        response_text = ""
-        client = self._build_client()
+            response_text = ""
+            client = self._build_client()
 
-        for chunk in client.chat(
-            model=self.MODEL,
-            messages=messages,
-            think=False,
-            stream=True
-        ):
-            if "message" in chunk:
-                part = chunk["message"]["content"]
-                response_text += part
-                if part != "":
-                    yield part
+            for chunk in client.chat(
+                model=self.MODEL,
+                messages=messages,
+                think=False,
+                stream=True
+            ):
+                if "message" in chunk:
+                    part = chunk["message"]["content"]
+                    response_text += part
+                    if part != "":
+                        yield part
 
-        messages.append({
-            "role": "assistant",
-            "content": response_text
-        })
+            messages.append({
+                "role": "assistant",
+                "content": response_text
+            })
+        except Exception as e:
+            # On any error, return the service unavailable message
+            yield "A szolgáltatás jelenleg nem elérhető."
 
     def clear_session(self, session_id: str):
         """Clear a session"""
