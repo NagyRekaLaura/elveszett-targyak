@@ -204,7 +204,7 @@
                         </a>
                     </button>
                     {% endif %}
-                    <button class="btn-action" aria-label="Megosztás" data-i18n-attr="aria-label:home.card.share"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="btn-action" aria-label="Megosztás" data-url="{{ url_for('post.post', item_id=item.id, _external=True) }}" data-i18n-attr="aria-label:home.card.share" onclick="event.stopPropagation(); navigator.clipboard.writeText(this.getAttribute('data-url')); showToast('A link másolva a vágólapra.', 'success')"><i class="fa-solid fa-share-nodes"></i></button>
                 </div>
             </div>
 

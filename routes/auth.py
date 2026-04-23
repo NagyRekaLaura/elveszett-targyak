@@ -27,6 +27,9 @@ def login():
                     return redirect(url_for("admin.dashboard"))
                 login_user(user, remember=True)
                 return redirect(url_for("main.home"))
+            else:
+                flash("Hibás felhasználónév vagy jelszó. Kérem, próbálja újra.", "error")
+                return render_template("login.html", error="Hibás felhasználónév vagy jelszó")
 
         elif action_type == "register":
             username = request.form.get("username")
@@ -89,12 +92,12 @@ def reset_password():
             flash("Kérem, adja meg az új jelszavát!", "error")
             return redirect(url_for("auth.reset_password", token=token))
         reset = PasswordResetToken.query.filter_by(token=token).first()
-        if reset.reset_password(new_password):
-            flash("Jelszó sikeresen visszaállítva. Most már bejelentkezhet az új jelszavával.", "success")
-            return redirect(url_for("auth.login"))
-        else:
+        
+        if not reset or not reset.reset_password(new_password):
             flash("Érvénytelen vagy már használt token. Kérem, próbálja meg újra a jelszó visszaállítási folyamatot.", "error")
             return redirect(url_for("auth.login"))
+        flash("Jelszó sikeresen visszaállítva. Most már bejelentkezhet az új jelszavával.", "success")
+        return redirect(url_for("auth.login"))
 
         
     

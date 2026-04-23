@@ -1,0 +1,2983 @@
+{
+  "idopont": "2026-04-23T15:25:49.845292",
+  "cel": "http://127.0.0.1:5000",
+  "osszes": 94,
+  "sikeres": 94,
+  "bukott": 0,
+  "sikeressegi_arany_szazalek": 100.0,
+  "atlag_idotartam_ms": 356,
+  "kategoriak": {
+    "Alaprendszer": [
+      {
+        "kategoria": "Alaprendszer",
+        "nev": "Szerver eleres",
+        "sikeres": true,
+        "uzenet": "A szerver HTTP 200 valaszt adott a fooldal kereseere.",
+        "idotartam_ms": 37,
+        "reszletek": {
+          "statusz": 200,
+          "byte_meret": 110278
+        }
+      },
+      {
+        "kategoria": "Alaprendszer",
+        "nev": "Fooldal HTML tartalom",
+        "sikeres": true,
+        "uzenet": "A fooldal HTML tartalmat szolgaltat (HTTP 200, hossz=109790).",
+        "idotartam_ms": 32,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Alaprendszer",
+        "nev": "Varmegyek JSON elerheto",
+        "sikeres": true,
+        "uzenet": "A varmegyek.json elerheto es ertelmes JSON-t tartalmaz.",
+        "idotartam_ms": 8,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Alaprendszer",
+        "nev": "Login oldal elerheto",
+        "sikeres": true,
+        "uzenet": "A /login oldal HTTP 200, tartalmazza a bejelentkezes szoveget.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200,
+          "hossz": 12609
+        }
+      },
+      {
+        "kategoria": "Alaprendszer",
+        "nev": "404 kezeles",
+        "sikeres": true,
+        "uzenet": "Nemletezo oldalra a rendszer HTTP 404 kodot ad vissza.",
+        "idotartam_ms": 1,
+        "reszletek": {
+          "statusz": 404
+        }
+      },
+      {
+        "kategoria": "Alaprendszer",
+        "nev": "Terkep oldal",
+        "sikeres": true,
+        "uzenet": "A terkep (test-map) oldal elerheto (HTTP 200).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      }
+    ],
+    "Statikus": [
+      {
+        "kategoria": "Statikus",
+        "nev": "Logo SVG letoltheto",
+        "sikeres": true,
+        "uzenet": "A /static/logo.svg letolthato (3609133 byte).",
+        "idotartam_ms": 12,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Statikus",
+        "nev": "HU forditas JSON elerheto",
+        "sikeres": true,
+        "uzenet": "HU forditasi fajl elerheto, 11 kulcs.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Statikus",
+        "nev": "EN forditas JSON elerheto",
+        "sikeres": true,
+        "uzenet": "EN forditasi fajl elerheto (HTTP 200).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      }
+    ],
+    "Jogosultsag": [
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Admin panel bejelentkezes nelkul tiltva",
+        "sikeres": true,
+        "uzenet": "Admin panel bejelentkezes nelkuli eleresere HTTP 302 (atiranyitas vagy tiltas).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 302
+        }
+      },
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Idegen nem kerheti le a szerkesztesi adatot",
+        "sikeres": true,
+        "uzenet": "Idegen felhasznalo nem kerdezheti le a poszt szerkesztesi adatat.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 403
+        }
+      },
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Idegen nem szerkesztheti a posztot",
+        "sikeres": true,
+        "uzenet": "403 a jogosulatlan szerkesztesre.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 403
+        }
+      },
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Idegen nem zarhatja le a posztot",
+        "sikeres": true,
+        "uzenet": "Idegen nem zarhatja le a posztot.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 403
+        }
+      },
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Admin API sima felhasznalotol 403",
+        "sikeres": true,
+        "uzenet": "Admin API nem elerheto sima felhasznalonak (403).",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 403
+        }
+      },
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Kijelentkezes utan vedett oldal atiranyitva",
+        "sikeres": true,
+        "uzenet": "Kijelentkezes utan a vedett oldal atiranyit.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 302
+        }
+      },
+      {
+        "kategoria": "Jogosultsag",
+        "nev": "Bejelentkezes nelkul nem torolheto poszt",
+        "sikeres": true,
+        "uzenet": "Bejelentkezes nelkul nem lehet posztot torolni.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 302
+        }
+      }
+    ],
+    "Autentikacio": [
+      {
+        "kategoria": "Autentikacio",
+        "nev": "1. felhasznalo regisztracio",
+        "sikeres": true,
+        "uzenet": "Regisztracios kiseret HTTP 302, user_id=31.",
+        "idotartam_ms": 228,
+        "reszletek": {
+          "statusz": 302,
+          "felhasznalonev": "teszt_a_1776950716",
+          "user_id": 31
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "2. felhasznalo regisztracio",
+        "sikeres": true,
+        "uzenet": "Regisztracios kiseret HTTP 302, user_id=32.",
+        "idotartam_ms": 227,
+        "reszletek": {
+          "statusz": 302,
+          "felhasznalonev": "teszt_b_1776950716",
+          "user_id": 32
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "Duplikalt felhasznalonev kiszurve",
+        "sikeres": true,
+        "uzenet": "A rendszer helyesen visszautasitja a duplikalt felhasznalonevet.",
+        "idotartam_ms": 5,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "Duplikalt email kiszurve",
+        "sikeres": true,
+        "uzenet": "A rendszer visszautasitja a duplikalt email cimet.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "Tul hosszu jelszo tiltva",
+        "sikeres": true,
+        "uzenet": "A szerver elutasitja a 72 karakternel hosszabb jelszot.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "Rossz jelszoval nem enged belepni",
+        "sikeres": true,
+        "uzenet": "Rossz jelszoval nem lehet bejelentkezni.",
+        "idotartam_ms": 240,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "Nemletezo felhasznalonevvel nem enged belepni",
+        "sikeres": true,
+        "uzenet": "Nemletezo felhasznalonevvel sem lehet bejelentkezni.",
+        "idotartam_ms": 19,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "Session cookie bejelentkezes utan",
+        "sikeres": true,
+        "uzenet": "Bejelentkezes utan session cookie aktiv.",
+        "idotartam_ms": 0,
+        "reszletek": {
+          "cookiek": [
+            "remember_token",
+            "session"
+          ]
+        }
+      },
+      {
+        "kategoria": "Autentikacio",
+        "nev": "2. felhasznalo kijelentkezes",
+        "sikeres": true,
+        "uzenet": "Kijelentkezes HTTP 302.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 302
+        }
+      }
+    ],
+    "Profil": [
+      {
+        "kategoria": "Profil",
+        "nev": "1. felhasznalo profil letrehozas",
+        "sikeres": true,
+        "uzenet": "Profil sikeresen frissítve!",
+        "idotartam_ms": 8,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "message": "Profil sikeresen frissítve!",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "2. felhasznalo profil letrehozas",
+        "sikeres": true,
+        "uzenet": "Profil sikeresen frissítve!",
+        "idotartam_ms": 10,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "message": "Profil sikeresen frissítve!",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Ervenytelen datumformat elutasitva",
+        "sikeres": true,
+        "uzenet": "Ervenytelen datumformatot a szerver elutasitja.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Hianyzo nev elutasitva",
+        "sikeres": true,
+        "uzenet": "Hianyzo nev eseten a szerver 400-zal valaszol.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Sajat profil oldal",
+        "sikeres": true,
+        "uzenet": "A sajat profil oldal elerheto (HTTP 200).",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Masik felhasznalo profilja",
+        "sikeres": true,
+        "uzenet": "Masik felhasznalo profilja lathato (HTTP 200).",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Nemletezo profil redirect",
+        "sikeres": true,
+        "uzenet": "Nemletezo felhasznalo profiljahoz HTTP 302 jon.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 302
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Profil szerkeszto oldal elerheto",
+        "sikeres": true,
+        "uzenet": "A profil szerkesztes oldal elerheto (HTTP 200).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Profil",
+        "nev": "Profilkep feltoltes",
+        "sikeres": true,
+        "uzenet": "Profilkep feltoltese sikeres.",
+        "idotartam_ms": 10,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "message": "Profil sikeresen frissítve!",
+            "success": true
+          }
+        }
+      }
+    ],
+    "Fooldal": [
+      {
+        "kategoria": "Fooldal",
+        "nev": "Fooldal elerheto bejelentkezve",
+        "sikeres": true,
+        "uzenet": "A fooldalt a bejelentkezett felhasznalo elerte (HTTP 200).",
+        "idotartam_ms": 32,
+        "reszletek": {
+          "statusz": 200,
+          "hossz": 110844
+        }
+      }
+    ],
+    "2FA": [
+      {
+        "kategoria": "2FA",
+        "nev": "2FA verification oldal lathato",
+        "sikeres": true,
+        "uzenet": "A 2FA verifikacios oldal elerheto (HTTP 200).",
+        "idotartam_ms": 1,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "2FA",
+        "nev": "QR kod generalas vegpont",
+        "sikeres": true,
+        "uzenet": "2FA QR kod keszitese mukodik.",
+        "idotartam_ms": 19,
+        "reszletek": {
+          "statusz": 200,
+          "qr_meret": 1916
+        }
+      },
+      {
+        "kategoria": "2FA",
+        "nev": "Setup vegpont QR-t ad vissza",
+        "sikeres": true,
+        "uzenet": "A /create2fa vegpont a setup folyamat elejen QR kodot ad vissza vagy hibat.",
+        "idotartam_ms": 12,
+        "reszletek": {
+          "statusz": 200,
+          "success": true
+        }
+      },
+      {
+        "kategoria": "2FA",
+        "nev": "Hibas OTP elutasitva",
+        "sikeres": true,
+        "uzenet": "A rendszer elutasitja a nem megfelelo OTP kodot.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 400,
+          "valasz": {
+            "error": "Hibas ellenorzo kod.",
+            "success": false
+          }
+        }
+      }
+    ],
+    "Poszt": [
+      {
+        "kategoria": "Poszt",
+        "nev": "Hianyos poszt elutasitva",
+        "sikeres": true,
+        "uzenet": "A szerver helyesen 400-as hibat ad vissza, ha nincs nev/leiras.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Uj poszt (lost) letrehozasa",
+        "sikeres": true,
+        "uzenet": "Uj poszt letrehozva, item_id=53.",
+        "idotartam_ms": 9765,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "item_id": 53,
+            "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+            "processing": true,
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Uj poszt (found) letrehozasa",
+        "sikeres": true,
+        "uzenet": "FOUND tipusu poszt letrehozva (id=54).",
+        "idotartam_ms": 2555,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "item_id": 54,
+            "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+            "processing": true,
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Rossz tipus normalizalas",
+        "sikeres": true,
+        "uzenet": "Rossz tipus eseten a poszt 'lost' ertekkel jon letre.",
+        "idotartam_ms": 2138,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "item_id": 55,
+            "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+            "processing": true,
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Poszt keppel",
+        "sikeres": true,
+        "uzenet": "Poszt keppel egyutt sikeresen letrehozva.",
+        "idotartam_ms": 6387,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "item_id": 56,
+            "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+            "processing": true,
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Tiltott fajl kiterjesztes",
+        "sikeres": true,
+        "uzenet": "Tiltott kiterjesztesu fajl eseten a poszt letrejon, de a fajl nem csatolodik.",
+        "idotartam_ms": 3397,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "item_id": 57,
+            "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+            "processing": true,
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Poszt megjelenites (aktivalas)",
+        "sikeres": true,
+        "uzenet": "A letrehozott poszt lathatova valt (HTTP 200).",
+        "idotartam_ms": 8,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Poszt szerkesztesi adatok",
+        "sikeres": true,
+        "uzenet": "Poszt adatai sikeresen lekerdezve.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "attachments": [],
+            "category": "egyeb",
+            "description": "Egy szep alap kulcs-csomo, elveszett a park melletti kavezoban.",
+            "id": 53,
+            "is_closed": false,
+            "megye": "Budapest",
+            "name": "Teszt elveszett kulcs krlvhfow",
+            "success": true,
+            "telepules": "Varosliget",
+            "type": "lost"
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Tulajdonos szerkesztes",
+        "sikeres": true,
+        "uzenet": "Tulajdonos sikeresen szerkesztette a posztot.",
+        "idotartam_ms": 11,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "message": "Poszt módosítva.",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Lezaras/visszanyitas kapcsolo",
+        "sikeres": true,
+        "uzenet": "Lezarasi kapcsolo mukodik: True -> False.",
+        "idotartam_ms": 18,
+        "reszletek": {
+          "elso": {
+            "is_closed": true,
+            "message": "Poszt lezárva.",
+            "success": true
+          },
+          "masodik": {
+            "is_closed": false,
+            "message": "Poszt megnyitva.",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Nemletezo poszt redirect",
+        "sikeres": true,
+        "uzenet": "Nemletezo posztra HTTP 302.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 302
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Nemletezo poszt adatok 404",
+        "sikeres": true,
+        "uzenet": "Nemletezo poszt adatlekerdese 404.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 404
+        }
+      },
+      {
+        "kategoria": "Poszt",
+        "nev": "Tulajdonos torli a sajat posztot",
+        "sikeres": true,
+        "uzenet": "A tulajdonos torolte a sajat posztot.",
+        "idotartam_ms": 8,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "message": "Poszt törölve.",
+            "success": true
+          }
+        }
+      }
+    ],
+    "Bejelentes": [
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Sajat poszt bejelentes tiltva",
+        "sikeres": true,
+        "uzenet": "A sajat poszt bejelentese 400-as hibaval tiltott.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Indoklas nelkuli bejelentes tiltva",
+        "sikeres": true,
+        "uzenet": "Indoklas nelkuli bejelentes 400.",
+        "idotartam_ms": 4,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Masik felhasznalo sikeresen bejelent",
+        "sikeres": true,
+        "uzenet": "Masik felhasznalo sikeresen bejelentette a posztot.",
+        "idotartam_ms": 9,
+        "reszletek": {
+          "statusz": 200,
+          "json": {
+            "message": "Bejelentés sikeresen elküldve!",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Duplikalt bejelentes kiszurve",
+        "sikeres": true,
+        "uzenet": "A rendszer megakadalyozza a ketszeri bejelentest egy posztra.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Sajat magunk felhasznalo bejelentes tiltva",
+        "sikeres": true,
+        "uzenet": "Sajat magunk bejelentese tilos (400).",
+        "idotartam_ms": 1,
+        "reszletek": {
+          "statusz": 400
+        }
+      },
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Masik felhasznalo sikeres bejelentese",
+        "sikeres": true,
+        "uzenet": "Masik felhasznalo bejelentese sikeres.",
+        "idotartam_ms": 10,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "message": "Bejelentés sikeresen elküldve!",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Bejelentes",
+        "nev": "Nemletezo felhasznalo bejelentese 404",
+        "sikeres": true,
+        "uzenet": "Nemletezo felhasznalo bejelentesere 404.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 404
+        }
+      }
+    ],
+    "Jelszo": [
+      {
+        "kategoria": "Jelszo",
+        "nev": "Reset kereses letezo felhasznalora",
+        "sikeres": true,
+        "uzenet": "Jelszo visszaallitasi kereses vegpont elerheto, valasz: True.",
+        "idotartam_ms": 473,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": true
+        }
+      },
+      {
+        "kategoria": "Jelszo",
+        "nev": "Reset kereses nemletezo felhasznalora",
+        "sikeres": true,
+        "uzenet": "Nemletezo felhasznalonevre False valasz.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": false
+        }
+      },
+      {
+        "kategoria": "Jelszo",
+        "nev": "Ures felhasznalonev False",
+        "sikeres": true,
+        "uzenet": "Ures felhasznalonevre a reset False-t ad.",
+        "idotartam_ms": 1,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": false
+        }
+      },
+      {
+        "kategoria": "Jelszo",
+        "nev": "Reset oldal token nelkul",
+        "sikeres": true,
+        "uzenet": "Token nelkuli reset oldal helyesen kezelve (HTTP 302).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 302,
+          "location": "/login"
+        }
+      },
+      {
+        "kategoria": "Jelszo",
+        "nev": "Ervenytelen tokennel jelszocsere tiltva",
+        "sikeres": true,
+        "uzenet": "Ervenytelen tokennel nem tortenik jelszovaltas, hanem redirect.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 302,
+          "location": "/login"
+        }
+      }
+    ],
+    "Uzenet": [
+      {
+        "kategoria": "Uzenet",
+        "nev": "Uzenet oldal bejelentkezve",
+        "sikeres": true,
+        "uzenet": "Az uzenet oldal elerheto bejelentkezve (HTTP 200).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Uzenet",
+        "nev": "Uzenet oldal vendegkent atiranyitott",
+        "sikeres": true,
+        "uzenet": "Uzenet oldal bejelentkezes nelkul atiranyit.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 302
+        }
+      }
+    ],
+    "SocketIO": [
+      {
+        "kategoria": "SocketIO",
+        "nev": "Autentikalt get_conversations",
+        "sikeres": true,
+        "uzenet": "Beszelgetes-lista lekerve (1 elem, benne system chat).",
+        "idotartam_ms": 44,
+        "reszletek": {
+          "valasz_hossz": 1
+        }
+      },
+      {
+        "kategoria": "SocketIO",
+        "nev": "System chat (partner 0)",
+        "sikeres": true,
+        "uzenet": "System chat udvozlo uzenet lekerdezheto.",
+        "idotartam_ms": 44,
+        "reszletek": {
+          "elemszam": 1
+        }
+      },
+      {
+        "kategoria": "SocketIO",
+        "nev": "Uzenet kuldese (felh. 1 -> 2)",
+        "sikeres": "Szia teszt uzenet!",
+        "uzenet": "Uzenet elkuldve, 1 new_message esemeny a fogadonal.",
+        "idotartam_ms": 1075,
+        "reszletek": {
+          "elkuldve": true,
+          "kapott_esemenyek": 1
+        }
+      },
+      {
+        "kategoria": "SocketIO",
+        "nev": "System chat uzenet valasz tiltva",
+        "sikeres": true,
+        "uzenet": "System chat (partner_id=0) nem fogadja az uzeneteket.",
+        "idotartam_ms": 48,
+        "reszletek": {
+          "hibak": [
+            {
+              "message": "Nem küldhetsz üzenetet a Rendszer csatornához"
+            }
+          ]
+        }
+      },
+      {
+        "kategoria": "SocketIO",
+        "nev": "5000 karakter feletti uzenet tiltva",
+        "sikeres": true,
+        "uzenet": "A rendszer 5000 karakter felett visszautasitja az uzenetet.",
+        "idotartam_ms": 46,
+        "reszletek": {
+          "hibak": [
+            {
+              "message": "Message too long"
+            }
+          ]
+        }
+      },
+      {
+        "kategoria": "SocketIO",
+        "nev": "Partner informacio",
+        "sikeres": true,
+        "uzenet": "Partner informacio lekerheto.",
+        "idotartam_ms": 32,
+        "reszletek": {
+          "valasz": [
+            {
+              "id": 32,
+              "name": "Teszt Bela",
+              "pic": "/static/default-avatar.png",
+              "status": "offline"
+            }
+          ]
+        }
+      },
+      {
+        "kategoria": "SocketIO",
+        "nev": "Autentikalatlan kliens nem kap adatot",
+        "sikeres": true,
+        "uzenet": "Autentikalatlan kliens nem kap bizalmas adatokat a socketen.",
+        "idotartam_ms": 43,
+        "reszletek": {
+          "hibak": [
+            {
+              "message": "Not authenticated"
+            }
+          ],
+          "kapott": []
+        }
+      }
+    ],
+    "Admin": [
+      {
+        "kategoria": "Admin",
+        "nev": "Admin felhasznalo regisztracio",
+        "sikeres": true,
+        "uzenet": "Admin felhasznalo regisztralva (user_id=33).",
+        "idotartam_ms": 250,
+        "reszletek": {
+          "statusz": 302,
+          "user_id": 33
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Admin szerepkor DB-ben beallitasa",
+        "sikeres": true,
+        "uzenet": "Admin szerepkor beallitasa az adatbazisban sikeres.",
+        "idotartam_ms": 6,
+        "reszletek": {
+          "db_ut": "C:\\Users\\bozsi\\Desktop\\Projects\\elveszett-targyak\\instance\\app.db"
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Admin bejelentkezes -> /admin redirect",
+        "sikeres": true,
+        "uzenet": "Admin bejelentkezes utan /admin iranyba redirect (Location=/admin/dashboard).",
+        "idotartam_ms": 231,
+        "reszletek": {
+          "statusz": 302,
+          "location": "/admin/dashboard"
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Dashboard oldal",
+        "sikeres": true,
+        "uzenet": "Admin dashboard oldal elerheto (HTTP 200).",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Users oldal",
+        "sikeres": true,
+        "uzenet": "Admin users oldal HTTP 200.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Posts oldal",
+        "sikeres": true,
+        "uzenet": "Admin posts oldal HTTP 200.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Metrics RAM/CPU adatok",
+        "sikeres": true,
+        "uzenet": "Admin /metrics RAM/CPU/stats adatokat ad (users=33).",
+        "idotartam_ms": 216,
+        "reszletek": {
+          "statusz": 200,
+          "reszek": [
+            "cpu",
+            "ram",
+            "stats"
+          ],
+          "valasz": {
+            "cpu": {
+              "current_frequency_ghz": 2.59,
+              "logical_cores": 12,
+              "max_frequency_ghz": 2.59,
+              "percent_available": 87.0,
+              "usage_percent": 13.0
+            },
+            "ram": {
+              "percent_available": 38.6,
+              "percent_used": 61.4,
+              "total_gb": 15.86,
+              "used_gb": 9.74
+            },
+            "stats": {
+              "pending_reports": 16,
+              "total_posts": 48,
+              "total_users": 33
+            }
+          }
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "/api/users alap lekerdezes",
+        "sikeres": true,
+        "uzenet": "Admin /api/users listat ad (10 elem az elso oldalon).",
+        "idotartam_ms": 6,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "current_page": 1,
+            "pages": 4,
+            "total": 33,
+            "users": [
+              {
+                "2fa": "✗",
+                "email": "test1.@test1.test1",
+                "id": 1,
+                "joined": "2026-04-12",
+                "name": "Test1",
+                "posts": 3,
+                "role": "user",
+                "username": "test1"
+              },
+              {
+                "2fa": "✗",
+                "email": "test@test.test",
+                "id": 2,
+                "joined": "2026-04-12",
+                "name": "Test2",
+                "posts": 4,
+                "role": "user",
+                "username": "test2"
+              },
+              {
+                "2fa": "✗",
+                "email": "nreka261@gmail.com",
+                "id": 3,
+                "joined": "2026-04-14",
+                "name": "Réka Laura Nagy",
+                "posts": 0,
+                "role": "user",
+                "username": "Laura"
+              },
+              {
+                "2fa": "✗",
+                "email": "admin@admin.admin",
+                "id": 4,
+                "joined": "2026-04-19",
+                "name": "Admin",
+                "posts": 0,
+                "role": "admin",
+                "username": "admin"
+              },
+              {
+                "2fa": "✗",
+                "email": "keresettarem@gmail.com",
+                "id": 5,
+                "joined": "2026-04-21",
+                "name": "placeholder test",
+                "posts": 1,
+                "role": "user",
+                "username": "test4"
+              },
+              {
+                "2fa": "✗",
+                "email": "nagylaura726@gmail.com",
+                "id": 6,
+                "joined": "2026-04-21",
+                "name": "Portfólió",
+                "posts": 0,
+                "role": "user",
+                "username": "Bemutato"
+              },
+              {
+                "2fa": "✓",
+                "email": "laaura768@gmail.com",
+                "id": 7,
+                "joined": "2026-04-23",
+                "name": "helloasd",
+                "posts": 0,
+                "role": "user",
+                "username": "helloworld"
+              },
+              {
+                "2fa": "✗",
+                "email": "teszt_a_1776946951@example.com",
+                "id": 8,
+                "joined": "2026-04-23",
+                "name": "Teszt Anna",
+                "posts": 1,
+                "role": "user",
+                "username": "teszt_a_1776946951"
+              },
+              {
+                "2fa": "✗",
+                "email": "teszt_b_1776946951@example.com",
+                "id": 9,
+                "joined": "2026-04-23",
+                "name": "Teszt Bela",
+                "posts": 0,
+                "role": "user",
+                "username": "teszt_b_1776946951"
+              },
+              {
+                "2fa": "✗",
+                "email": "teszt_a_1776948151@example.com",
+                "id": 10,
+                "joined": "2026-04-23",
+                "name": "Teszt Anna",
+                "posts": 5,
+                "role": "user",
+                "username": "teszt_a_1776948151"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "/api/users kereses",
+        "sikeres": true,
+        "uzenet": "Admin /api/users keresesi eredmenyt ad.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 200,
+          "talalat_szam": 1
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "/api/posts alap lekerdezes",
+        "sikeres": true,
+        "uzenet": "Admin /api/posts elerheto (10 elem).",
+        "idotartam_ms": 12,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "current_page": 1,
+            "pages": 5,
+            "posts": [
+              {
+                "category": "ruhazat",
+                "has_reports": true,
+                "id": 1,
+                "name": "idkvalami",
+                "posted": "2026-04-12",
+                "reports": 1,
+                "status": "Active",
+                "type": "Lost",
+                "uploader": "test2"
+              },
+              {
+                "category": "allat",
+                "has_reports": false,
+                "id": 2,
+                "name": "Macskusz",
+                "posted": "2026-04-14",
+                "reports": 0,
+                "status": "Inactive",
+                "type": "Lost",
+                "uploader": "test1"
+              },
+              {
+                "category": "ruhazat",
+                "has_reports": false,
+                "id": 3,
+                "name": "asd",
+                "posted": "2026-04-14",
+                "reports": 0,
+                "status": "Inactive",
+                "type": "Lost",
+                "uploader": "test1"
+              },
+              {
+                "category": "egyeb",
+                "has_reports": false,
+                "id": 4,
+                "name": "asd",
+                "posted": "2026-04-14",
+                "reports": 0,
+                "status": "Inactive",
+                "type": "Lost",
+                "uploader": "test2"
+              },
+              {
+                "category": "ekszer",
+                "has_reports": false,
+                "id": 5,
+                "name": "asd",
+                "posted": "2026-04-14",
+                "reports": 0,
+                "status": "Inactive",
+                "type": "Found",
+                "uploader": "test2"
+              },
+              {
+                "category": "allat",
+                "has_reports": false,
+                "id": 6,
+                "name": "Macskusz",
+                "posted": "2026-04-14",
+                "reports": 0,
+                "status": "Active",
+                "type": "Found",
+                "uploader": "test2"
+              },
+              {
+                "category": "ekszer",
+                "has_reports": false,
+                "id": 7,
+                "name": "asd",
+                "posted": "2026-04-15",
+                "reports": 0,
+                "status": "Active",
+                "type": "Found",
+                "uploader": "test1"
+              },
+              {
+                "category": "dokumentum",
+                "has_reports": false,
+                "id": 8,
+                "name": "tudja a fasz",
+                "posted": "2026-04-21",
+                "reports": 0,
+                "status": "Active",
+                "type": "Lost",
+                "uploader": "test4"
+              },
+              {
+                "category": "egyeb",
+                "has_reports": false,
+                "id": 10,
+                "name": "Talalat - tarca 355ei6gd",
+                "posted": "2026-04-23",
+                "reports": 0,
+                "status": "Active",
+                "type": "Found",
+                "uploader": "teszt_a_1776946951"
+              },
+              {
+                "category": "dokumentum",
+                "has_reports": false,
+                "id": 12,
+                "name": "Talalt irataco btneq8d7",
+                "posted": "2026-04-23",
+                "reports": 0,
+                "status": "Active",
+                "type": "Found",
+                "uploader": "teszt_b_1776948151"
+              }
+            ],
+            "total": 48
+          }
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "/api/posts kereses",
+        "sikeres": true,
+        "uzenet": "Admin /api/posts search Teszt-re 10 elem.",
+        "idotartam_ms": 10,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "/api/posts statusz szures",
+        "sikeres": true,
+        "uzenet": "Admin /api/posts status=active csak aktiv posztokat ad.",
+        "idotartam_ms": 12,
+        "reszletek": {
+          "statusz": 200,
+          "elemszam": 10
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "/api/reports lekerdezes",
+        "sikeres": true,
+        "uzenet": "Admin /api/reports elerheto (10 elem).",
+        "idotartam_ms": 9,
+        "reszletek": {
+          "statusz": 200,
+          "elso_report_id": 1,
+          "valasz": {
+            "current_page": 1,
+            "pages": 2,
+            "reports": [
+              {
+                "created": "2026-04-19 10:54",
+                "description": "",
+                "id": 1,
+                "item_id": null,
+                "post": "test1",
+                "reason": "inappropriate",
+                "reporter": "admin",
+                "reporter_id": 4,
+                "status": "Resolved",
+                "type": "User Report",
+                "user_id": 1
+              },
+              {
+                "created": "2026-04-20 11:10",
+                "description": "asdasd",
+                "id": 2,
+                "item_id": 1,
+                "post": "idkvalami",
+                "reason": "other",
+                "reporter": "admin",
+                "reporter_id": 4,
+                "status": "Pending",
+                "type": "Item Report",
+                "user_id": null
+              },
+              {
+                "created": "2026-04-23 14:22",
+                "description": "Valoszinutleg hamis poszt.",
+                "id": 3,
+                "item_id": 9,
+                "post": "Deleted Item",
+                "reason": "hamis",
+                "reporter": "teszt_b_1776946951",
+                "reporter_id": 9,
+                "status": "Pending",
+                "type": "Item Report",
+                "user_id": null
+              },
+              {
+                "created": "2026-04-23 14:42",
+                "description": "Valoszinutleg hamis poszt.",
+                "id": 4,
+                "item_id": 11,
+                "post": "Deleted Item",
+                "reason": "hamis",
+                "reporter": "teszt_b_1776948151",
+                "reporter_id": 11,
+                "status": "Pending",
+                "type": "Item Report",
+                "user_id": null
+              },
+              {
+                "created": "2026-04-23 14:42",
+                "description": "Spam uzenetek.",
+                "id": 5,
+                "item_id": null,
+                "post": "teszt_b_1776948151",
+                "reason": "spam",
+                "reporter": "teszt_a_1776948151",
+                "reporter_id": 10,
+                "status": "Pending",
+                "type": "User Report",
+                "user_id": 11
+              },
+              {
+                "created": "2026-04-23 14:52",
+                "description": "Valoszinutleg hamis poszt.",
+                "id": 6,
+                "item_id": 18,
+                "post": "Deleted Item",
+                "reason": "hamis",
+                "reporter": "teszt_b_1776948729",
+                "reporter_id": 14,
+                "status": "Pending",
+                "type": "Item Report",
+                "user_id": null
+              },
+              {
+                "created": "2026-04-23 14:52",
+                "description": "Spam uzenetek.",
+                "id": 7,
+                "item_id": null,
+                "post": "teszt_b_1776948729",
+                "reason": "spam",
+                "reporter": "teszt_a_1776948729",
+                "reporter_id": 13,
+                "status": "Pending",
+                "type": "User Report",
+                "user_id": 14
+              },
+              {
+                "created": "2026-04-23 15:06",
+                "description": "Valoszinutleg hamis poszt.",
+                "id": 8,
+                "item_id": 25,
+                "post": "Deleted Item",
+                "reason": "hamis",
+                "reporter": "teszt_b_1776949579",
+                "reporter_id": 17,
+                "status": "Pending",
+                "type": "Item Report",
+                "user_id": null
+              },
+              {
+                "created": "2026-04-23 15:06",
+                "description": "Spam uzenetek.",
+                "id": 9,
+                "item_id": null,
+                "post": "teszt_b_1776949579",
+                "reason": "spam",
+                "reporter": "teszt_a_1776949579",
+                "reporter_id": 16,
+                "status": "Pending",
+                "type": "User Report",
+                "user_id": 17
+              },
+              {
+                "created": "2026-04-23 15:20",
+                "description": "Valoszinutleg hamis poszt.",
+                "id": 10,
+                "item_id": 32,
+                "post": "Deleted Item",
+                "reason": "hamis",
+                "reporter": "teszt_b_1776950428",
+                "reporter_id": 23,
+                "status": "Pending",
+                "type": "Item Report",
+                "user_id": null
+              }
+            ],
+            "total": 17
+          }
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Report resolve",
+        "sikeres": true,
+        "uzenet": "Bejelentes rendezettre valtva admin altal.",
+        "idotartam_ms": 2,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "message": "Report marked as resolved",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Item (poszt) torlese admin altal",
+        "sikeres": true,
+        "uzenet": "Admin torolte a poszt elemet.",
+        "idotartam_ms": 11,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "message": "Item deleted successfully",
+            "success": true
+          }
+        }
+      },
+      {
+        "kategoria": "Admin",
+        "nev": "Nemletezo item torlese 404",
+        "sikeres": true,
+        "uzenet": "Nemletezo item torlesere 404.",
+        "idotartam_ms": 3,
+        "reszletek": {
+          "statusz": 404,
+          "valasz": {
+            "message": "Item not found",
+            "success": false
+          }
+        }
+      }
+    ],
+    "I18n": [
+      {
+        "kategoria": "I18n",
+        "nev": "Angol Accept-Language",
+        "sikeres": true,
+        "uzenet": "Angol Accept-Language HTTP 200.",
+        "idotartam_ms": 36,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "I18n",
+        "nev": "lang=en cookie",
+        "sikeres": true,
+        "uzenet": "lang=en cookie HTTP 200.",
+        "idotartam_ms": 48,
+        "reszletek": {
+          "statusz": 200
+        }
+      },
+      {
+        "kategoria": "I18n",
+        "nev": "Poszt letrehozasa angol leirassal",
+        "sikeres": true,
+        "uzenet": "Angol nyelvu posztot elfogad a rendszer.",
+        "idotartam_ms": 2255,
+        "reszletek": {
+          "statusz": 200,
+          "valasz": {
+            "item_id": 58,
+            "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+            "processing": true,
+            "success": true
+          }
+        }
+      }
+    ],
+    "Biztonsag": [
+      {
+        "kategoria": "Biztonsag",
+        "nev": "XSS tartalom escape-eles",
+        "sikeres": true,
+        "uzenet": "A sablon helyesen escape-eli az XSS-t tartalmazo nevet.",
+        "idotartam_ms": 3239,
+        "reszletek": {
+          "html_tartalmaz_script": false
+        }
+      },
+      {
+        "kategoria": "Biztonsag",
+        "nev": "SQL injection login nem sikerul",
+        "sikeres": true,
+        "uzenet": "SQL injection kiseret nem fog visszaerni bejelentkezest.",
+        "idotartam_ms": 28,
+        "reszletek": {
+          "statusz": 200
+        }
+      }
+    ]
+  },
+  "eredmenyek": [
+    {
+      "kategoria": "Alaprendszer",
+      "nev": "Szerver eleres",
+      "sikeres": true,
+      "uzenet": "A szerver HTTP 200 valaszt adott a fooldal kereseere.",
+      "idotartam_ms": 37,
+      "reszletek": {
+        "statusz": 200,
+        "byte_meret": 110278
+      }
+    },
+    {
+      "kategoria": "Alaprendszer",
+      "nev": "Fooldal HTML tartalom",
+      "sikeres": true,
+      "uzenet": "A fooldal HTML tartalmat szolgaltat (HTTP 200, hossz=109790).",
+      "idotartam_ms": 32,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Alaprendszer",
+      "nev": "Varmegyek JSON elerheto",
+      "sikeres": true,
+      "uzenet": "A varmegyek.json elerheto es ertelmes JSON-t tartalmaz.",
+      "idotartam_ms": 8,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Statikus",
+      "nev": "Logo SVG letoltheto",
+      "sikeres": true,
+      "uzenet": "A /static/logo.svg letolthato (3609133 byte).",
+      "idotartam_ms": 12,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Statikus",
+      "nev": "HU forditas JSON elerheto",
+      "sikeres": true,
+      "uzenet": "HU forditasi fajl elerheto, 11 kulcs.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Statikus",
+      "nev": "EN forditas JSON elerheto",
+      "sikeres": true,
+      "uzenet": "EN forditasi fajl elerheto (HTTP 200).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Alaprendszer",
+      "nev": "Login oldal elerheto",
+      "sikeres": true,
+      "uzenet": "A /login oldal HTTP 200, tartalmazza a bejelentkezes szoveget.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200,
+        "hossz": 12609
+      }
+    },
+    {
+      "kategoria": "Alaprendszer",
+      "nev": "404 kezeles",
+      "sikeres": true,
+      "uzenet": "Nemletezo oldalra a rendszer HTTP 404 kodot ad vissza.",
+      "idotartam_ms": 1,
+      "reszletek": {
+        "statusz": 404
+      }
+    },
+    {
+      "kategoria": "Alaprendszer",
+      "nev": "Terkep oldal",
+      "sikeres": true,
+      "uzenet": "A terkep (test-map) oldal elerheto (HTTP 200).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Admin panel bejelentkezes nelkul tiltva",
+      "sikeres": true,
+      "uzenet": "Admin panel bejelentkezes nelkuli eleresere HTTP 302 (atiranyitas vagy tiltas).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "1. felhasznalo regisztracio",
+      "sikeres": true,
+      "uzenet": "Regisztracios kiseret HTTP 302, user_id=31.",
+      "idotartam_ms": 228,
+      "reszletek": {
+        "statusz": 302,
+        "felhasznalonev": "teszt_a_1776950716",
+        "user_id": 31
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "2. felhasznalo regisztracio",
+      "sikeres": true,
+      "uzenet": "Regisztracios kiseret HTTP 302, user_id=32.",
+      "idotartam_ms": 227,
+      "reszletek": {
+        "statusz": 302,
+        "felhasznalonev": "teszt_b_1776950716",
+        "user_id": 32
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "Duplikalt felhasznalonev kiszurve",
+      "sikeres": true,
+      "uzenet": "A rendszer helyesen visszautasitja a duplikalt felhasznalonevet.",
+      "idotartam_ms": 5,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "Duplikalt email kiszurve",
+      "sikeres": true,
+      "uzenet": "A rendszer visszautasitja a duplikalt email cimet.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "Tul hosszu jelszo tiltva",
+      "sikeres": true,
+      "uzenet": "A szerver elutasitja a 72 karakternel hosszabb jelszot.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "Rossz jelszoval nem enged belepni",
+      "sikeres": true,
+      "uzenet": "Rossz jelszoval nem lehet bejelentkezni.",
+      "idotartam_ms": 240,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "Nemletezo felhasznalonevvel nem enged belepni",
+      "sikeres": true,
+      "uzenet": "Nemletezo felhasznalonevvel sem lehet bejelentkezni.",
+      "idotartam_ms": 19,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "Session cookie bejelentkezes utan",
+      "sikeres": true,
+      "uzenet": "Bejelentkezes utan session cookie aktiv.",
+      "idotartam_ms": 0,
+      "reszletek": {
+        "cookiek": [
+          "remember_token",
+          "session"
+        ]
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "1. felhasznalo profil letrehozas",
+      "sikeres": true,
+      "uzenet": "Profil sikeresen frissítve!",
+      "idotartam_ms": 8,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "message": "Profil sikeresen frissítve!",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "2. felhasznalo profil letrehozas",
+      "sikeres": true,
+      "uzenet": "Profil sikeresen frissítve!",
+      "idotartam_ms": 10,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "message": "Profil sikeresen frissítve!",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Ervenytelen datumformat elutasitva",
+      "sikeres": true,
+      "uzenet": "Ervenytelen datumformatot a szerver elutasitja.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Hianyzo nev elutasitva",
+      "sikeres": true,
+      "uzenet": "Hianyzo nev eseten a szerver 400-zal valaszol.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Fooldal",
+      "nev": "Fooldal elerheto bejelentkezve",
+      "sikeres": true,
+      "uzenet": "A fooldalt a bejelentkezett felhasznalo elerte (HTTP 200).",
+      "idotartam_ms": 32,
+      "reszletek": {
+        "statusz": 200,
+        "hossz": 110844
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Sajat profil oldal",
+      "sikeres": true,
+      "uzenet": "A sajat profil oldal elerheto (HTTP 200).",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Masik felhasznalo profilja",
+      "sikeres": true,
+      "uzenet": "Masik felhasznalo profilja lathato (HTTP 200).",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Nemletezo profil redirect",
+      "sikeres": true,
+      "uzenet": "Nemletezo felhasznalo profiljahoz HTTP 302 jon.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Profil szerkeszto oldal elerheto",
+      "sikeres": true,
+      "uzenet": "A profil szerkesztes oldal elerheto (HTTP 200).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Profil",
+      "nev": "Profilkep feltoltes",
+      "sikeres": true,
+      "uzenet": "Profilkep feltoltese sikeres.",
+      "idotartam_ms": 10,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "message": "Profil sikeresen frissítve!",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "2FA",
+      "nev": "2FA verification oldal lathato",
+      "sikeres": true,
+      "uzenet": "A 2FA verifikacios oldal elerheto (HTTP 200).",
+      "idotartam_ms": 1,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "2FA",
+      "nev": "QR kod generalas vegpont",
+      "sikeres": true,
+      "uzenet": "2FA QR kod keszitese mukodik.",
+      "idotartam_ms": 19,
+      "reszletek": {
+        "statusz": 200,
+        "qr_meret": 1916
+      }
+    },
+    {
+      "kategoria": "2FA",
+      "nev": "Setup vegpont QR-t ad vissza",
+      "sikeres": true,
+      "uzenet": "A /create2fa vegpont a setup folyamat elejen QR kodot ad vissza vagy hibat.",
+      "idotartam_ms": 12,
+      "reszletek": {
+        "statusz": 200,
+        "success": true
+      }
+    },
+    {
+      "kategoria": "2FA",
+      "nev": "Hibas OTP elutasitva",
+      "sikeres": true,
+      "uzenet": "A rendszer elutasitja a nem megfelelo OTP kodot.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 400,
+        "valasz": {
+          "error": "Hibas ellenorzo kod.",
+          "success": false
+        }
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Hianyos poszt elutasitva",
+      "sikeres": true,
+      "uzenet": "A szerver helyesen 400-as hibat ad vissza, ha nincs nev/leiras.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Uj poszt (lost) letrehozasa",
+      "sikeres": true,
+      "uzenet": "Uj poszt letrehozva, item_id=53.",
+      "idotartam_ms": 9765,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "item_id": 53,
+          "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+          "processing": true,
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Uj poszt (found) letrehozasa",
+      "sikeres": true,
+      "uzenet": "FOUND tipusu poszt letrehozva (id=54).",
+      "idotartam_ms": 2555,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "item_id": 54,
+          "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+          "processing": true,
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Rossz tipus normalizalas",
+      "sikeres": true,
+      "uzenet": "Rossz tipus eseten a poszt 'lost' ertekkel jon letre.",
+      "idotartam_ms": 2138,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "item_id": 55,
+          "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+          "processing": true,
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Poszt keppel",
+      "sikeres": true,
+      "uzenet": "Poszt keppel egyutt sikeresen letrehozva.",
+      "idotartam_ms": 6387,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "item_id": 56,
+          "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+          "processing": true,
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Tiltott fajl kiterjesztes",
+      "sikeres": true,
+      "uzenet": "Tiltott kiterjesztesu fajl eseten a poszt letrejon, de a fajl nem csatolodik.",
+      "idotartam_ms": 3397,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "item_id": 57,
+          "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+          "processing": true,
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Poszt megjelenites (aktivalas)",
+      "sikeres": true,
+      "uzenet": "A letrehozott poszt lathatova valt (HTTP 200).",
+      "idotartam_ms": 8,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Poszt szerkesztesi adatok",
+      "sikeres": true,
+      "uzenet": "Poszt adatai sikeresen lekerdezve.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "attachments": [],
+          "category": "egyeb",
+          "description": "Egy szep alap kulcs-csomo, elveszett a park melletti kavezoban.",
+          "id": 53,
+          "is_closed": false,
+          "megye": "Budapest",
+          "name": "Teszt elveszett kulcs krlvhfow",
+          "success": true,
+          "telepules": "Varosliget",
+          "type": "lost"
+        }
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Idegen nem kerheti le a szerkesztesi adatot",
+      "sikeres": true,
+      "uzenet": "Idegen felhasznalo nem kerdezheti le a poszt szerkesztesi adatat.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 403
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Tulajdonos szerkesztes",
+      "sikeres": true,
+      "uzenet": "Tulajdonos sikeresen szerkesztette a posztot.",
+      "idotartam_ms": 11,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "message": "Poszt módosítva.",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Idegen nem szerkesztheti a posztot",
+      "sikeres": true,
+      "uzenet": "403 a jogosulatlan szerkesztesre.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 403
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Lezaras/visszanyitas kapcsolo",
+      "sikeres": true,
+      "uzenet": "Lezarasi kapcsolo mukodik: True -> False.",
+      "idotartam_ms": 18,
+      "reszletek": {
+        "elso": {
+          "is_closed": true,
+          "message": "Poszt lezárva.",
+          "success": true
+        },
+        "masodik": {
+          "is_closed": false,
+          "message": "Poszt megnyitva.",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Idegen nem zarhatja le a posztot",
+      "sikeres": true,
+      "uzenet": "Idegen nem zarhatja le a posztot.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 403
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Nemletezo poszt redirect",
+      "sikeres": true,
+      "uzenet": "Nemletezo posztra HTTP 302.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Nemletezo poszt adatok 404",
+      "sikeres": true,
+      "uzenet": "Nemletezo poszt adatlekerdese 404.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 404
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Sajat poszt bejelentes tiltva",
+      "sikeres": true,
+      "uzenet": "A sajat poszt bejelentese 400-as hibaval tiltott.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Indoklas nelkuli bejelentes tiltva",
+      "sikeres": true,
+      "uzenet": "Indoklas nelkuli bejelentes 400.",
+      "idotartam_ms": 4,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Masik felhasznalo sikeresen bejelent",
+      "sikeres": true,
+      "uzenet": "Masik felhasznalo sikeresen bejelentette a posztot.",
+      "idotartam_ms": 9,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "message": "Bejelentés sikeresen elküldve!",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Duplikalt bejelentes kiszurve",
+      "sikeres": true,
+      "uzenet": "A rendszer megakadalyozza a ketszeri bejelentest egy posztra.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Sajat magunk felhasznalo bejelentes tiltva",
+      "sikeres": true,
+      "uzenet": "Sajat magunk bejelentese tilos (400).",
+      "idotartam_ms": 1,
+      "reszletek": {
+        "statusz": 400
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Masik felhasznalo sikeres bejelentese",
+      "sikeres": true,
+      "uzenet": "Masik felhasznalo bejelentese sikeres.",
+      "idotartam_ms": 10,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "message": "Bejelentés sikeresen elküldve!",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Bejelentes",
+      "nev": "Nemletezo felhasznalo bejelentese 404",
+      "sikeres": true,
+      "uzenet": "Nemletezo felhasznalo bejelentesere 404.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 404
+      }
+    },
+    {
+      "kategoria": "Jelszo",
+      "nev": "Reset kereses letezo felhasznalora",
+      "sikeres": true,
+      "uzenet": "Jelszo visszaallitasi kereses vegpont elerheto, valasz: True.",
+      "idotartam_ms": 473,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": true
+      }
+    },
+    {
+      "kategoria": "Jelszo",
+      "nev": "Reset kereses nemletezo felhasznalora",
+      "sikeres": true,
+      "uzenet": "Nemletezo felhasznalonevre False valasz.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": false
+      }
+    },
+    {
+      "kategoria": "Jelszo",
+      "nev": "Ures felhasznalonev False",
+      "sikeres": true,
+      "uzenet": "Ures felhasznalonevre a reset False-t ad.",
+      "idotartam_ms": 1,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": false
+      }
+    },
+    {
+      "kategoria": "Jelszo",
+      "nev": "Reset oldal token nelkul",
+      "sikeres": true,
+      "uzenet": "Token nelkuli reset oldal helyesen kezelve (HTTP 302).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 302,
+        "location": "/login"
+      }
+    },
+    {
+      "kategoria": "Jelszo",
+      "nev": "Ervenytelen tokennel jelszocsere tiltva",
+      "sikeres": true,
+      "uzenet": "Ervenytelen tokennel nem tortenik jelszovaltas, hanem redirect.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 302,
+        "location": "/login"
+      }
+    },
+    {
+      "kategoria": "Uzenet",
+      "nev": "Uzenet oldal bejelentkezve",
+      "sikeres": true,
+      "uzenet": "Az uzenet oldal elerheto bejelentkezve (HTTP 200).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Uzenet",
+      "nev": "Uzenet oldal vendegkent atiranyitott",
+      "sikeres": true,
+      "uzenet": "Uzenet oldal bejelentkezes nelkul atiranyit.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "Autentikalt get_conversations",
+      "sikeres": true,
+      "uzenet": "Beszelgetes-lista lekerve (1 elem, benne system chat).",
+      "idotartam_ms": 44,
+      "reszletek": {
+        "valasz_hossz": 1
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "System chat (partner 0)",
+      "sikeres": true,
+      "uzenet": "System chat udvozlo uzenet lekerdezheto.",
+      "idotartam_ms": 44,
+      "reszletek": {
+        "elemszam": 1
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "Uzenet kuldese (felh. 1 -> 2)",
+      "sikeres": "Szia teszt uzenet!",
+      "uzenet": "Uzenet elkuldve, 1 new_message esemeny a fogadonal.",
+      "idotartam_ms": 1075,
+      "reszletek": {
+        "elkuldve": true,
+        "kapott_esemenyek": 1
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "System chat uzenet valasz tiltva",
+      "sikeres": true,
+      "uzenet": "System chat (partner_id=0) nem fogadja az uzeneteket.",
+      "idotartam_ms": 48,
+      "reszletek": {
+        "hibak": [
+          {
+            "message": "Nem küldhetsz üzenetet a Rendszer csatornához"
+          }
+        ]
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "5000 karakter feletti uzenet tiltva",
+      "sikeres": true,
+      "uzenet": "A rendszer 5000 karakter felett visszautasitja az uzenetet.",
+      "idotartam_ms": 46,
+      "reszletek": {
+        "hibak": [
+          {
+            "message": "Message too long"
+          }
+        ]
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "Partner informacio",
+      "sikeres": true,
+      "uzenet": "Partner informacio lekerheto.",
+      "idotartam_ms": 32,
+      "reszletek": {
+        "valasz": [
+          {
+            "id": 32,
+            "name": "Teszt Bela",
+            "pic": "/static/default-avatar.png",
+            "status": "offline"
+          }
+        ]
+      }
+    },
+    {
+      "kategoria": "SocketIO",
+      "nev": "Autentikalatlan kliens nem kap adatot",
+      "sikeres": true,
+      "uzenet": "Autentikalatlan kliens nem kap bizalmas adatokat a socketen.",
+      "idotartam_ms": 43,
+      "reszletek": {
+        "hibak": [
+          {
+            "message": "Not authenticated"
+          }
+        ],
+        "kapott": []
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Admin API sima felhasznalotol 403",
+      "sikeres": true,
+      "uzenet": "Admin API nem elerheto sima felhasznalonak (403).",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 403
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Admin felhasznalo regisztracio",
+      "sikeres": true,
+      "uzenet": "Admin felhasznalo regisztralva (user_id=33).",
+      "idotartam_ms": 250,
+      "reszletek": {
+        "statusz": 302,
+        "user_id": 33
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Admin szerepkor DB-ben beallitasa",
+      "sikeres": true,
+      "uzenet": "Admin szerepkor beallitasa az adatbazisban sikeres.",
+      "idotartam_ms": 6,
+      "reszletek": {
+        "db_ut": "C:\\Users\\bozsi\\Desktop\\Projects\\elveszett-targyak\\instance\\app.db"
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Admin bejelentkezes -> /admin redirect",
+      "sikeres": true,
+      "uzenet": "Admin bejelentkezes utan /admin iranyba redirect (Location=/admin/dashboard).",
+      "idotartam_ms": 231,
+      "reszletek": {
+        "statusz": 302,
+        "location": "/admin/dashboard"
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Dashboard oldal",
+      "sikeres": true,
+      "uzenet": "Admin dashboard oldal elerheto (HTTP 200).",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Users oldal",
+      "sikeres": true,
+      "uzenet": "Admin users oldal HTTP 200.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Posts oldal",
+      "sikeres": true,
+      "uzenet": "Admin posts oldal HTTP 200.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Metrics RAM/CPU adatok",
+      "sikeres": true,
+      "uzenet": "Admin /metrics RAM/CPU/stats adatokat ad (users=33).",
+      "idotartam_ms": 216,
+      "reszletek": {
+        "statusz": 200,
+        "reszek": [
+          "cpu",
+          "ram",
+          "stats"
+        ],
+        "valasz": {
+          "cpu": {
+            "current_frequency_ghz": 2.59,
+            "logical_cores": 12,
+            "max_frequency_ghz": 2.59,
+            "percent_available": 87.0,
+            "usage_percent": 13.0
+          },
+          "ram": {
+            "percent_available": 38.6,
+            "percent_used": 61.4,
+            "total_gb": 15.86,
+            "used_gb": 9.74
+          },
+          "stats": {
+            "pending_reports": 16,
+            "total_posts": 48,
+            "total_users": 33
+          }
+        }
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "/api/users alap lekerdezes",
+      "sikeres": true,
+      "uzenet": "Admin /api/users listat ad (10 elem az elso oldalon).",
+      "idotartam_ms": 6,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "current_page": 1,
+          "pages": 4,
+          "total": 33,
+          "users": [
+            {
+              "2fa": "✗",
+              "email": "test1.@test1.test1",
+              "id": 1,
+              "joined": "2026-04-12",
+              "name": "Test1",
+              "posts": 3,
+              "role": "user",
+              "username": "test1"
+            },
+            {
+              "2fa": "✗",
+              "email": "test@test.test",
+              "id": 2,
+              "joined": "2026-04-12",
+              "name": "Test2",
+              "posts": 4,
+              "role": "user",
+              "username": "test2"
+            },
+            {
+              "2fa": "✗",
+              "email": "nreka261@gmail.com",
+              "id": 3,
+              "joined": "2026-04-14",
+              "name": "Réka Laura Nagy",
+              "posts": 0,
+              "role": "user",
+              "username": "Laura"
+            },
+            {
+              "2fa": "✗",
+              "email": "admin@admin.admin",
+              "id": 4,
+              "joined": "2026-04-19",
+              "name": "Admin",
+              "posts": 0,
+              "role": "admin",
+              "username": "admin"
+            },
+            {
+              "2fa": "✗",
+              "email": "keresettarem@gmail.com",
+              "id": 5,
+              "joined": "2026-04-21",
+              "name": "placeholder test",
+              "posts": 1,
+              "role": "user",
+              "username": "test4"
+            },
+            {
+              "2fa": "✗",
+              "email": "nagylaura726@gmail.com",
+              "id": 6,
+              "joined": "2026-04-21",
+              "name": "Portfólió",
+              "posts": 0,
+              "role": "user",
+              "username": "Bemutato"
+            },
+            {
+              "2fa": "✓",
+              "email": "laaura768@gmail.com",
+              "id": 7,
+              "joined": "2026-04-23",
+              "name": "helloasd",
+              "posts": 0,
+              "role": "user",
+              "username": "helloworld"
+            },
+            {
+              "2fa": "✗",
+              "email": "teszt_a_1776946951@example.com",
+              "id": 8,
+              "joined": "2026-04-23",
+              "name": "Teszt Anna",
+              "posts": 1,
+              "role": "user",
+              "username": "teszt_a_1776946951"
+            },
+            {
+              "2fa": "✗",
+              "email": "teszt_b_1776946951@example.com",
+              "id": 9,
+              "joined": "2026-04-23",
+              "name": "Teszt Bela",
+              "posts": 0,
+              "role": "user",
+              "username": "teszt_b_1776946951"
+            },
+            {
+              "2fa": "✗",
+              "email": "teszt_a_1776948151@example.com",
+              "id": 10,
+              "joined": "2026-04-23",
+              "name": "Teszt Anna",
+              "posts": 5,
+              "role": "user",
+              "username": "teszt_a_1776948151"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "/api/users kereses",
+      "sikeres": true,
+      "uzenet": "Admin /api/users keresesi eredmenyt ad.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 200,
+        "talalat_szam": 1
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "/api/posts alap lekerdezes",
+      "sikeres": true,
+      "uzenet": "Admin /api/posts elerheto (10 elem).",
+      "idotartam_ms": 12,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "current_page": 1,
+          "pages": 5,
+          "posts": [
+            {
+              "category": "ruhazat",
+              "has_reports": true,
+              "id": 1,
+              "name": "idkvalami",
+              "posted": "2026-04-12",
+              "reports": 1,
+              "status": "Active",
+              "type": "Lost",
+              "uploader": "test2"
+            },
+            {
+              "category": "allat",
+              "has_reports": false,
+              "id": 2,
+              "name": "Macskusz",
+              "posted": "2026-04-14",
+              "reports": 0,
+              "status": "Inactive",
+              "type": "Lost",
+              "uploader": "test1"
+            },
+            {
+              "category": "ruhazat",
+              "has_reports": false,
+              "id": 3,
+              "name": "asd",
+              "posted": "2026-04-14",
+              "reports": 0,
+              "status": "Inactive",
+              "type": "Lost",
+              "uploader": "test1"
+            },
+            {
+              "category": "egyeb",
+              "has_reports": false,
+              "id": 4,
+              "name": "asd",
+              "posted": "2026-04-14",
+              "reports": 0,
+              "status": "Inactive",
+              "type": "Lost",
+              "uploader": "test2"
+            },
+            {
+              "category": "ekszer",
+              "has_reports": false,
+              "id": 5,
+              "name": "asd",
+              "posted": "2026-04-14",
+              "reports": 0,
+              "status": "Inactive",
+              "type": "Found",
+              "uploader": "test2"
+            },
+            {
+              "category": "allat",
+              "has_reports": false,
+              "id": 6,
+              "name": "Macskusz",
+              "posted": "2026-04-14",
+              "reports": 0,
+              "status": "Active",
+              "type": "Found",
+              "uploader": "test2"
+            },
+            {
+              "category": "ekszer",
+              "has_reports": false,
+              "id": 7,
+              "name": "asd",
+              "posted": "2026-04-15",
+              "reports": 0,
+              "status": "Active",
+              "type": "Found",
+              "uploader": "test1"
+            },
+            {
+              "category": "dokumentum",
+              "has_reports": false,
+              "id": 8,
+              "name": "tudja a fasz",
+              "posted": "2026-04-21",
+              "reports": 0,
+              "status": "Active",
+              "type": "Lost",
+              "uploader": "test4"
+            },
+            {
+              "category": "egyeb",
+              "has_reports": false,
+              "id": 10,
+              "name": "Talalat - tarca 355ei6gd",
+              "posted": "2026-04-23",
+              "reports": 0,
+              "status": "Active",
+              "type": "Found",
+              "uploader": "teszt_a_1776946951"
+            },
+            {
+              "category": "dokumentum",
+              "has_reports": false,
+              "id": 12,
+              "name": "Talalt irataco btneq8d7",
+              "posted": "2026-04-23",
+              "reports": 0,
+              "status": "Active",
+              "type": "Found",
+              "uploader": "teszt_b_1776948151"
+            }
+          ],
+          "total": 48
+        }
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "/api/posts kereses",
+      "sikeres": true,
+      "uzenet": "Admin /api/posts search Teszt-re 10 elem.",
+      "idotartam_ms": 10,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "/api/posts statusz szures",
+      "sikeres": true,
+      "uzenet": "Admin /api/posts status=active csak aktiv posztokat ad.",
+      "idotartam_ms": 12,
+      "reszletek": {
+        "statusz": 200,
+        "elemszam": 10
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "/api/reports lekerdezes",
+      "sikeres": true,
+      "uzenet": "Admin /api/reports elerheto (10 elem).",
+      "idotartam_ms": 9,
+      "reszletek": {
+        "statusz": 200,
+        "elso_report_id": 1,
+        "valasz": {
+          "current_page": 1,
+          "pages": 2,
+          "reports": [
+            {
+              "created": "2026-04-19 10:54",
+              "description": "",
+              "id": 1,
+              "item_id": null,
+              "post": "test1",
+              "reason": "inappropriate",
+              "reporter": "admin",
+              "reporter_id": 4,
+              "status": "Resolved",
+              "type": "User Report",
+              "user_id": 1
+            },
+            {
+              "created": "2026-04-20 11:10",
+              "description": "asdasd",
+              "id": 2,
+              "item_id": 1,
+              "post": "idkvalami",
+              "reason": "other",
+              "reporter": "admin",
+              "reporter_id": 4,
+              "status": "Pending",
+              "type": "Item Report",
+              "user_id": null
+            },
+            {
+              "created": "2026-04-23 14:22",
+              "description": "Valoszinutleg hamis poszt.",
+              "id": 3,
+              "item_id": 9,
+              "post": "Deleted Item",
+              "reason": "hamis",
+              "reporter": "teszt_b_1776946951",
+              "reporter_id": 9,
+              "status": "Pending",
+              "type": "Item Report",
+              "user_id": null
+            },
+            {
+              "created": "2026-04-23 14:42",
+              "description": "Valoszinutleg hamis poszt.",
+              "id": 4,
+              "item_id": 11,
+              "post": "Deleted Item",
+              "reason": "hamis",
+              "reporter": "teszt_b_1776948151",
+              "reporter_id": 11,
+              "status": "Pending",
+              "type": "Item Report",
+              "user_id": null
+            },
+            {
+              "created": "2026-04-23 14:42",
+              "description": "Spam uzenetek.",
+              "id": 5,
+              "item_id": null,
+              "post": "teszt_b_1776948151",
+              "reason": "spam",
+              "reporter": "teszt_a_1776948151",
+              "reporter_id": 10,
+              "status": "Pending",
+              "type": "User Report",
+              "user_id": 11
+            },
+            {
+              "created": "2026-04-23 14:52",
+              "description": "Valoszinutleg hamis poszt.",
+              "id": 6,
+              "item_id": 18,
+              "post": "Deleted Item",
+              "reason": "hamis",
+              "reporter": "teszt_b_1776948729",
+              "reporter_id": 14,
+              "status": "Pending",
+              "type": "Item Report",
+              "user_id": null
+            },
+            {
+              "created": "2026-04-23 14:52",
+              "description": "Spam uzenetek.",
+              "id": 7,
+              "item_id": null,
+              "post": "teszt_b_1776948729",
+              "reason": "spam",
+              "reporter": "teszt_a_1776948729",
+              "reporter_id": 13,
+              "status": "Pending",
+              "type": "User Report",
+              "user_id": 14
+            },
+            {
+              "created": "2026-04-23 15:06",
+              "description": "Valoszinutleg hamis poszt.",
+              "id": 8,
+              "item_id": 25,
+              "post": "Deleted Item",
+              "reason": "hamis",
+              "reporter": "teszt_b_1776949579",
+              "reporter_id": 17,
+              "status": "Pending",
+              "type": "Item Report",
+              "user_id": null
+            },
+            {
+              "created": "2026-04-23 15:06",
+              "description": "Spam uzenetek.",
+              "id": 9,
+              "item_id": null,
+              "post": "teszt_b_1776949579",
+              "reason": "spam",
+              "reporter": "teszt_a_1776949579",
+              "reporter_id": 16,
+              "status": "Pending",
+              "type": "User Report",
+              "user_id": 17
+            },
+            {
+              "created": "2026-04-23 15:20",
+              "description": "Valoszinutleg hamis poszt.",
+              "id": 10,
+              "item_id": 32,
+              "post": "Deleted Item",
+              "reason": "hamis",
+              "reporter": "teszt_b_1776950428",
+              "reporter_id": 23,
+              "status": "Pending",
+              "type": "Item Report",
+              "user_id": null
+            }
+          ],
+          "total": 17
+        }
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Report resolve",
+      "sikeres": true,
+      "uzenet": "Bejelentes rendezettre valtva admin altal.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "message": "Report marked as resolved",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Item (poszt) torlese admin altal",
+      "sikeres": true,
+      "uzenet": "Admin torolte a poszt elemet.",
+      "idotartam_ms": 11,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "message": "Item deleted successfully",
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Admin",
+      "nev": "Nemletezo item torlese 404",
+      "sikeres": true,
+      "uzenet": "Nemletezo item torlesere 404.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 404,
+        "valasz": {
+          "message": "Item not found",
+          "success": false
+        }
+      }
+    },
+    {
+      "kategoria": "I18n",
+      "nev": "Angol Accept-Language",
+      "sikeres": true,
+      "uzenet": "Angol Accept-Language HTTP 200.",
+      "idotartam_ms": 36,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "I18n",
+      "nev": "lang=en cookie",
+      "sikeres": true,
+      "uzenet": "lang=en cookie HTTP 200.",
+      "idotartam_ms": 48,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "I18n",
+      "nev": "Poszt letrehozasa angol leirassal",
+      "sikeres": true,
+      "uzenet": "Angol nyelvu posztot elfogad a rendszer.",
+      "idotartam_ms": 2255,
+      "reszletek": {
+        "statusz": 200,
+        "valasz": {
+          "item_id": 58,
+          "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+          "processing": true,
+          "success": true
+        }
+      }
+    },
+    {
+      "kategoria": "Biztonsag",
+      "nev": "XSS tartalom escape-eles",
+      "sikeres": true,
+      "uzenet": "A sablon helyesen escape-eli az XSS-t tartalmazo nevet.",
+      "idotartam_ms": 3239,
+      "reszletek": {
+        "html_tartalmaz_script": false
+      }
+    },
+    {
+      "kategoria": "Biztonsag",
+      "nev": "SQL injection login nem sikerul",
+      "sikeres": true,
+      "uzenet": "SQL injection kiseret nem fog visszaerni bejelentkezest.",
+      "idotartam_ms": 28,
+      "reszletek": {
+        "statusz": 200
+      }
+    },
+    {
+      "kategoria": "Autentikacio",
+      "nev": "2. felhasznalo kijelentkezes",
+      "sikeres": true,
+      "uzenet": "Kijelentkezes HTTP 302.",
+      "idotartam_ms": 3,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Kijelentkezes utan vedett oldal atiranyitva",
+      "sikeres": true,
+      "uzenet": "Kijelentkezes utan a vedett oldal atiranyit.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "Jogosultsag",
+      "nev": "Bejelentkezes nelkul nem torolheto poszt",
+      "sikeres": true,
+      "uzenet": "Bejelentkezes nelkul nem lehet posztot torolni.",
+      "idotartam_ms": 2,
+      "reszletek": {
+        "statusz": 302
+      }
+    },
+    {
+      "kategoria": "Poszt",
+      "nev": "Tulajdonos torli a sajat posztot",
+      "sikeres": true,
+      "uzenet": "A tulajdonos torolte a sajat posztot.",
+      "idotartam_ms": 8,
+      "reszletek": {
+        "statusz": 200,
+        "json": {
+          "message": "Poszt törölve.",
+          "success": true
+        }
+      }
+    }
+  ]
+}

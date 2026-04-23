@@ -44,27 +44,27 @@ def posts():
 @login_required
 @admin_required
 def metrics():
-    memory = psutil.virtual_memory()
-    cpu_usage_percent = psutil.cpu_percent(interval=0.2)
-    cpu_freq = psutil.cpu_freq()
-    logical_cores = psutil.cpu_count(logical=True) or 0
-    total_users = User.query.count()
-    total_posts = Item.query.count()
-    pending_reports = Reports.query.filter_by(pending=True).count()
+    try:
+        memory = psutil.virtual_memory()
+        cpu_usage_percent = psutil.cpu_percent(interval=0.2)
+        cpu_freq = psutil.cpu_freq()
+        logical_cores = psutil.cpu_count(logical=True) or 0
+        total_users = User.query.count()
+        total_posts = Item.query.count()
+        pending_reports = Reports.query.filter_by(pending=True).count()
 
-    ram_total_gb = round(memory.total / (1024 ** 3), 2)
-    ram_used_gb = round(memory.used / (1024 ** 3), 2)
-    ram_percent_used = round(memory.percent, 1)
+        ram_total_gb = round(memory.total / (1024 ** 3), 2)
+        ram_used_gb = round(memory.used / (1024 ** 3), 2)
+        ram_percent_used = round(memory.percent, 1)
 
-    cpu_current_frequency_ghz = None
-    cpu_max_frequency_ghz = None
-    if cpu_freq:
-        cpu_current_frequency_ghz = round(cpu_freq.current / 1000, 2)
-        if cpu_freq.max and cpu_freq.max > 0:
-            cpu_max_frequency_ghz = round(cpu_freq.max / 1000, 2)
+        cpu_current_frequency_ghz = None
+        cpu_max_frequency_ghz = None
+        if cpu_freq:
+            cpu_current_frequency_ghz = round(cpu_freq.current / 1000, 2)
+            if cpu_freq.max and cpu_freq.max > 0:
+                cpu_max_frequency_ghz = round(cpu_freq.max / 1000, 2)
 
-    return jsonify(
-        {
+        return jsonify({
             "ram": {
                 "total_gb": ram_total_gb,
                 "used_gb": ram_used_gb,
@@ -83,8 +83,9 @@ def metrics():
                 "total_posts": total_posts,
                 "pending_reports": pending_reports,
             },
-        }
-    )
+        })
+    except Exception as e:
+        return jsonify({"error": str(e), "ram": {}, "cpu": {}, "stats": {}}), 500
 
 
 @admin_routes.route("/api/users")
@@ -92,47 +93,50 @@ def metrics():
 @admin_required
 def api_users():
     """Get all users data"""
-    page = request.args.get('page', 1, type=int)
-    per_page = 10
-    
-    # Apply filters
-    query = User.query
-    role = request.args.get('role')
-    search = request.args.get('search', '')
-    
-    if search:
-        query = query.filter(
-            (User.username.ilike(f'%{search}%')) |
-            (User.email.ilike(f'%{search}%')) |
-            (User.name.ilike(f'%{search}%'))
-        )
-    
-    if role and role != 'all':
-        query = query.filter(User.role == role)
-    
-    # Get paginated results
-    users_paginated = query.paginate(page=page, per_page=per_page)
-    
-    users_data = []
-    for user in users_paginated.items:
-        post_count = Item.query.filter_by(uploader_id=user.id).count()
-        users_data.append({
-            'id': user.id,
-            'username': user.username,
-            'name': user.name or user.username,
-            'email': user.email or 'N/A',
-            'role': user.role,
-            'posts': post_count,
-            'joined': user.created_at.strftime('%Y-%m-%d'),
-            '2fa': '✓' if user._2fa_enabled else '✗'
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = 10
+        
+        # Apply filters
+        query = User.query
+        role = request.args.get('role')
+        search = request.args.get('search', '')
+        
+        if search:
+            query = query.filter(
+                (User.username.ilike(f'%{search}%')) |
+                (User.email.ilike(f'%{search}%')) |
+                (User.name.ilike(f'%{search}%'))
+            )
+        
+        if role and role != 'all':
+            query = query.filter(User.role == role)
+        
+        # Get paginated results
+        users_paginated = query.paginate(page=page, per_page=per_page)
+        
+        users_data = []
+        for user in users_paginated.items:
+            post_count = Item.query.filter_by(uploader_id=user.id).count()
+            users_data.append({
+                'id': user.id,
+                'username': user.username,
+                'name': user.name or user.username,
+                'email': user.email or 'N/A',
+                'role': user.role,
+                'posts': post_count,
+                'joined': user.created_at.strftime('%Y-%m-%d'),
+                '2fa': '✓' if user._2fa_enabled else '✗'
+            })
+        
+        return jsonify({
+            'users': users_data,
+            'total': users_paginated.total,
+            'pages': users_paginated.pages,
+            'current_page': page
         })
-    
-    return jsonify({
-        'users': users_data,
-        'total': users_paginated.total,
-        'pages': users_paginated.pages,
-        'current_page': page
-    })
+    except Exception as e:
+        return jsonify({'error': str(e), 'users': []}), 500
 
 
 @admin_routes.route("/api/posts")
@@ -140,59 +144,62 @@ def api_users():
 @admin_required
 def api_posts():
     """Get all posts data"""
-    page = request.args.get('page', 1, type=int)
-    per_page = 10
-    
-    # Apply filters
-    query = Item.query
-    status = request.args.get('status')
-    category = request.args.get('category')
-    search = request.args.get('search', '')
-    
-    if search:
-        query = query.filter(
-            (Item.name.ilike(f'%{search}%')) |
-            (Item.description_hu.ilike(f'%{search}%')) |
-            (Item.description_en.ilike(f'%{search}%'))
-        )
-    
-    if status and status != 'all':
-        if status == 'active':
-            query = query.filter(Item.active == True, Item.is_closed == False)
-        elif status == 'closed':
-            query = query.filter(Item.is_closed == True)
-        elif status == 'inactive':
-            query = query.filter(Item.active == False)
-    
-    if category and category != 'all':
-        query = query.filter(Item.category_id == category)
-    
-    # Get paginated results
-    posts_paginated = query.paginate(page=page, per_page=per_page)
-    
-    posts_data = []
-    for post in posts_paginated.items:
-        reporter_count = Reports.query.filter_by(item_id=post.id, pending=True).count()
-        uploader = User.query.get(post.uploader_id)
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = 10
         
-        posts_data.append({
-            'id': post.id,
-            'name': post.name,
-            'uploader': uploader.username if uploader else 'Unknown',
-            'type': post.type.capitalize(),
-            'status': 'Closed' if post.is_closed else ('Active' if post.active else 'Inactive'),
-            'category': post.category.name if post.category else 'N/A',
-            'reports': reporter_count,
-            'posted': post.created_at.strftime('%Y-%m-%d'),
-            'has_reports': reporter_count > 0
+        # Apply filters
+        query = Item.query
+        status = request.args.get('status')
+        category = request.args.get('category')
+        search = request.args.get('search', '')
+        
+        if search:
+            query = query.filter(
+                (Item.name.ilike(f'%{search}%')) |
+                (Item.description_hu.ilike(f'%{search}%')) |
+                (Item.description_en.ilike(f'%{search}%'))
+            )
+        
+        if status and status != 'all':
+            if status == 'active':
+                query = query.filter(Item.active == True, Item.is_closed == False)
+            elif status == 'closed':
+                query = query.filter(Item.is_closed == True)
+            elif status == 'inactive':
+                query = query.filter(Item.active == False)
+        
+        if category and category != 'all':
+            query = query.filter(Item.category_id == category)
+        
+        # Get paginated results
+        posts_paginated = query.paginate(page=page, per_page=per_page)
+        
+        posts_data = []
+        for post in posts_paginated.items:
+            reporter_count = Reports.query.filter_by(item_id=post.id, pending=True).count()
+            uploader = User.query.get(post.uploader_id)
+            
+            posts_data.append({
+                'id': post.id,
+                'name': post.name,
+                'uploader': uploader.username if uploader else 'Unknown',
+                'type': post.type.capitalize(),
+                'status': 'Closed' if post.is_closed else ('Active' if post.active else 'Inactive'),
+                'category': post.category.name if post.category else 'N/A',
+                'reports': reporter_count,
+                'posted': post.created_at.strftime('%Y-%m-%d'),
+                'has_reports': reporter_count > 0
+            })
+        
+        return jsonify({
+            'posts': posts_data,
+            'total': posts_paginated.total,
+            'pages': posts_paginated.pages,
+            'current_page': page
         })
-    
-    return jsonify({
-        'posts': posts_data,
-        'total': posts_paginated.total,
-        'pages': posts_paginated.pages,
-        'current_page': page
-    })
+    except Exception as e:
+        return jsonify({'error': str(e), 'posts': []}), 500
 
 
 @admin_routes.route("/api/reports")
@@ -200,67 +207,70 @@ def api_posts():
 @admin_required
 def api_reports():
     """Get all reports data"""
-    page = request.args.get('page', 1, type=int)
-    per_page = 10
-    
-    # Apply filters
-    query = Reports.query
-    status = request.args.get('status')
-    search = request.args.get('search', '')
-    
-    if search:
-        query = query.join(User).outerjoin(Item).filter(
-            (User.username.ilike(f'%{search}%')) |
-            (Item.name.ilike(f'%{search}%')) |
-            (Reports.reason.ilike(f'%{search}%'))
-        )
-    
-    if status and status != 'all':
-        if status == 'pending':
-            query = query.filter(Reports.pending == True)
-        elif status == 'resolved':
-            query = query.filter(Reports.pending == False)
-    
-    # Get paginated results
-    reports_paginated = query.paginate(page=page, per_page=per_page)
-    
-    reports_data = []
-    for report in reports_paginated.items:
-        reporter = User.query.get(report.reporter_id)
+    try:
+        page = request.args.get('page', 1, type=int)
+        per_page = 10
         
-        # Determine report type (item or user)
-        if report.item_id:
-            item = Item.query.get(report.item_id)
-            target_name = item.name if item else 'Deleted Item'
-            report_type = 'Item Report'
-        elif report.user_id:
-            reported_user = User.query.get(report.user_id)
-            target_name = reported_user.username if reported_user else 'Deleted User'
-            report_type = 'User Report'
-        else:
-            target_name = 'Unknown'
-            report_type = 'Report'
+        # Apply filters
+        query = Reports.query
+        status = request.args.get('status')
+        search = request.args.get('search', '')
         
-        reports_data.append({
-            'id': report.id,
-            'reporter': reporter.username if reporter else 'Unknown',
-            'reporter_id': report.reporter_id,
-            'post': target_name,
-            'reason': report.reason or 'No reason',
-            'status': 'Pending' if report.pending else 'Resolved',
-            'created': report.created_at.strftime('%Y-%m-%d %H:%M'),
-            'type': report_type,
-            'item_id': report.item_id,
-            'user_id': report.user_id,
-            'description': report.content or ''
+        if search:
+            query = query.join(User).outerjoin(Item).filter(
+                (User.username.ilike(f'%{search}%')) |
+                (Item.name.ilike(f'%{search}%')) |
+                (Reports.reason.ilike(f'%{search}%'))
+            )
+        
+        if status and status != 'all':
+            if status == 'pending':
+                query = query.filter(Reports.pending == True)
+            elif status == 'resolved':
+                query = query.filter(Reports.pending == False)
+        
+        # Get paginated results
+        reports_paginated = query.paginate(page=page, per_page=per_page)
+        
+        reports_data = []
+        for report in reports_paginated.items:
+            reporter = User.query.get(report.reporter_id)
+            
+            # Determine report type (item or user)
+            if report.item_id:
+                item = Item.query.get(report.item_id)
+                target_name = item.name if item else 'Deleted Item'
+                report_type = 'Item Report'
+            elif report.user_id:
+                reported_user = User.query.get(report.user_id)
+                target_name = reported_user.username if reported_user else 'Deleted User'
+                report_type = 'User Report'
+            else:
+                target_name = 'Unknown'
+                report_type = 'Report'
+            
+            reports_data.append({
+                'id': report.id,
+                'reporter': reporter.username if reporter else 'Unknown',
+                'reporter_id': report.reporter_id,
+                'post': target_name,
+                'reason': report.reason or 'No reason',
+                'status': 'Pending' if report.pending else 'Resolved',
+                'created': report.created_at.strftime('%Y-%m-%d %H:%M'),
+                'type': report_type,
+                'item_id': report.item_id,
+                'user_id': report.user_id,
+                'description': report.content or ''
+            })
+        
+        return jsonify({
+            'reports': reports_data,
+            'total': reports_paginated.total,
+            'pages': reports_paginated.pages,
+            'current_page': page
         })
-    
-    return jsonify({
-        'reports': reports_data,
-        'total': reports_paginated.total,
-        'pages': reports_paginated.pages,
-        'current_page': page
-    })
+    except Exception as e:
+        return jsonify({'error': str(e), 'reports': []}), 500
 
 
 @admin_routes.route("/api/reports/<int:report_id>/resolve", methods=['POST'])
@@ -268,14 +278,21 @@ def api_reports():
 @admin_required
 def resolve_report(report_id):
     """Mark a report as resolved"""
-    report = Reports.query.get_or_404(report_id)
-    report.pending = False
-    db.session.commit()
-    
-    return jsonify({
-        'success': True,
-        'message': 'Report marked as resolved'
-    })
+    try:
+        report = Reports.query.get(report_id)
+        if not report:
+            return jsonify({'success': False, 'message': 'Report not found'}), 404
+        
+        report.pending = False
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Report marked as resolved'
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 
 @admin_routes.route("/api/items/<int:item_id>/delete", methods=['POST'])
@@ -283,26 +300,32 @@ def resolve_report(report_id):
 @admin_required
 def delete_item(item_id):
     """Delete a post/item"""
-    item = Item.query.get_or_404(item_id)
+    item = Item.query.get(item_id)
+    if not item:
+        return jsonify({'success': False, 'message': 'Item not found'}), 404
     
-    # Delete related attachments
-    attachments = Attachment.query.filter_by(item_id=item_id).all()
-    for attachment in attachments:
-        db.session.delete(attachment)
-    
-    # Delete related reports
-    reports = Reports.query.filter_by(item_id=item_id).all()
-    for report in reports:
-        db.session.delete(report)
-    
-    # Delete the item
-    db.session.delete(item)
-    db.session.commit()
-    
-    return jsonify({
-        'success': True,
-        'message': 'Item deleted successfully'
-    })
+    try:
+        # Delete related attachments
+        attachments = Attachment.query.filter_by(item_id=item_id).all()
+        for attachment in attachments:
+            db.session.delete(attachment)
+        
+        # Delete related reports
+        reports = Reports.query.filter_by(item_id=item_id).all()
+        for report in reports:
+            db.session.delete(report)
+        
+        # Delete the item
+        db.session.delete(item)
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Item deleted successfully'
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 
 @admin_routes.route("/api/users/<int:user_id>/delete", methods=['POST'])
@@ -310,52 +333,58 @@ def delete_item(item_id):
 @admin_required
 def delete_user(user_id):
     """Delete a user and all their posts"""
-    user = User.query.get_or_404(user_id)
-    
-    # Get all items (posts) created by this user
-    items = Item.query.filter_by(uploader_id=user_id).all()
-    
-    # Delete all items and their attachments
-    for item in items:
-        # Delete attachments
-        attachments = Attachment.query.filter_by(item_id=item.id).all()
-        for attachment in attachments:
-            db.session.delete(attachment)
+    try:
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({'success': False, 'message': 'User not found'}), 404
         
-        # Delete reports related to this item
-        item_reports = Reports.query.filter_by(item_id=item.id).all()
-        for report in item_reports:
+        # Get all items (posts) created by this user
+        items = Item.query.filter_by(uploader_id=user_id).all()
+        
+        # Delete all items and their attachments
+        for item in items:
+            # Delete attachments
+            attachments = Attachment.query.filter_by(item_id=item.id).all()
+            for attachment in attachments:
+                db.session.delete(attachment)
+            
+            # Delete reports related to this item
+            item_reports = Reports.query.filter_by(item_id=item.id).all()
+            for report in item_reports:
+                db.session.delete(report)
+            
+            # Delete the item
+            db.session.delete(item)
+        
+        # Delete reports about this user
+        user_reports = Reports.query.filter_by(user_id=user_id).all()
+        for report in user_reports:
             db.session.delete(report)
         
-        # Delete the item
-        db.session.delete(item)
-    
-    # Delete reports about this user
-    user_reports = Reports.query.filter_by(user_id=user_id).all()
-    for report in user_reports:
-        db.session.delete(report)
-    
-    # Delete messages sent by this user
-    messages_sent = Messages.query.filter_by(sender_id=user_id).all()
-    for message in messages_sent:
-        db.session.delete(message)
-    
-    # Delete messages received by this user
-    messages_received = Messages.query.filter_by(receiver_id=user_id).all()
-    for message in messages_received:
-        db.session.delete(message)
-    
-    # Delete 2FA record if exists
-    if user._2fa_id:
-        twofa = TwoFactorAuth.query.get(user._2fa_id)
-        if twofa:
-            db.session.delete(twofa)
-    
-    # Delete the user
-    db.session.delete(user)
-    db.session.commit()
-    
-    return jsonify({
-        'success': True,
-        'message': 'User and all related data deleted successfully'
-    })
+        # Delete messages sent by this user
+        messages_sent = Messages.query.filter_by(sender_id=user_id).all()
+        for message in messages_sent:
+            db.session.delete(message)
+        
+        # Delete messages received by this user
+        messages_received = Messages.query.filter_by(receiver_id=user_id).all()
+        for message in messages_received:
+            db.session.delete(message)
+        
+        # Delete 2FA record if exists
+        if user._2fa_id:
+            twofa = TwoFactorAuth.query.get(user._2fa_id)
+            if twofa:
+                db.session.delete(twofa)
+        
+        # Delete the user
+        db.session.delete(user)
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': 'User and all related data deleted successfully'
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
