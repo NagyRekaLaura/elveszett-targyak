@@ -4478,6 +4478,7 @@ input[type="checkbox"]:focus {
   background: var(--light-bg);
   border-radius: 6px;
   border-left: 3px solid var(--button-color);
+  border-bottom: 1px solid var(--button-color);
 }
 
 .detail-row strong {
@@ -4578,20 +4579,29 @@ input[type="checkbox"]:focus {
   background-color: #7f8c8d;
 }
 
-.modal-footer .btn-delete {
+.modal-footer .btn-rdelete {
   background-color: #e74c3c;
+  color: white;
 }
 
-.modal-footer .btn-delete:hover {
+.modal-footer .btn-rdelete:hover {
   background-color: #c0392b;
 }
 
-.modal-footer .btn-punish {
-  background-color: #f39c12;
+.modal-footer .btn-warning{
+  background-color: #f6c72f;
+  color: white;
+}
+.modal-footer .btn-suspend {
+  background-color: #f37f12;
+  color: white;
 }
 
-.modal-footer .btn-punish:hover {
-  background-color: #e67e22;
+.modal-footer .btn-warning:hover {
+  background-color: #e6c522;
+}
+.modal-footer .btn-suspend:hover {
+  background-color: #c6580e;
 }
 
 @media (max-width: 768px) {

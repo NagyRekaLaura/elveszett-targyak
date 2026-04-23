@@ -88,45 +88,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="activity-section">
-                        <div class="section-header">
-                            <h3>Recent Activity</h3>
-                        </div>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: #3498db;"><i class="fas fa-user-plus"></i></div>
-                                <div class="activity-content">
-                                    <p><strong>New user registration - </strong> Test User </p>
-                                    <span class="activity-time">2 hours ago</span>
-                                </div>
-                                <span class="activity-status">New</span>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: #e74c3c;"><i class="fas fa-ban"></i></div>
-                                <div class="activity-content">
-                                    <p><strong>User suspended - </strong> Spam Activity</p>
-                                    <span class="activity-time">5 hours ago</span>
-                                </div>
-                                <span class="activity-status">Action</span>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: #2ecc71;"><i class="fas fa-flag"></i></div>
-                                <div class="activity-content">
-                                    <p><strong>Post reported - </strong> Inappropriate content (5 reports)</p>
-                                    <span class="activity-time">1 day ago</span>
-                                </div>
-                                <span class="activity-status">Pending</span>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background: #f39c12;"><i class="fas fa-edit"></i></div>
-                                <div class="activity-content">
-                                    <p><strong>Post edited - </strong> Test User updated their post</p>
-                                    <span class="activity-time">1 day ago</span>
-                                </div>
-                                <span class="activity-status">Info</span>
-                            </div>
-                        </div>
-                    </div>
                 </section>
             </div>
 
@@ -346,10 +307,10 @@
                 <div id="reportDetails"></div>
             </div>
             <div class="modal-footer">
-                <button class="btn-primary btn-delete" onclick="handleDeleteUserPost()"><i class="fas fa-trash"></i> Delete</button>
-                <button class="btn-primary btn-punish" onclick="handlePunishUser()"><i class="fas fa-gavel"></i> Punish</button>
+                <button class="btn-suspend" onclick="handleSuspendUser()"><i class="fas fa-ban"></i> Suspend</button>
+                <button class="btn-warning" onclick="handleWarnUser()"><i class="fas fa-exclamation-triangle"></i> Warn</button>
+                <button class="btn-rdelete" onclick="handleDeleteUserPost()"><i class="fas fa-trash"></i> Delete</button>
                 <button class="btn-success" onclick="handleResolveReport()"><i class="fas fa-check"></i> Resolve</button>
-                <button class="btn-secondary" onclick="closeReportDetailsModal()">Close</button>
             </div>
         </div>
     </div>
