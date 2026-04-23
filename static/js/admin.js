@@ -671,14 +671,109 @@ function handleDeleteUserPost() {
 function handlePunishUser() {
     if (!currentReport) return;
     
-    const punishment = prompt('Enter punishment (e.g., "suspend", "warn", "ban"):');
-    if (!punishment) return;
+    const punishment = prompt('Enter punishment type (ban, suspend, warn):');
+    if (!punishment || !['ban', 'suspend', 'warn'].includes(punishment.toLowerCase())) {
+        showToast('Invalid punishment type', 'error');
+        return;
+    }
     
-    // Here you would make an API call to punish the user
-    console.log(`Punishing user with ${punishment}:`, currentReport);
-    showToast(`User punished with: ${punishment}`, 'success');
-    closeReportDetailsModal();
-    loadReportsData();
+    const reason = prompt('Enter reason for punishment:');
+    if (!reason) {
+        showToast('Reason is required', 'error');
+        return;
+    }
+    
+    fetch(`/admin/api/punish-user/${currentReport.reporter_id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type: punishment.toLowerCase(),
+            reason: reason,
+            duration_days: 30
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(`User punished with ${punishment}`, 'success');
+            closeReportDetailsModal();
+            loadReportsData();
+        } else {
+            showToast(data.message || 'Error punishing user', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error punishing user', 'error');
+    });
+}
+
+function handleSuspendUser() {
+    if (!currentReport) return;
+    
+    const reason = prompt('Enter reason for suspension:');
+    if (!reason) return;
+    
+    fetch(`/admin/api/punish-user/${currentReport.reporter_id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type: 'suspend',
+            reason: reason,
+            duration_days: 30
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('User suspended', 'success');
+            closeReportDetailsModal();
+            loadReportsData();
+        } else {
+            showToast(data.message || 'Error suspending user', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error suspending user', 'error');
+    });
+}
+
+function handleWarnUser() {
+    if (!currentReport) return;
+    
+    const reason = prompt('Enter reason for warning:');
+    if (!reason) return;
+    
+    fetch(`/admin/api/punish-user/${currentReport.reporter_id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type: 'warn',
+            reason: reason,
+            duration_days: 30
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('User warned', 'success');
+            closeReportDetailsModal();
+            loadReportsData();
+        } else {
+            showToast(data.message || 'Error warning user', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error warning user', 'error');
+    });
 }
 
 function handleResolveReport() {

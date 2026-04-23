@@ -1,5 +1,5 @@
 from .main import socketio, notify_user
-from database import db, User, Attachment, Messages
+from database import db, User, Attachment, Messages, Punishments
 from flask_login import current_user, login_required
 from flask_socketio import emit, join_room, leave_room, rooms
 from datetime import datetime
@@ -59,11 +59,19 @@ def handle_get_conversations():
     # Alapértelmezett rendszer-chat üdvözlő üzenettel
     system_welcome_message = "Üdvözlünk az Elveszett Tárgyak Közösségében! 🎉\n\nEbben a csatornában információkat találsz a platformról. Ha bármilyen kérdésed van, írj bátran!"
     
+    # Check if user has an active warning
+    warn_punishment = Punishments.query.filter_by(user_id=user_id, is_warning=True).all()
+    
+    # Use warning message as preview if exists, otherwise use welcome message
+    preview_message = system_welcome_message
+    if warn_punishment and warn_punishment[len(warn_punishment)-1].reason:
+        preview_message = f"⚠️ Figyelmeztetésed van: {warn_punishment[len(warn_punishment)-1].reason}"
+    
     conversation_list.append({
         'id': 0,  # Special ID for system chat
         'name': 'Rendszer',
         'pic': '/static/attachments/system.png',
-        'lastMsg': system_welcome_message[:30] + '...',
+        'lastMsg': preview_message[:30] + '...',
         'time': current_user.created_at.strftime('%H:%M'),
         'status': 'online',
         'unread': 0,
@@ -142,9 +150,22 @@ def handle_get_messages(data):
             'id': 0,
             'type': 'other',
             'text': system_welcome_message,
-            'time': '09:00',
+            'time': current_user.created_at.strftime('%H:%M'),
             'seen': True
         })
+        
+        # Check if user has an active warning
+        warn_punishment = Punishments.query.filter_by(user_id=user_id, is_warning=True).all()
+        for warn in warn_punishment:
+            warning_message = f"⚠️ Figyelmeztetésed van: {warn.reason}"
+            messages_list.append({
+                'id': 0,
+                'type': 'other',
+                'text': warning_message,
+                'time': warn.created_at.strftime('%H:%M'),
+                'seen': warn.expires_at is not None and warn.expires_at < datetime.now()
+            })
+        
         emit('messages', messages_list)
         return
     # ============== END SYSTEM CHAT ==============

@@ -165,6 +165,17 @@ class Reports(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     pending = db.Column(db.Boolean, default=True)
 
+
+class Punishments(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    reason = db.Column(db.Text, nullable=True)
+    expires_at = db.Column(db.DateTime, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    is_ban = db.Column(db.Boolean, default=False)
+    is_warning = db.Column(db.Boolean, default=False)
+    is_suspension = db.Column(db.Boolean, default=False)
+
 def init_db(app):
     with app.app_context():
         db.create_all()

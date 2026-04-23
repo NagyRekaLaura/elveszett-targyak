@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
 from flask_login import current_user, login_required, login_user, logout_user
-from database import PasswordResetToken, db, User, TwoFactorAuth
+from database import PasswordResetToken, db, User, TwoFactorAuth, Punishments
 from flask import current_app as app, flash
 from routes.send_mail import send_password_reset_email
+from datetime import datetime
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -19,6 +20,27 @@ def login():
                 return render_template("login.html", error="Jelszó túl hosszú")
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
+                # Check if user is banned
+                ban_punishment = Punishments.query.filter_by(user_id=user.id, is_ban=True).first()
+                if ban_punishment:
+                    flash("Fiókod bannolva van. Nem tudod bejelentkezni.", "error")
+                    return render_template("login.html", error="Fiók bannolva")
+                
+                # Check if user is suspended (show warning but allow login)
+                suspend_punishment = Punishments.query.filter_by(user_id=user.id, is_suspension=True).first()
+                if suspend_punishment:
+                    if suspend_punishment.expires_at and suspend_punishment.expires_at > datetime.now():
+                        flash(f"Fiókod felfüggesztve van. Visszaállítás: {suspend_punishment.expires_at.strftime('%Y-%m-%d %H:%M')}", "warning")
+                    else:
+                        # Suspension expired, delete the record
+                        db.session.delete(suspend_punishment)
+                        db.session.commit()
+                
+                # Check for warnings
+                warn_punishment = Punishments.query.filter_by(user_id=user.id, is_warning=True).first()
+                if warn_punishment and (not warn_punishment.expires_at or warn_punishment.expires_at > datetime.now()):
+                    flash(f"Figyelmeztetésed van: {warn_punishment.reason}", "warning")
+                
                 if user._2fa_enabled:
                     session['2fa_user_id'] = user.id
                     return redirect(url_for("auth.verify_2fa"))

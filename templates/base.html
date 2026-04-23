@@ -36,8 +36,8 @@
             </div>
             {% endif %}
 
-            <form class="d-flex desktop-search" role="search" {% block search %}{% endblock %}>
-                <input class="form-control me-2 search" type="search" placeholder="&#x1F50D  Keresés"
+            <form class="d-flex desktop-search" role="search" method="get" action="{{ url_for('main.home') }}" {% block search %}{% endblock %}>
+                <input class="form-control me-2 search" type="search" name="q" value="{{ request.args.get('q', '') }}" placeholder="&#x1F50D  Keresés"
                     aria-label="Search" data-i18n-attr="placeholder:nav.search" />
             </form>
 
@@ -45,7 +45,9 @@
                 <a href="#" class="mobile-search-icon" title="Keresés" data-i18n-attr="title:nav.search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </a>
-                <input class="mobile-navbar-search-input" type="search" placeholder="Search" data-i18n-attr="placeholder:nav.search" style="display: none;">
+                <form class="mobile-navbar-search-form" method="get" action="{{ url_for('main.home') }}" style="display: none;">
+                    <input class="mobile-navbar-search-input" type="search" name="q" value="{{ request.args.get('q', '') }}" placeholder="Search" data-i18n-attr="placeholder:nav.search">
+                </form>
                 {% if current_user.is_authenticated %}
                 <a href="{{ url_for('profile.profile') }}" class="mobile-profile-icon" title="Profil">
                     <i class="fa-solid fa-circle-user"></i>

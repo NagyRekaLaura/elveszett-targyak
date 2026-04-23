@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, current_app
 from flask_login import login_required, current_user
-from database import db, User, Item, Attachment, Category, Reports
+from database import db, User, Item, Attachment, Category, Reports, Punishments
 from werkzeug.utils import secure_filename, send_from_directory
 import os
 import threading
 import uuid
 from routes.translate import Translate
+from datetime import datetime
 
 post_routes = Blueprint("post", __name__)
 
@@ -70,6 +71,19 @@ def _translate_in_background(app, item_id, source_language, source_text):
 @post_routes.route('/post/create', methods=['POST'])
 @login_required
 def create_post():
+    # Check if user is suspended
+    suspend_punishment = Punishments.query.filter_by(user_id=current_user.id, is_suspension=True).first()
+    if suspend_punishment:
+        if suspend_punishment.expires_at and suspend_punishment.expires_at > datetime.now():
+            return jsonify({
+                'success': False,
+                'error': 'Fiókod felfüggesztve van. Nem tudsz posztot létrehozni.'
+            }), 403
+        else:
+            # Suspension expired, delete the record
+            db.session.delete(suspend_punishment)
+            db.session.commit()
+    
     name = request.form.get('name', '').strip()
     description = request.form.get('description', '').strip()
     language = _normalize_language(

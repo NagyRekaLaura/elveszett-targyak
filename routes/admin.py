@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required
 import psutil
-from database import Item, Reports, User, db, Attachment, Messages, TwoFactorAuth
+from database import Item, Reports, User, db, Attachment, Messages, TwoFactorAuth, Punishments
 from functools import wraps
 from flask import abort
 from flask_login import current_user
+from datetime import datetime, timedelta
 admin_routes = Blueprint("admin", __name__, url_prefix="/admin")
 
 
@@ -384,6 +385,50 @@ def delete_user(user_id):
         return jsonify({
             'success': True,
             'message': 'User and all related data deleted successfully'
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+
+@admin_routes.route("/api/punish-user/<int:user_id>", methods=['POST'])
+@login_required
+@admin_required
+def punish_user(user_id):
+    """Punish a user (ban, suspend, or warn)"""
+    try:
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({'success': False, 'message': 'User not found'}), 404
+        
+        punishment_type = request.json.get('type')  # 'ban', 'suspend', 'warn'
+        reason = request.json.get('reason', '')
+        duration_days = request.json.get('duration_days', 30)
+        
+        if punishment_type not in ('ban', 'suspend', 'warn'):
+            return jsonify({'success': False, 'message': 'Invalid punishment type'}), 400
+        
+        # Calculate expiration date (for suspend and warn)
+        expires_at = None
+        if punishment_type in ('suspend', 'warn'):
+            expires_at = datetime.now() + timedelta(days=duration_days)
+        
+        # Create punishment record
+        punishment = Punishments(
+            user_id=user_id,
+            reason=reason,
+            expires_at=expires_at,
+            is_ban=(punishment_type == 'ban'),
+            is_suspension=(punishment_type == 'suspend'),
+            is_warning=(punishment_type == 'warn')
+        )
+        
+        db.session.add(punishment)
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': f'User punished with {punishment_type}'
         })
     except Exception as e:
         db.session.rollback()
