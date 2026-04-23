@@ -50,13 +50,42 @@ document.addEventListener("DOMContentLoaded", function () {
         if (label && icon) {
             update2FAUI(enable2FA, icon, label);
 
-            enable2FA.addEventListener('change', function() {
-                if (this.checked && modal) {
-                    modal.show();
-                    clearOtpInputs();
-                    if (otpError) otpError.style.display = 'none';
+            enable2FA.addEventListener('change', async function() {
+                const isCurrentlyEnabled = this.getAttribute('data-2fa-enabled') === 'true';
+                const isNowChecked = this.checked;
+                
+                if (isNowChecked && !isCurrentlyEnabled) {
+                    try {
+                        const response = await fetch('/generate2fa_qr', {
+                            method: 'POST'
+                        });
+                        const data = await response.json();
+                        
+                        if (data.success && data.qr_code) {
+                            const qrImage = document.querySelector('#twoFAModal img');
+                            if (qrImage) {
+                                qrImage.src = 'data:image/png;base64,' + data.qr_code;
+                            }
+                            if (modal) {
+                                modal.show();
+                                clearOtpInputs();
+                                if (otpError) otpError.style.display = 'none';
+                            }
+                        } else {
+                            showToast(data.error || 'Hiba a QR kód generálása során');
+                            this.checked = false;
+                            update2FAUI(this, icon, label);
+                        }
+                    } catch (error) {
+                        showToast('Hálózati hiba a QR kód generálása során');
+                        this.checked = false;
+                        update2FAUI(this, icon, label);
+                    }
+                } else if (!isNowChecked && isCurrentlyEnabled) {
+                    update2FAUI(this, icon, label);
+                } else {
+                    update2FAUI(this, icon, label);
                 }
-                update2FAUI(this, icon, label);
             });
         }
     }
@@ -87,7 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cancelBtn) {
         cancelBtn.addEventListener("click", function () {
             if (enable2FA) {
-                enable2FA.checked = false;
+                const initialState = enable2FA.getAttribute('data-2fa-enabled') === 'true';
+                enable2FA.checked = initialState;
                 const label = enable2FA.closest('.privacy-toggle');
                 const icon = enable2FA.nextElementSibling;
                 if (label && icon) {
@@ -106,7 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
         modalEl.addEventListener('hidden.bs.modal', function () {
             const verified = verifyBtn && verifyBtn.dataset && verifyBtn.dataset.verified;
             if (enable2FA && !verified) {
-                enable2FA.checked = false;
+                const initialState = enable2FA.getAttribute('data-2fa-enabled') === 'true';
+                enable2FA.checked = initialState;
                 const label = enable2FA.closest('.privacy-toggle');
                 const icon = enable2FA.nextElementSibling;
                 if (label && icon) {
@@ -163,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (otpError) otpError.style.display = 'none';
             if (enable2FA) {
                 verifyBtn.dataset.verified = 'true';
+                verifyBtn.dataset.verificationCode = code;
             }
             if (modal) {
                 modal.hide();
@@ -232,7 +264,26 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append('birthdate', birthdate);
             formData.append('address', address);
             formData.append('address_is_private', document.getElementById('addressPrivate').checked);
-            formData.append('2fa_enabled', enable2FA ? enable2FA.checked : false);
+            
+            if (enable2FA) {
+                const initialState = enable2FA.getAttribute('data-2fa-enabled') === 'true';
+                const currentState = enable2FA.checked;
+                
+                if (currentState && !initialState) {
+                    if (!verifyBtn.dataset.verified) {
+                        showToast('2FA bekapcsolásához szükséges a kód ellenőrzése!');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnHTML;
+                        return;
+                    }
+                    formData.append('2fa_action', 'enable');
+                    formData.append('2fa_code', verifyBtn.dataset.verificationCode);
+                } else if (!currentState && initialState) {
+                    formData.append('2fa_action', 'disable');
+                } else {
+                    formData.append('2fa_action', 'none');
+                }
+            }
 
             const profilePicFile = document.getElementById('profilePic').files[0];
             if (profilePicFile) {

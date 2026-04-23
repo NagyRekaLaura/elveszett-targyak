@@ -18,8 +18,6 @@
             <form id="twoFAForm" action="{{ url_for('auth.verify_2fa') }}" method="post">
                 <div class="form-group text-center mb-4">
                     <p data-i18n="2fa.description">Írja be az alkalmazásban látható 6 számjegyű kódot:</p>
-                </div>
-
                 <div class="d-flex justify-content-center gap-3 mb-4" id="otpInputs">
                     <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
                     <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
@@ -28,6 +26,8 @@
                     <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
                     <input type="text" maxlength="1" class="form-control text-center fs-4 otp-digit" inputmode="numeric" pattern="[0-9]*">
                 </div>
+                </div>
+                
 
                 <input type="hidden" id="otpCode" name="otp_code" value="">
 

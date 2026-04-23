@@ -90,12 +90,47 @@ def _save_profile_form(user):
             db.session.flush()
             user.profile_picture = attachment.id
 
-    enable_2fa = request.form.get('2fa_enabled') == 'true'
-    if enable_2fa and not user._2fa_enabled:
-        return jsonify({
-            'success': False,
-            'error': 'A 2FA bekapcsolasahoz elobb sikeres kodellenorzes szukseges.'
-        }), 400
+    two_fa_action = request.form.get('2fa_action', '')
+    
+    if two_fa_action == 'enable':
+        two_fa_code = request.form.get('2fa_code', '').strip()
+        
+        if not two_fa_code or len(two_fa_code) != 6 or not two_fa_code.isdigit():
+            return jsonify({
+                'success': False,
+                'error': 'Érvénytelen 2FA kód!'
+            }), 400
+        
+        if user._2fa_enabled:
+            return jsonify({
+                'success': False,
+                'error': 'A kétlépcsős azonosítás már engedélyezve van!'
+            }), 400
+        
+        _2fa = TwoFactorAuth.query.filter_by(user_id=user.id).first()
+        if not _2fa:
+            _2fa = TwoFactorAuth(user_id=user.id)
+            _2fa.set_2fa_secret()
+            db.session.add(_2fa)
+            db.session.flush()
+        
+        if not _2fa.verify_otp(two_fa_code):
+            return jsonify({
+                'success': False,
+                'error': 'Hibás 2FA kód. Kérlek próbáld újra!'
+            }), 400
+        
+        user._2fa_enabled = True
+        user._2fa_id = _2fa.id
+        
+    elif two_fa_action == 'disable':
+        if not user._2fa_enabled:
+            return jsonify({
+                'success': False,
+                'error': 'A kétlépcsős azonosítás nincs engedélyezve!'
+            }), 400
+        
+        user._2fa_enabled = False
 
     db.session.commit()
 
@@ -176,6 +211,42 @@ def editprofile():
         user=current_user,
         profile_picture_path=_get_profile_picture_url(current_user)
     )
+
+
+@profile_routes.route('/generate2fa_qr', methods=['POST'])
+@login_required
+def generate_2fa_qr():
+    """Generate a new QR code for 2FA setup"""
+    if current_user._2fa_enabled:
+        return jsonify({
+            'success': False,
+            'error': 'A kétlépcsős azonosítás már engedélyezve van!'
+        }), 400
+    
+    if not current_user.email:
+        return jsonify({
+            'success': False,
+            'error': 'Az email cím szükséges a 2FA beállításához!'
+        }), 400
+    
+    _2fa = TwoFactorAuth.query.filter_by(user_id=current_user.id).first()
+    if not _2fa:
+        _2fa = TwoFactorAuth(user_id=current_user.id)
+        _2fa.set_2fa_secret()
+        db.session.add(_2fa)
+        db.session.commit()
+    
+    try:
+        qr_code = _2fa.generate_qr_code(current_user.email)
+        return jsonify({
+            'success': True,
+            'qr_code': qr_code
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Hiba a QR kód generálása során: {str(e)}'
+        }), 500
 
 
 @profile_routes.route('/create2fa', methods=['POST'])

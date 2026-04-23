@@ -10,12 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const categoryName = this.querySelector('span').textContent.trim().toLowerCase();
             
             const categoryMap = {
+                // Hungarian
                 'állat': 'allat',
                 'elektronika': 'elektronika',
                 'ruházat': 'ruhazat',
                 'ékszer': 'ekszer',
                 'dokumentum': 'dokumentum',
-                'egyéb': 'egyeb'
+                'egyéb': 'egyeb',
+                // English
+                'animal': 'allat',
+                'electronics': 'elektronika',
+                'clothing': 'ruhazat',
+                'jewelry': 'ekszer',
+                'document': 'dokumentum',
+                'other': 'egyeb'
             };
             
             const categoryValue = categoryMap[categoryName];
