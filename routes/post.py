@@ -332,12 +332,10 @@ def edit_post(item_id):
     
     if language == 'hu':
         item.description_hu = description
+        item.description_en = None  # Nullázni a fordításhoz
     else:
         item.description_en = description
-    threading.Thread(
-        target=_translate_in_background,
-        args=(item, language)
-    ).start()
+        item.description_hu = None  # Nullázni a fordításhoz
     if category:
         category_icons = {
             'allat': 'fa-paw',
@@ -355,6 +353,7 @@ def edit_post(item_id):
             )
             db.session.add(category_obj)
             db.session.flush()
+
         item.category_id = category_obj.id
     
     upload_dir = os.path.join(current_app.root_path, 'static', 'attachments')
@@ -375,6 +374,14 @@ def edit_post(item_id):
             db.session.add(attachment)
     
     db.session.commit()
+    
+    app_obj = current_app._get_current_object()
+    translation_worker = threading.Thread(
+        target=_translate_in_background,
+        args=(app_obj, item.id, language, description),
+        daemon=True,
+    )
+    translation_worker.start()
     
     return jsonify({
         'success': True,

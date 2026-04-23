@@ -1,0 +1,1221 @@
++----------------------------------------------------------------------------+
+|               ELVESZETT TARGYAK - KITERJESZTETT TESZT RIPORT               |
++----------------------------------------------------------------------------+
+
+Futtatas ideje : 2026-04-23 15:25:49
+Celcim         : http://127.0.0.1:5000
+Tesztek szama  : 94
+Sikeres        : 94
+Sikertelen     : 0
+Arany          : 100.0%
+Atlagos ido    : 356 ms
+
+Sikeressegi sav:
+  [##################################################] 100.0%
+
+==============================================================================
+OSSZEFOGLALO KATEGORIAK SZERINT
+==============================================================================
+
+Kategoria             Osszes    Sikeres   Hiba      Arany     
+--------------------------------------------------------------
+Alaprendszer          6         6         0         100.0%    
+Statikus              3         3         0         100.0%    
+Jogosultsag           7         7         0         100.0%    
+Autentikacio          9         9         0         100.0%    
+Profil                9         9         0         100.0%    
+Fooldal               1         1         0         100.0%    
+2FA                   4         4         0         100.0%    
+Poszt                 13        13        0         100.0%    
+Bejelentes            7         7         0         100.0%    
+Jelszo                5         5         0         100.0%    
+Uzenet                2         2         0         100.0%    
+SocketIO              7         7         0         100.0%    
+Admin                 16        16        0         100.0%    
+I18n                  3         3         0         100.0%    
+Biztonsag             2         2         0         100.0%    
+
+==============================================================================
+RESZLETES EREDMENYEK
+==============================================================================
+
+>>> Kategoria: Alaprendszer
+------------------------------------------------------------------------------
+[PASS] Szerver eleres  (37 ms)
+       Uzenet: A szerver HTTP 200 valaszt adott a fooldal kereseere.
+       {
+         "statusz": 200,
+         "byte_meret": 110278
+       }
+
+[PASS] Fooldal HTML tartalom  (32 ms)
+       Uzenet: A fooldal HTML tartalmat szolgaltat (HTTP 200, hossz=109790).
+       {
+         "statusz": 200
+       }
+
+[PASS] Varmegyek JSON elerheto  (8 ms)
+       Uzenet: A varmegyek.json elerheto es ertelmes JSON-t tartalmaz.
+       {
+         "statusz": 200
+       }
+
+[PASS] Login oldal elerheto  (2 ms)
+       Uzenet: A /login oldal HTTP 200, tartalmazza a bejelentkezes szoveget.
+       {
+         "statusz": 200,
+         "hossz": 12609
+       }
+
+[PASS] 404 kezeles  (1 ms)
+       Uzenet: Nemletezo oldalra a rendszer HTTP 404 kodot ad vissza.
+       {
+         "statusz": 404
+       }
+
+[PASS] Terkep oldal  (2 ms)
+       Uzenet: A terkep (test-map) oldal elerheto (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+
+>>> Kategoria: Statikus
+------------------------------------------------------------------------------
+[PASS] Logo SVG letoltheto  (12 ms)
+       Uzenet: A /static/logo.svg letolthato (3609133 byte).
+       {
+         "statusz": 200
+       }
+
+[PASS] HU forditas JSON elerheto  (3 ms)
+       Uzenet: HU forditasi fajl elerheto, 11 kulcs.
+       {
+         "statusz": 200
+       }
+
+[PASS] EN forditas JSON elerheto  (2 ms)
+       Uzenet: EN forditasi fajl elerheto (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+
+>>> Kategoria: Jogosultsag
+------------------------------------------------------------------------------
+[PASS] Admin panel bejelentkezes nelkul tiltva  (2 ms)
+       Uzenet: Admin panel bejelentkezes nelkuli eleresere HTTP 302 (atiranyitas vagy tiltas).
+       {
+         "statusz": 302
+       }
+
+[PASS] Idegen nem kerheti le a szerkesztesi adatot  (2 ms)
+       Uzenet: Idegen felhasznalo nem kerdezheti le a poszt szerkesztesi adatat.
+       {
+         "statusz": 403
+       }
+
+[PASS] Idegen nem szerkesztheti a posztot  (2 ms)
+       Uzenet: 403 a jogosulatlan szerkesztesre.
+       {
+         "statusz": 403
+       }
+
+[PASS] Idegen nem zarhatja le a posztot  (2 ms)
+       Uzenet: Idegen nem zarhatja le a posztot.
+       {
+         "statusz": 403
+       }
+
+[PASS] Admin API sima felhasznalotol 403  (3 ms)
+       Uzenet: Admin API nem elerheto sima felhasznalonak (403).
+       {
+         "statusz": 403
+       }
+
+[PASS] Kijelentkezes utan vedett oldal atiranyitva  (2 ms)
+       Uzenet: Kijelentkezes utan a vedett oldal atiranyit.
+       {
+         "statusz": 302
+       }
+
+[PASS] Bejelentkezes nelkul nem torolheto poszt  (2 ms)
+       Uzenet: Bejelentkezes nelkul nem lehet posztot torolni.
+       {
+         "statusz": 302
+       }
+
+
+>>> Kategoria: Autentikacio
+------------------------------------------------------------------------------
+[PASS] 1. felhasznalo regisztracio  (228 ms)
+       Uzenet: Regisztracios kiseret HTTP 302, user_id=31.
+       {
+         "statusz": 302,
+         "felhasznalonev": "teszt_a_1776950716",
+         "user_id": 31
+       }
+
+[PASS] 2. felhasznalo regisztracio  (227 ms)
+       Uzenet: Regisztracios kiseret HTTP 302, user_id=32.
+       {
+         "statusz": 302,
+         "felhasznalonev": "teszt_b_1776950716",
+         "user_id": 32
+       }
+
+[PASS] Duplikalt felhasznalonev kiszurve  (5 ms)
+       Uzenet: A rendszer helyesen visszautasitja a duplikalt felhasznalonevet.
+       {
+         "statusz": 200
+       }
+
+[PASS] Duplikalt email kiszurve  (3 ms)
+       Uzenet: A rendszer visszautasitja a duplikalt email cimet.
+       {
+         "statusz": 200
+       }
+
+[PASS] Tul hosszu jelszo tiltva  (3 ms)
+       Uzenet: A szerver elutasitja a 72 karakternel hosszabb jelszot.
+       {
+         "statusz": 200
+       }
+
+[PASS] Rossz jelszoval nem enged belepni  (240 ms)
+       Uzenet: Rossz jelszoval nem lehet bejelentkezni.
+       {
+         "statusz": 200
+       }
+
+[PASS] Nemletezo felhasznalonevvel nem enged belepni  (19 ms)
+       Uzenet: Nemletezo felhasznalonevvel sem lehet bejelentkezni.
+       {
+         "statusz": 200
+       }
+
+[PASS] Session cookie bejelentkezes utan  (0 ms)
+       Uzenet: Bejelentkezes utan session cookie aktiv.
+       {
+         "cookiek": [
+           "remember_token",
+           "session"
+         ]
+       }
+
+[PASS] 2. felhasznalo kijelentkezes  (3 ms)
+       Uzenet: Kijelentkezes HTTP 302.
+       {
+         "statusz": 302
+       }
+
+
+>>> Kategoria: Profil
+------------------------------------------------------------------------------
+[PASS] 1. felhasznalo profil letrehozas  (8 ms)
+       Uzenet: Profil sikeresen frissítve!
+       {
+         "statusz": 200,
+         "json": {
+           "message": "Profil sikeresen frissítve!",
+           "success": true
+         }
+       }
+
+[PASS] 2. felhasznalo profil letrehozas  (10 ms)
+       Uzenet: Profil sikeresen frissítve!
+       {
+         "statusz": 200,
+         "json": {
+           "message": "Profil sikeresen frissítve!",
+           "success": true
+         }
+       }
+
+[PASS] Ervenytelen datumformat elutasitva  (2 ms)
+       Uzenet: Ervenytelen datumformatot a szerver elutasitja.
+       {
+         "statusz": 400
+       }
+
+[PASS] Hianyzo nev elutasitva  (2 ms)
+       Uzenet: Hianyzo nev eseten a szerver 400-zal valaszol.
+       {
+         "statusz": 400
+       }
+
+[PASS] Sajat profil oldal  (3 ms)
+       Uzenet: A sajat profil oldal elerheto (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] Masik felhasznalo profilja  (3 ms)
+       Uzenet: Masik felhasznalo profilja lathato (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] Nemletezo profil redirect  (3 ms)
+       Uzenet: Nemletezo felhasznalo profiljahoz HTTP 302 jon.
+       {
+         "statusz": 302
+       }
+
+[PASS] Profil szerkeszto oldal elerheto  (2 ms)
+       Uzenet: A profil szerkesztes oldal elerheto (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] Profilkep feltoltes  (10 ms)
+       Uzenet: Profilkep feltoltese sikeres.
+       {
+         "statusz": 200,
+         "valasz": {
+           "message": "Profil sikeresen frissítve!",
+           "success": true
+         }
+       }
+
+
+>>> Kategoria: Fooldal
+------------------------------------------------------------------------------
+[PASS] Fooldal elerheto bejelentkezve  (32 ms)
+       Uzenet: A fooldalt a bejelentkezett felhasznalo elerte (HTTP 200).
+       {
+         "statusz": 200,
+         "hossz": 110844
+       }
+
+
+>>> Kategoria: 2FA
+------------------------------------------------------------------------------
+[PASS] 2FA verification oldal lathato  (1 ms)
+       Uzenet: A 2FA verifikacios oldal elerheto (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] QR kod generalas vegpont  (19 ms)
+       Uzenet: 2FA QR kod keszitese mukodik.
+       {
+         "statusz": 200,
+         "qr_meret": 1916
+       }
+
+[PASS] Setup vegpont QR-t ad vissza  (12 ms)
+       Uzenet: A /create2fa vegpont a setup folyamat elejen QR kodot ad vissza vagy hibat.
+       {
+         "statusz": 200,
+         "success": true
+       }
+
+[PASS] Hibas OTP elutasitva  (3 ms)
+       Uzenet: A rendszer elutasitja a nem megfelelo OTP kodot.
+       {
+         "statusz": 400,
+         "valasz": {
+           "error": "Hibas ellenorzo kod.",
+           "success": false
+         }
+       }
+
+
+>>> Kategoria: Poszt
+------------------------------------------------------------------------------
+[PASS] Hianyos poszt elutasitva  (3 ms)
+       Uzenet: A szerver helyesen 400-as hibat ad vissza, ha nincs nev/leiras.
+       {
+         "statusz": 400
+       }
+
+[PASS] Uj poszt (lost) letrehozasa  (9765 ms)
+       Uzenet: Uj poszt letrehozva, item_id=53.
+       {
+         "statusz": 200,
+         "json": {
+           "item_id": 53,
+           "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+           "processing": true,
+           "success": true
+         }
+       }
+
+[PASS] Uj poszt (found) letrehozasa  (2555 ms)
+       Uzenet: FOUND tipusu poszt letrehozva (id=54).
+       {
+         "statusz": 200,
+         "valasz": {
+           "item_id": 54,
+           "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+           "processing": true,
+           "success": true
+         }
+       }
+
+[PASS] Rossz tipus normalizalas  (2138 ms)
+       Uzenet: Rossz tipus eseten a poszt 'lost' ertekkel jon letre.
+       {
+         "statusz": 200,
+         "valasz": {
+           "item_id": 55,
+           "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+           "processing": true,
+           "success": true
+         }
+       }
+
+[PASS] Poszt keppel  (6387 ms)
+       Uzenet: Poszt keppel egyutt sikeresen letrehozva.
+       {
+         "statusz": 200,
+         "json": {
+           "item_id": 56,
+           "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+           "processing": true,
+           "success": true
+         }
+       }
+
+[PASS] Tiltott fajl kiterjesztes  (3397 ms)
+       Uzenet: Tiltott kiterjesztesu fajl eseten a poszt letrejon, de a fajl nem csatolodik.
+       {
+         "statusz": 200,
+         "valasz": {
+           "item_id": 57,
+           "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+           "processing": true,
+           "success": true
+         }
+       }
+
+[PASS] Poszt megjelenites (aktivalas)  (8 ms)
+       Uzenet: A letrehozott poszt lathatova valt (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] Poszt szerkesztesi adatok  (3 ms)
+       Uzenet: Poszt adatai sikeresen lekerdezve.
+       {
+         "statusz": 200,
+         "json": {
+           "attachments": [],
+           "category": "egyeb",
+           "description": "Egy szep alap kulcs-csomo, elveszett a park melletti kavezoban.",
+           "id": 53,
+           "is_closed": false,
+           "megye": "Budapest",
+           "name": "Teszt elveszett kulcs krlvhfow",
+           "success": true,
+           "telepules": "Varosliget",
+           "type": "lost"
+         }
+       }
+
+[PASS] Tulajdonos szerkesztes  (11 ms)
+       Uzenet: Tulajdonos sikeresen szerkesztette a posztot.
+       {
+         "statusz": 200,
+         "valasz": {
+           "message": "Poszt módosítva.",
+           "success": true
+         }
+       }
+
+[PASS] Lezaras/visszanyitas kapcsolo  (18 ms)
+       Uzenet: Lezarasi kapcsolo mukodik: True -> False.
+       {
+         "elso": {
+           "is_closed": true,
+           "message": "Poszt lezárva.",
+           "success": true
+         },
+         "masodik": {
+           "is_closed": false,
+           "message": "Poszt megnyitva.",
+           "success": true
+         }
+       }
+
+[PASS] Nemletezo poszt redirect  (2 ms)
+       Uzenet: Nemletezo posztra HTTP 302.
+       {
+         "statusz": 302
+       }
+
+[PASS] Nemletezo poszt adatok 404  (3 ms)
+       Uzenet: Nemletezo poszt adatlekerdese 404.
+       {
+         "statusz": 404
+       }
+
+[PASS] Tulajdonos torli a sajat posztot  (8 ms)
+       Uzenet: A tulajdonos torolte a sajat posztot.
+       {
+         "statusz": 200,
+         "json": {
+           "message": "Poszt törölve.",
+           "success": true
+         }
+       }
+
+
+>>> Kategoria: Bejelentes
+------------------------------------------------------------------------------
+[PASS] Sajat poszt bejelentes tiltva  (2 ms)
+       Uzenet: A sajat poszt bejelentese 400-as hibaval tiltott.
+       {
+         "statusz": 400
+       }
+
+[PASS] Indoklas nelkuli bejelentes tiltva  (4 ms)
+       Uzenet: Indoklas nelkuli bejelentes 400.
+       {
+         "statusz": 400
+       }
+
+[PASS] Masik felhasznalo sikeresen bejelent  (9 ms)
+       Uzenet: Masik felhasznalo sikeresen bejelentette a posztot.
+       {
+         "statusz": 200,
+         "json": {
+           "message": "Bejelentés sikeresen elküldve!",
+           "success": true
+         }
+       }
+
+[PASS] Duplikalt bejelentes kiszurve  (3 ms)
+       Uzenet: A rendszer megakadalyozza a ketszeri bejelentest egy posztra.
+       {
+         "statusz": 400
+       }
+
+[PASS] Sajat magunk felhasznalo bejelentes tiltva  (1 ms)
+       Uzenet: Sajat magunk bejelentese tilos (400).
+       {
+         "statusz": 400
+       }
+
+[PASS] Masik felhasznalo sikeres bejelentese  (10 ms)
+       Uzenet: Masik felhasznalo bejelentese sikeres.
+       {
+         "statusz": 200,
+         "valasz": {
+           "message": "Bejelentés sikeresen elküldve!",
+           "success": true
+         }
+       }
+
+[PASS] Nemletezo felhasznalo bejelentese 404  (2 ms)
+       Uzenet: Nemletezo felhasznalo bejelentesere 404.
+       {
+         "statusz": 404
+       }
+
+
+>>> Kategoria: Jelszo
+------------------------------------------------------------------------------
+[PASS] Reset kereses letezo felhasznalora  (473 ms)
+       Uzenet: Jelszo visszaallitasi kereses vegpont elerheto, valasz: True.
+       {
+         "statusz": 200,
+         "valasz": true
+       }
+
+[PASS] Reset kereses nemletezo felhasznalora  (2 ms)
+       Uzenet: Nemletezo felhasznalonevre False valasz.
+       {
+         "statusz": 200,
+         "valasz": false
+       }
+
+[PASS] Ures felhasznalonev False  (1 ms)
+       Uzenet: Ures felhasznalonevre a reset False-t ad.
+       {
+         "statusz": 200,
+         "valasz": false
+       }
+
+[PASS] Reset oldal token nelkul  (2 ms)
+       Uzenet: Token nelkuli reset oldal helyesen kezelve (HTTP 302).
+       {
+         "statusz": 302,
+         "location": "/login"
+       }
+
+[PASS] Ervenytelen tokennel jelszocsere tiltva  (3 ms)
+       Uzenet: Ervenytelen tokennel nem tortenik jelszovaltas, hanem redirect.
+       {
+         "statusz": 302,
+         "location": "/login"
+       }
+
+
+>>> Kategoria: Uzenet
+------------------------------------------------------------------------------
+[PASS] Uzenet oldal bejelentkezve  (2 ms)
+       Uzenet: Az uzenet oldal elerheto bejelentkezve (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] Uzenet oldal vendegkent atiranyitott  (2 ms)
+       Uzenet: Uzenet oldal bejelentkezes nelkul atiranyit.
+       {
+         "statusz": 302
+       }
+
+
+>>> Kategoria: SocketIO
+------------------------------------------------------------------------------
+[PASS] Autentikalt get_conversations  (44 ms)
+       Uzenet: Beszelgetes-lista lekerve (1 elem, benne system chat).
+       {
+         "valasz_hossz": 1
+       }
+
+[PASS] System chat (partner 0)  (44 ms)
+       Uzenet: System chat udvozlo uzenet lekerdezheto.
+       {
+         "elemszam": 1
+       }
+
+[PASS] Uzenet kuldese (felh. 1 -> 2)  (1075 ms)
+       Uzenet: Uzenet elkuldve, 1 new_message esemeny a fogadonal.
+       {
+         "elkuldve": true,
+         "kapott_esemenyek": 1
+       }
+
+[PASS] System chat uzenet valasz tiltva  (48 ms)
+       Uzenet: System chat (partner_id=0) nem fogadja az uzeneteket.
+       {
+         "hibak": [
+           {
+             "message": "Nem küldhetsz üzenetet a Rendszer csatornához"
+           }
+         ]
+       }
+
+[PASS] 5000 karakter feletti uzenet tiltva  (46 ms)
+       Uzenet: A rendszer 5000 karakter felett visszautasitja az uzenetet.
+       {
+         "hibak": [
+           {
+             "message": "Message too long"
+           }
+         ]
+       }
+
+[PASS] Partner informacio  (32 ms)
+       Uzenet: Partner informacio lekerheto.
+       {
+         "valasz": [
+           {
+             "id": 32,
+             "name": "Teszt Bela",
+             "pic": "/static/default-avatar.png",
+             "status": "offline"
+           }
+         ]
+       }
+
+[PASS] Autentikalatlan kliens nem kap adatot  (43 ms)
+       Uzenet: Autentikalatlan kliens nem kap bizalmas adatokat a socketen.
+       {
+         "hibak": [
+           {
+             "message": "Not authenticated"
+           }
+         ],
+         "kapott": []
+       }
+
+
+>>> Kategoria: Admin
+------------------------------------------------------------------------------
+[PASS] Admin felhasznalo regisztracio  (250 ms)
+       Uzenet: Admin felhasznalo regisztralva (user_id=33).
+       {
+         "statusz": 302,
+         "user_id": 33
+       }
+
+[PASS] Admin szerepkor DB-ben beallitasa  (6 ms)
+       Uzenet: Admin szerepkor beallitasa az adatbazisban sikeres.
+       {
+         "db_ut": "C:\\Users\\bozsi\\Desktop\\Projects\\elveszett-targyak\\instance\\app.db"
+       }
+
+[PASS] Admin bejelentkezes -> /admin redirect  (231 ms)
+       Uzenet: Admin bejelentkezes utan /admin iranyba redirect (Location=/admin/dashboard).
+       {
+         "statusz": 302,
+         "location": "/admin/dashboard"
+       }
+
+[PASS] Dashboard oldal  (2 ms)
+       Uzenet: Admin dashboard oldal elerheto (HTTP 200).
+       {
+         "statusz": 200
+       }
+
+[PASS] Users oldal  (2 ms)
+       Uzenet: Admin users oldal HTTP 200.
+       {
+         "statusz": 200
+       }
+
+[PASS] Posts oldal  (2 ms)
+       Uzenet: Admin posts oldal HTTP 200.
+       {
+         "statusz": 200
+       }
+
+[PASS] Metrics RAM/CPU adatok  (216 ms)
+       Uzenet: Admin /metrics RAM/CPU/stats adatokat ad (users=33).
+       {
+         "statusz": 200,
+         "reszek": [
+           "cpu",
+           "ram",
+           "stats"
+         ],
+         "valasz": {
+           "cpu": {
+             "current_frequency_ghz": 2.59,
+             "logical_cores": 12,
+             "max_frequency_ghz": 2.59,
+             "percent_available": 87.0,
+             "usage_percent": 13.0
+           },
+           "ram": {
+             "percent_available": 38.6,
+             "percent_used": 61.4,
+             "total_gb": 15.86,
+             "used_gb": 9.74
+           },
+           "stats": {
+             "pending_reports": 16,
+             "total_posts": 48,
+             "total_users": 33
+           }
+         }
+       }
+
+[PASS] /api/users alap lekerdezes  (6 ms)
+       Uzenet: Admin /api/users listat ad (10 elem az elso oldalon).
+       {
+         "statusz": 200,
+         "valasz": {
+           "current_page": 1,
+           "pages": 4,
+           "total": 33,
+           "users": [
+             {
+               "2fa": "✗",
+               "email": "test1.@test1.test1",
+               "id": 1,
+               "joined": "2026-04-12",
+               "name": "Test1",
+               "posts": 3,
+               "role": "user",
+               "username": "test1"
+             },
+             {
+               "2fa": "✗",
+               "email": "test@test.test",
+               "id": 2,
+               "joined": "2026-04-12",
+               "name": "Test2",
+               "posts": 4,
+               "role": "user",
+               "username": "test2"
+             },
+             {
+               "2fa": "✗",
+               "email": "nreka261@gmail.com",
+               "id": 3,
+               "joined": "2026-04-14",
+               "name": "Réka Laura Nagy",
+               "posts": 0,
+               "role": "user",
+               "username": "Laura"
+             },
+             {
+               "2fa": "✗",
+               "email": "admin@admin.admin",
+               "id": 4,
+               "joined": "2026-04-19",
+               "name": "Admin",
+               "posts": 0,
+               "role": "admin",
+               "username": "admin"
+             },
+             {
+               "2fa": "✗",
+               "email": "keresettarem@gmail.com",
+               "id": 5,
+               "joined": "2026-04-21",
+               "name": "placeholder test",
+               "posts": 1,
+               "role": "user",
+               "username": "test4"
+             },
+             {
+               "2fa": "✗",
+               "email": "nagylaura726@gmail.com",
+               "id": 6,
+               "joined": "2026-04-21",
+               "name": "Portfólió",
+               "posts": 0,
+               "role": "user",
+               "username": "Bemutato"
+             },
+             {
+               "2fa": "✓",
+               "email": "laaura768@gmail.com",
+               "id": 7,
+               "joined": "2026-04-23",
+               "name": "helloasd",
+               "posts": 0,
+               "role": "user",
+               "username": "helloworld"
+             },
+             {
+               "2fa": "✗",
+               "email": "teszt_a_1776946951@example.com",
+               "id": 8,
+               "joined": "2026-04-23",
+               "name": "Teszt Anna",
+               "posts": 1,
+               "role": "user",
+               "username": "teszt_a_1776946951"
+             },
+             {
+               "2fa": "✗",
+               "email": "teszt_b_1776946951@example.com",
+               "id": 9,
+               "joined": "2026-04-23",
+               "name": "Teszt Bela",
+               "posts": 0,
+               "role": "user",
+               "username": "teszt_b_1776946951"
+             },
+             {
+               "2fa": "✗",
+               "email": "teszt_a_1776948151@example.com",
+               "id": 10,
+               "joined": "2026-04-23",
+               "name": "Teszt Anna",
+               "posts": 5,
+               "role": "user",
+               "username": "teszt_a_1776948151"
+             }
+           ]
+         }
+       }
+
+[PASS] /api/users kereses  (3 ms)
+       Uzenet: Admin /api/users keresesi eredmenyt ad.
+       {
+         "statusz": 200,
+         "talalat_szam": 1
+       }
+
+[PASS] /api/posts alap lekerdezes  (12 ms)
+       Uzenet: Admin /api/posts elerheto (10 elem).
+       {
+         "statusz": 200,
+         "valasz": {
+           "current_page": 1,
+           "pages": 5,
+           "posts": [
+             {
+               "category": "ruhazat",
+               "has_reports": true,
+               "id": 1,
+               "name": "idkvalami",
+               "posted": "2026-04-12",
+               "reports": 1,
+               "status": "Active",
+               "type": "Lost",
+               "uploader": "test2"
+             },
+             {
+               "category": "allat",
+               "has_reports": false,
+               "id": 2,
+               "name": "Macskusz",
+               "posted": "2026-04-14",
+               "reports": 0,
+               "status": "Inactive",
+               "type": "Lost",
+               "uploader": "test1"
+             },
+             {
+               "category": "ruhazat",
+               "has_reports": false,
+               "id": 3,
+               "name": "asd",
+               "posted": "2026-04-14",
+               "reports": 0,
+               "status": "Inactive",
+               "type": "Lost",
+               "uploader": "test1"
+             },
+             {
+               "category": "egyeb",
+               "has_reports": false,
+               "id": 4,
+               "name": "asd",
+               "posted": "2026-04-14",
+               "reports": 0,
+               "status": "Inactive",
+               "type": "Lost",
+               "uploader": "test2"
+             },
+             {
+               "category": "ekszer",
+               "has_reports": false,
+               "id": 5,
+               "name": "asd",
+               "posted": "2026-04-14",
+               "reports": 0,
+               "status": "Inactive",
+               "type": "Found",
+               "uploader": "test2"
+             },
+             {
+               "category": "allat",
+               "has_reports": false,
+               "id": 6,
+               "name": "Macskusz",
+               "posted": "2026-04-14",
+               "reports": 0,
+               "status": "Active",
+               "type": "Found",
+               "uploader": "test2"
+             },
+             {
+               "category": "ekszer",
+               "has_reports": false,
+               "id": 7,
+               "name": "asd",
+               "posted": "2026-04-15",
+               "reports": 0,
+               "status": "Active",
+               "type": "Found",
+               "uploader": "test1"
+             },
+             {
+               "category": "dokumentum",
+               "has_reports": false,
+               "id": 8,
+               "name": "tudja a fasz",
+               "posted": "2026-04-21",
+               "reports": 0,
+               "status": "Active",
+               "type": "Lost",
+               "uploader": "test4"
+             },
+             {
+               "category": "egyeb",
+               "has_reports": false,
+               "id": 10,
+               "name": "Talalat - tarca 355ei6gd",
+               "posted": "2026-04-23",
+               "reports": 0,
+               "status": "Active",
+               "type": "Found",
+               "uploader": "teszt_a_1776946951"
+             },
+             {
+               "category": "dokumentum",
+               "has_reports": false,
+               "id": 12,
+               "name": "Talalt irataco btneq8d7",
+               "posted": "2026-04-23",
+               "reports": 0,
+               "status": "Active",
+               "type": "Found",
+               "uploader": "teszt_b_1776948151"
+             }
+           ],
+           "total": 48
+         }
+       }
+
+[PASS] /api/posts kereses  (10 ms)
+       Uzenet: Admin /api/posts search Teszt-re 10 elem.
+       {
+         "statusz": 200
+       }
+
+[PASS] /api/posts statusz szures  (12 ms)
+       Uzenet: Admin /api/posts status=active csak aktiv posztokat ad.
+       {
+         "statusz": 200,
+         "elemszam": 10
+       }
+
+[PASS] /api/reports lekerdezes  (9 ms)
+       Uzenet: Admin /api/reports elerheto (10 elem).
+       {
+         "statusz": 200,
+         "elso_report_id": 1,
+         "valasz": {
+           "current_page": 1,
+           "pages": 2,
+           "reports": [
+             {
+               "created": "2026-04-19 10:54",
+               "description": "",
+               "id": 1,
+               "item_id": null,
+               "post": "test1",
+               "reason": "inappropriate",
+               "reporter": "admin",
+               "reporter_id": 4,
+               "status": "Resolved",
+               "type": "User Report",
+               "user_id": 1
+             },
+             {
+               "created": "2026-04-20 11:10",
+               "description": "asdasd",
+               "id": 2,
+               "item_id": 1,
+               "post": "idkvalami",
+               "reason": "other",
+               "reporter": "admin",
+               "reporter_id": 4,
+               "status": "Pending",
+               "type": "Item Report",
+               "user_id": null
+             },
+             {
+               "created": "2026-04-23 14:22",
+               "description": "Valoszinutleg hamis poszt.",
+               "id": 3,
+               "item_id": 9,
+               "post": "Deleted Item",
+               "reason": "hamis",
+               "reporter": "teszt_b_1776946951",
+               "reporter_id": 9,
+               "status": "Pending",
+               "type": "Item Report",
+               "user_id": null
+             },
+             {
+               "created": "2026-04-23 14:42",
+               "description": "Valoszinutleg hamis poszt.",
+               "id": 4,
+               "item_id": 11,
+               "post": "Deleted Item",
+               "reason": "hamis",
+               "reporter": "teszt_b_1776948151",
+               "reporter_id": 11,
+               "status": "Pending",
+               "type": "Item Report",
+               "user_id": null
+             },
+             {
+               "created": "2026-04-23 14:42",
+               "description": "Spam uzenetek.",
+               "id": 5,
+               "item_id": null,
+               "post": "teszt_b_1776948151",
+               "reason": "spam",
+               "reporter": "teszt_a_1776948151",
+               "reporter_id": 10,
+               "status": "Pending",
+               "type": "User Report",
+               "user_id": 11
+             },
+             {
+               "created": "2026-04-23 14:52",
+               "description": "Valoszinutleg hamis poszt.",
+               "id": 6,
+               "item_id": 18,
+               "post": "Deleted Item",
+               "reason": "hamis",
+               "reporter": "teszt_b_1776948729",
+               "reporter_id": 14,
+               "status": "Pending",
+               "type": "Item Report",
+               "user_id": null
+             },
+             {
+               "created": "2026-04-23 14:52",
+               "description": "Spam uzenetek.",
+               "id": 7,
+               "item_id": null,
+               "post": "teszt_b_1776948729",
+               "reason": "spam",
+               "reporter": "teszt_a_1776948729",
+               "reporter_id": 13,
+               "status": "Pending",
+               "type": "User Report",
+               "user_id": 14
+             },
+             {
+               "created": "2026-04-23 15:06",
+               "description": "Valoszinutleg hamis poszt.",
+               "id": 8,
+               "item_id": 25,
+               "post": "Deleted Item",
+               "reason": "hamis",
+               "reporter": "teszt_b_1776949579",
+               "reporter_id": 17,
+               "status": "Pending",
+               "type": "Item Report",
+               "user_id": null
+             },
+             {
+               "created": "2026-04-23 15:06",
+               "description": "Spam uzenetek.",
+               "id": 9,
+               "item_id": null,
+               "post": "teszt_b_1776949579",
+               "reason": "spam",
+               "reporter": "teszt_a_1776949579",
+               "reporter_id": 16,
+               "status": "Pending",
+               "type": "User Report",
+               "user_id": 17
+             },
+             {
+               "created": "2026-04-23 15:20",
+               "description": "Valoszinutleg hamis poszt.",
+               "id": 10,
+               "item_id": 32,
+               "post": "Deleted Item",
+               "reason": "hamis",
+               "reporter": "teszt_b_1776950428",
+               "reporter_id": 23,
+               "status": "Pending",
+               "type": "Item Report",
+               "user_id": null
+             }
+           ],
+           "total": 17
+         }
+       }
+
+[PASS] Report resolve  (2 ms)
+       Uzenet: Bejelentes rendezettre valtva admin altal.
+       {
+         "statusz": 200,
+         "valasz": {
+           "message": "Report marked as resolved",
+           "success": true
+         }
+       }
+
+[PASS] Item (poszt) torlese admin altal  (11 ms)
+       Uzenet: Admin torolte a poszt elemet.
+       {
+         "statusz": 200,
+         "valasz": {
+           "message": "Item deleted successfully",
+           "success": true
+         }
+       }
+
+[PASS] Nemletezo item torlese 404  (3 ms)
+       Uzenet: Nemletezo item torlesere 404.
+       {
+         "statusz": 404,
+         "valasz": {
+           "message": "Item not found",
+           "success": false
+         }
+       }
+
+
+>>> Kategoria: I18n
+------------------------------------------------------------------------------
+[PASS] Angol Accept-Language  (36 ms)
+       Uzenet: Angol Accept-Language HTTP 200.
+       {
+         "statusz": 200
+       }
+
+[PASS] lang=en cookie  (48 ms)
+       Uzenet: lang=en cookie HTTP 200.
+       {
+         "statusz": 200
+       }
+
+[PASS] Poszt letrehozasa angol leirassal  (2255 ms)
+       Uzenet: Angol nyelvu posztot elfogad a rendszer.
+       {
+         "statusz": 200,
+         "valasz": {
+           "item_id": 58,
+           "message": "A poszt feltoltve. Forditas folyamatban, hamarosan megjelenik.",
+           "processing": true,
+           "success": true
+         }
+       }
+
+
+>>> Kategoria: Biztonsag
+------------------------------------------------------------------------------
+[PASS] XSS tartalom escape-eles  (3239 ms)
+       Uzenet: A sablon helyesen escape-eli az XSS-t tartalmazo nevet.
+       {
+         "html_tartalmaz_script": false
+       }
+
+[PASS] SQL injection login nem sikerul  (28 ms)
+       Uzenet: SQL injection kiseret nem fog visszaerni bejelentkezest.
+       {
+         "statusz": 200
+       }
+
+
+==============================================================================
+HIBAS TESZTEK MELYREHATOBB ELEMZES
+==============================================================================
+
+Minden teszt sikeresen lefutott - nincs hibas eset.
+
+==============================================================================
+TESZTELT FUNKCIOK OSSZESITESE
+==============================================================================
+
+A szkript a kovetkezo funkcionalis teruleteket jarta be:
+
+  [Alaprendszer] fooldal, varmegyek.json, login oldal, 404, terkep oldal.
+  [Statikus]     logo.svg, locale fajlok (hu.json, en.json).
+  [Autentikacio] regisztracio, bejelentkezes, kijelentkezes, session cookie,
+                 rossz jelszo, nemletezo felhasznalo, duplikalt nev/email,
+                 tul hosszu jelszo.
+  [Profil]       profil adatok, ervenytelen datum, hianyzo nev, masik/nemletezo,
+                 profilkep feltoltes.
+  [2FA]          verifikacios oldal, QR kod, setup vegpont, hibas OTP.
+  [Poszt]        lost/found letrehozas, rossz tipus normalizalas, kep feltoltes,
+                 tiltott kiterjeszteses fajl, poszt aktivalodas, szerkesztesi
+                 adatok, idegen lekerdezes tiltasa, szerkesztes, lezaras kapcsolo,
+                 nemletezo poszt, tulajdonos torli.
+  [Bejelentes]   sajat/masik/duplikalt poszt bejelentes, felhasznalo bejelentes
+                 (sajat, masik, nemletezo), indoklas nelkul.
+  [Jelszo]       reset kereses letezo, nemletezo, ures, token nelkul, ervenytelen.
+  [Uzenet+Socket] bejelentkezett oldal, vendeg redirect, Socket.IO
+                 get_conversations, system chat, uzenetkuldes, hosszu uzenet
+                 tiltas, system chat uzenet tiltas, partner info, autentikalatlan.
+  [Admin]        regisztracio, szerepkor allitas DB-ben, bejelentkezes redirect,
+                 dashboard/users/posts oldal, metrics, api/users+kereses,
+                 api/posts+kereses+statusz, api/reports, resolve, item torles,
+                 nemletezo item.
+  [I18n]         Accept-Language header, lang cookie, angol leiras.
+  [Biztonsag]    XSS escape, SQL injection login.
+  [Jogosultsag]  kijelentkezes utani vedett oldal, bejelentkezes nelkul torles.
+
+==============================================================================
+Riport veg.  Sikeres: 94/94  (100.0%)
+==============================================================================

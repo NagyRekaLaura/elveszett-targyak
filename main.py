@@ -45,7 +45,7 @@ login_manager.login_view = 'auth.login'
 def check_profile_completion():
     if not current_user.is_authenticated:
         return
-    if request.endpoint in ['profile.createprofile', 'profile.create_2fa', 'static', 'auth.login', 'auth.logout', 'main.varmegyek']:
+    if request.endpoint in ['profile.createprofile', 'profile.create_2fa', 'static', 'auth.login', 'auth.logout', 'main.varmegyek'] or (request.endpoint and request.endpoint.startswith('admin.')):
         return
     if not current_user.name or not current_user.address or not current_user.birthdate:
         return redirect(url_for('profile.createprofile'))
@@ -83,6 +83,14 @@ def elapsedTime(value, format='%Y-%m-%d %H:%M'):
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        user = User.query.filter_by(role='admin').first()
+        if not user:
+            print("Nincs admin felhasználó, létrehozás...")
+            admin_user = User(username='admin', email='admin@example.com', role='admin')
+            admin_user.set_password('admin')
+            db.session.add(admin_user)
+            db.session.commit()
     if os.path.exists('tokens.json'):
         with open('tokens.json', 'r') as f:
             tokens = json.load(f)
