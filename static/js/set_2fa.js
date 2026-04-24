@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const otpError = document.getElementById('otpError');
 	const otpDigits = document.querySelectorAll('.otp-digit');
 	const qrImage = document.querySelector('#twoFAModal .qr-placeholder img');
+	const twoFAStatus = document.getElementById('twoFAStatus');
 
 	if (!enable2FA || !modalEl || !verifyBtn || otpDigits.length === 0) {
 		return;
@@ -139,7 +140,55 @@ document.addEventListener('DOMContentLoaded', function () {
 		return data;
 	}
 
+	function updateTwoFAStatus(enabled) {
+		if (twoFAStatus) {
+			if (enabled) {
+				twoFAStatus.textContent = 'Bekapcsolva';
+				twoFAStatus.setAttribute('data-i18n', 'profile.enabled');
+				if (enable2FA.parentElement) {
+					const icon = enable2FA.parentElement.querySelector('i');
+					if (icon) {
+						icon.className = 'fas fa-lock';
+					}
+				}
+			} else {
+				twoFAStatus.textContent = 'Kikapcsolva';
+				twoFAStatus.setAttribute('data-i18n', 'profile.disabled');
+				if (enable2FA.parentElement) {
+					const icon = enable2FA.parentElement.querySelector('i');
+					if (icon) {
+						icon.className = 'fas fa-lock-open';
+					}
+				}
+			}
+		}
+	}
+
 	enable2FA.addEventListener('change', async function () {
+		const isCurrentlyEnabled = enable2FA.dataset['2faEnabled'] === 'true';
+
+		if (isCurrentlyEnabled && !this.checked) {
+			isVerified = false;
+			verifyBtn.dataset.verified = '';
+			enable2FA.dataset['2faEnabled'] = 'false';
+			updateTwoFAStatus(false);
+			clearOtpInputs();
+			clearError();
+			return;
+		}
+
+		if (!isCurrentlyEnabled && this.checked) {
+			clearOtpInputs();
+			modal.show();
+
+			try {
+				await requestQrCode();
+			} catch {
+				modal.hide();
+			}
+			return;
+		}
+
 		if (!this.checked) {
 			isVerified = false;
 			verifyBtn.dataset.verified = '';
@@ -147,19 +196,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			clearError();
 			return;
 		}
-
-		clearOtpInputs();
-		modal.show();
-
-		try {
-			await requestQrCode();
-		} catch {
-			modal.hide();
-		}
 	});
 
 	verifyBtn.addEventListener('click', async function (event) {
-		// Prevent createprofile.js from accepting any 6-digit code without server validation.
 		event.preventDefault();
 		event.stopImmediatePropagation();
 
@@ -177,6 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			await verifyOtpCode(code);
 			isVerified = true;
 			verifyBtn.dataset.verified = 'true';
+			enable2FA.dataset['2faEnabled'] = 'true';
+			updateTwoFAStatus(true);
 			modal.hide();
 
 			if (typeof showToast === 'function') {

@@ -36,6 +36,12 @@ if (profilePicInput) {
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('createProfileForm');
     if (form) {
+        const enable2FA = document.getElementById('enable2FA');
+        let initial2FAState = null;
+        if (enable2FA) {
+            initial2FAState = enable2FA.dataset['2faEnabled'] === 'true';
+        }
+
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
             const submitUrl = form.getAttribute('action') || '/createprofile';
@@ -95,6 +101,21 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append('birthdate', birthdate);
             formData.append('address', address);
             formData.append('address_is_private', document.getElementById('addressPrivate').checked);
+            
+            // Handle 2FA action based on current state vs initial state
+            const enable2FA = document.getElementById('enable2FA');
+            if (enable2FA && initial2FAState !== null) {
+                const isCurrentlyChecked = enable2FA.checked;
+                
+                // User verified 2FA during this session (was off, now on and verified)
+                if (isCurrentlyChecked && !initial2FAState && enable2FA.dataset.verified === 'true') {
+                    formData.append('2fa_action', 'enable');
+                }
+                // User disabled 2FA during this session (was on, now off)
+                else if (!isCurrentlyChecked && initial2FAState) {
+                    formData.append('2fa_action', 'disable');
+                }
+            }
             
             const profilePicFile = document.getElementById('profilePic').files[0];
             if (profilePicFile) {

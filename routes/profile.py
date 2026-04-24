@@ -131,6 +131,7 @@ def _save_profile_form(user):
             }), 400
         
         user._2fa_enabled = False
+        user._2fa_id = None
 
     db.session.commit()
 
