@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO
-socketio = SocketIO()
+socketio = SocketIO(async_mode='threading')
 
 def notify_user(user_id, message, title):
     socketio.emit('notification', {'message': message, 'title': title}, room=f'user_{user_id}')

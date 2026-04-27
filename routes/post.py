@@ -7,6 +7,7 @@ import threading
 import uuid
 from routes.translate import Translate
 from datetime import datetime
+from sockets.main import notify_user
 
 post_routes = Blueprint("post", __name__)
 
@@ -50,7 +51,7 @@ def _translate_in_background(app, item_id, source_language, source_text):
                 item.active = bool(item.description_hu and item.description_en)
                 db.session.commit()
                 return
-
+            notify_user(item.uploader_id, 'A posztod fordítása folyamatban van. Ez néhány másodpercet igénybe vehet.', 'Poszt fordítás')
             translator = Translate()
             translator.set_token(api_key)
             translated_text = translator.translate(target_language, source_text)
@@ -62,10 +63,12 @@ def _translate_in_background(app, item_id, source_language, source_text):
 
             item.active = bool(item.description_hu and item.description_en)
             db.session.commit()
+            notify_user(item.uploader_id, 'A posztod fordítása elkészült és mostantól látható a listában.', 'Poszt fordítás kész')
     except Exception:
         with app.app_context():
             db.session.rollback()
         app.logger.exception('Hiba tortent a hatterforditas kozben. item_id=%s', item_id)
+        notify_user(item.uploader_id, 'Hiba történt a posztod fordítása közben. Kérem ellenőrizd a posztodat, és ha szükséges, szerkeszd meg újra.', 'Poszt fordítás hiba')
 
 
 @post_routes.route('/post/create', methods=['POST'])
